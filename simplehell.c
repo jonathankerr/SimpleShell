@@ -26,6 +26,11 @@ int main()
             token = strtok(NULL, " ");
         }
     }
+        
+    if (strcmp(input, "exit\n") || feof(stdin))
+    {
+        terminated = true;   
+    }
     
     return 0;
 }
