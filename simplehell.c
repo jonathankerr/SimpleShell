@@ -1,13 +1,6 @@
 #include <stdio.h> 
 #include <string.h>
-
-/* boolean values */
-#define true 0
-#define false 1
-typedef int bool;
-
-#define MAX_INPUT 512
-static const char prompt[] = "> ";
+#include "simpleshell.h"
 
 int main() 
 { 
