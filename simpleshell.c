@@ -8,7 +8,7 @@ int main()
     bool terminated = false;
     char tokens[512][100];
     int index = 0;
-    char newLine[] = "\n-> ";
+    char newLine[] = "\n";
     
     while (!terminated)
     {
