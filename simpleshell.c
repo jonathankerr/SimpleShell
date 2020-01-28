@@ -16,7 +16,7 @@ int main()
         while (token) 
         {
             printf("%s\n", token);
-            token = strtok(NULL, " ");
+            token = strtok(NULL, " ", "\t", ">", "<", "&", ";" );
         }
     }
         
