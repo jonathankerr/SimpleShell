@@ -7,7 +7,7 @@ typedef int bool;
 #define MAX_INPUT 512 
 
 /* String that will be printed every time user is able to enter a command */
-static const char prompt[] = "> ";
+static const char prompt[] = "$";
 
 
 /* Function declarations */
