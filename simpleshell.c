@@ -1,26 +1,36 @@
 #include <stdio.h> 
 #include <string.h>
+#include <stdlib.h>
 #include "simpleshell.h"
 
 int main() 
 { 
+    char* delims[] = {" ","\t",">","<","&",";"}; 
+    
     bool terminated = false;
+    char tokens[512][512] ;
+    int index = 0;
+    char prompt[] = "> ";
     
     while (!terminated)
     {
         char input[MAX_INPUT]; 
-        printf(prompt); 
+        printf("%s", prompt); 
         fgets(input, MAX_INPUT, stdin); 
+        strcpy(tokens[index],strtok(NULL, delims));
+        index++;
         
-        char* token = strtok(input, " ");
-        while (token) 
-        {
-            printf("%s\n", token);
-            token = strtok(NULL, " ", "\t", ">", "<", "&", ";" );
+        do{
+            strcpy(tokens[index],strtok(NULL, delims));
+            index++;
         }
-    }
+        while (input); 
         
-    if (strcmp(input, "exit\n") || feof(stdin))
+ 
+    }
+
+        
+    if (strcmp(tokens[0], "exit\n") || feof(stdin))
     {
         terminated = true;   
     }
