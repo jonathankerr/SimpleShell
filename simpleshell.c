@@ -6,7 +6,7 @@
 int main() 
 { 
     bool terminated = false;
-    char tokens[50];
+    char tokens[512][100];
     int index = 0;
     
     while (!terminated)
@@ -25,7 +25,7 @@ int main()
             index++;
         }
 
-        if (strcmp(tokens[0], "exit") == 0 || feof(stdin))
+        if (strcmp(tokens[0], "exit\n") == 0 || feof(stdin))
         {
             terminated = true;
         }
