@@ -5,8 +5,6 @@
 
 int main() 
 { 
-    char* delims[] = {" ","\t",">","<","&",";"}; 
-    
     bool terminated = false;
     char tokens[50];
     int index = 0;
@@ -18,25 +16,20 @@ int main()
         printf("%s", prompt); 
         fgets(input, MAX_INPUT, stdin); 
         
-        char *temp = strktok(input, delims);
+        char *temp = strtok(input, " \t><&;");
         strcpy(tokens[index], temp);
         index++;
         
-        do{
-            temp = strktok(NULL, delims);
-            strcpy(tokens[index],strtok(NULL, delims));
+        while (input) {
+            temp = strtok(NULL, " \t><&;");
+            strcpy(tokens[index], temp);
             index++;
         }
-        while (input); 
-        
- 
-    }
 
-        
-    if (strcmp(tokens[0], "exit\n") || feof(stdin))
-    {
-        terminated = true;   
+        if (strcmp(tokens[0], "exit\n") || feof(stdin))
+        {
+            terminated = true;
+        }
     }
-    
     return 0;
 }
