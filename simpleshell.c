@@ -6,8 +6,9 @@
 int main() 
 { 
     bool terminated = false;
-    char tokens[512][512];
+    char tokens[512][100];
     int index = 0;
+    char newLine[] = "\n-> ";
     
     while (!terminated)
     {
@@ -19,16 +20,18 @@ int main()
         strcpy(tokens[index], temp);
         index++;
         
-        while (input) {
+        while (input != "\n") {
             temp = strtok(NULL, " \t><&;");
             strcpy(tokens[index], temp);
             index++;
+            
+            if (strcmp(tokens[0], "exit\n") == 0 || feof(stdin))
+            {
+              terminated = true;
+            }         
         }
-
-        if (strcmp(tokens[0], "exit\n") == 0 || feof(stdin))
-        {
-            terminated = true;
-        }
+        printf("%s", newLine);
     }
     return 0;
 }
+
