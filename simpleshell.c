@@ -6,12 +6,12 @@
 int main() 
 { 
     bool terminated = false;
-    char tokens[512][100];
-    int index = 0;
-    char newLine[] = "\n";
+    char tokens[512][512];
     
     while (!terminated)
     {
+        int index = 0;
+        
         char input[MAX_INPUT]; 
         printf("%s", prompt); 
         fgets(input, MAX_INPUT, stdin); 
@@ -30,8 +30,7 @@ int main()
               terminated = true;
             }         
         }
-        printf("%s", newLine);
+        printf("\n");
     }
     return 0;
 }
-
