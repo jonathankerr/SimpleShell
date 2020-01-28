@@ -8,7 +8,6 @@ int main()
     bool terminated = false;
     char tokens[50];
     int index = 0;
-    char prompt[] = ":D ";
     
     while (!terminated)
     {
@@ -26,7 +25,7 @@ int main()
             index++;
         }
 
-        if (strcmp(tokens[0], "exit\n") || feof(stdin))
+        if (strcmp(tokens[0], "exit") == 0 || feof(stdin))
         {
             terminated = true;
         }
