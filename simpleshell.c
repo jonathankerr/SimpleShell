@@ -8,7 +8,7 @@ int main()
     bool terminated = false;
     char tokens[512][512];
     
-    while (!terminated)
+    while (terminated == false)
     {
         int index = 0;
         
