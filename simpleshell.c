@@ -6,7 +6,7 @@
 int main() 
 { 
     bool terminated = false;
-    char tokens[512][100];
+    char tokens[512][512];
     int index = 0;
     
     while (!terminated)
