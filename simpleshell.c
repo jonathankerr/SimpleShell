@@ -16,12 +16,12 @@ int main()
         printf("%s", prompt); 
         fgets(input, MAX_INPUT, stdin); 
         
-        char *temp = strtok(input, " \t><&;");
+        char *temp = strtok(input, " \t|><&;");
         strcpy(tokens[index], temp);
         index++;
         
         while (input != "\n") {
-            temp = strtok(NULL, " \t><&;");
+            temp = strtok(NULL, " \t|><&;");
             strcpy(tokens[index], temp);
             index++;
             
