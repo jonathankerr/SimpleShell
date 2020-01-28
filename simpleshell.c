@@ -8,19 +8,22 @@ int main()
     char* delims[] = {" ","\t",">","<","&",";"}; 
     
     bool terminated = false;
-    char tokens[512][512] ;
+    char tokens[50];
     int index = 0;
-    char prompt[] = "> ";
+    char prompt[] = ":D ";
     
     while (!terminated)
     {
         char input[MAX_INPUT]; 
         printf("%s", prompt); 
         fgets(input, MAX_INPUT, stdin); 
-        strcpy(tokens[index],strtok(NULL, delims));
+        
+        char *temp = strktok(input, delims);
+        strcpy(tokens[index], temp);
         index++;
         
         do{
+            temp = strktok(NULL, delims);
             strcpy(tokens[index],strtok(NULL, delims));
             index++;
         }
