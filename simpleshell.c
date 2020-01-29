@@ -6,31 +6,19 @@
 int main() 
 { 
     bool terminated = false;
-
     
     while (terminated == false)
     {
 
 	printf("%s", prompt);
-
 	char input[MAX_INPUT];
-
-
 	fgets(input, 9999, stdin); // DONT REMOVE 9999
-
-
-
-
-	
 	char *token = strtok(input, " \t|><&;");
 	
 	while(token != NULL){				//Uncomment printf to test
 		//printf("%s\n",token);
 		token = strtok(NULL, " \t|><&;");	
 	}
-
-
-
 
 
 	if(strlen(input) > MAX_INPUT) {
