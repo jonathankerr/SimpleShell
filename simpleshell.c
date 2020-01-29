@@ -6,31 +6,47 @@
 int main() 
 { 
     bool terminated = false;
-    char tokens[512][512];
+
     
     while (terminated == false)
     {
-        int index = 0;
-        
-        char input[MAX_INPUT]; 
-        printf("%s", prompt); 
-        fgets(input, MAX_INPUT, stdin); 
-        
-        char *temp = strtok(input, " \t|><&;");
-        strcpy(tokens[index], temp);
-        index++;
-        
-        while (input != "\n") {
-            temp = strtok(NULL, " \t|><&;");
-            strcpy(tokens[index], temp);
-            index++;
-            
-            if (strcmp(tokens[0], "exit\n") == 0 || feof(stdin))
-            {
-              terminated = true;
-            }         
-        }
-        printf("\n");
+
+	printf("%s", prompt);
+
+	char input[MAX_INPUT];
+
+
+	fgets(input, 9999, stdin); // DONT REMOVE 9999
+
+
+
+
+	
+	char *token = strtok(input, " \t|><&;");
+	
+	while(token != NULL){				//Uncomment printf to test
+		//printf("%s\n",token);
+		token = strtok(NULL, " \t|><&;");	
+	}
+
+
+
+
+
+	if(strlen(input) > MAX_INPUT) {
+		printf("Invalid Input too long (no more than 512 characters)\n");
+	}
+	
+
+	if(strcmp(input, "exit\n") == 0){
+		printf("-> Closing Program\n");	 // Closes program if exit is typed
+		terminated = true;
+	}
+	
+	if(feof(stdin)){
+		printf("Closing Program\n");	// Closes program if Ctrl-D is pressed
+		terminated = true;
+	}
+
     }
-    return 0;
 }
