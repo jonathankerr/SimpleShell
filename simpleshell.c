@@ -9,14 +9,17 @@ int main()
     
     while (terminated == false)
     {
-		printf("%s", prompt);
+		char tokens[50][50]; // Array of strings that will hold 50 strings of 50 characters each
 		char input[MAX_INPUT];
-		fgets(input, 9999, stdin); // DONT REMOVE 9999
+
+		printf("%s", prompt);
+
+		fgets(input, 9999, stdin); // DO NOT REMOVE 9999
 		char *token = strtok(input, " \t|><&;");
 		
-		while(token != NULL)
+		while (token != NULL)
 		{				
-			//printf("%s\n",token); // Uncomment print statement to test
+			printf("%s\n", token); // Uncomment print statement to test
 			token = strtok(NULL, " \t|><&;");	
 		}
 
@@ -26,8 +29,17 @@ int main()
 
 		if (strcmp(input, "exit\n") == 0 || feof(stdin)) // Closes program if exit is typed // Closes program if Ctrl-D is pressed
 		{	
-			char* output = feof(stdin) ? "Closing program...\n" : "-> Closing program...\n";
-			printf(output);
+			char output[25];
+			if (strcmp(input, "exit\n") == 0)
+			{
+				sprintf(output, "%s Closing program...\n", prompt);
+			}
+			else
+			{
+				strcpy(output, "\nClosing program...");
+			}
+			
+			printf("%s", output);
 			terminated = true;
 		}
     }
