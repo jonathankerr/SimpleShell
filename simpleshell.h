@@ -1,6 +1,6 @@
 /* Boolean values */
-#define true 1
-#define false 0
+#define TRUE 1
+#define FALSE 0
 typedef int bool;
 
 /* Maximum number of characters user input can contain */
@@ -11,6 +11,9 @@ typedef int bool;
 
 /* String that will be printed every time user is able to enter a command */
 static const char prompt[] = "-> ";
+
+/* Delimiters at which imput will be tokenized */
+static const char delims[] = " \t|><&;";
 
 /* Function declarations */
 char *strtok(char *str, const char *delim);
