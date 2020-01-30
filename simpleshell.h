@@ -9,11 +9,16 @@ typedef int bool;
 /* Maximum number of tokens shell will parse */
 #define MAX_SIZE 50
 
-/* String that will be printed every time user is able to enter a command */
+/* String that will be printed every time 
+   user is able to enter a command */
 static const char prompt[] = "-> ";
 
 /* Delimiters at which imput will be tokenized */
 static const char delims[] = " \t|><&;";
+
+/* Array of strings that will hold 50 strings 
+   of 50 characters each */
+static char tokens[50][50];
 
 /* Function declarations */
 char *strtok(char *str, const char *delim);

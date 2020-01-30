@@ -9,7 +9,6 @@ int main()
     
     while (!terminated)
     {
-		char tokens[50][50]; // Array of strings that will hold 50 strings of 50 characters each
 		char input[MAX_INPUT];
 
 		printf("%s", prompt);
@@ -20,9 +19,11 @@ int main()
 		int counter = 0;
 		while (token != NULL)
 		{	
-			strcpy(tokens[counter], token);
+			strcpy(tokens[counter], token); // Adds token to array of tokens
+
 			//printf("%s\n", token); // Uncomment to test (part 1)
 			printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
+
 			token = strtok(NULL, " \t|><&;");	
 		}
 
