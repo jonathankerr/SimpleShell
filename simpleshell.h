@@ -18,7 +18,8 @@ static const char delims[] = " \t|><&;";
 
 /* Array of strings that will hold 50 strings 
    of 50 characters each */
-static char tokens[50][50];
+static char tokens[MAX_SIZE][MAX_INPUT];
 
 /* Function declarations */
-char *strtok(char *str, const char *delim);
+void tokenize(char* input);
+bool exitShell(char* input, bool shellStatus);
