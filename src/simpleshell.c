@@ -1,7 +1,9 @@
-#include <stdio.h> 
-#include <string.h>
+#pragma region Libraries
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simpleshell.h"
+#pragma endregion
 
 void tokenize(char* input)
 {
