@@ -47,3 +47,37 @@ bool exitShell(char* input, bool shellStatus)
 
 	return shellStatus;
 }
+
+/*
+int launchChild(char*[] tokens)
+{
+    pid_t pid, wpid;
+    int status;
+
+    pid = fork();
+    if (pid == 0) 
+	{
+        // Child process
+        if (execvp(args[0], args) == -1) 
+		{
+            perror("lsh");
+        }
+        exit(EXIT_FAILURE);
+    } 
+	else if (pid < 0) 
+	{
+        // Error forking
+        perror("lsh");
+    } 
+	else 
+	{
+        // Parent process
+        while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		{
+            wpid = waitpid(pid, & status, WUNTRACED);
+        } 
+    }
+
+    return 1;
+}
+*/
