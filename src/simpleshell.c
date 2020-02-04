@@ -108,3 +108,8 @@ void setToHomeDir()
 {
 	chdir(HOME_DIR);
 }
+
+char getPath()
+{
+	printf(getenv("PATH"));
+}

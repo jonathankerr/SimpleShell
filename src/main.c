@@ -8,12 +8,10 @@
 int main() 
 {
     printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
-	//printf("HOME : %s\n", getenv("HOME")); //Uncomment to test getting home directory
-    printf("Start PATH: %s\n\n", START_PATH); //Uncomment to test saving start path
 
-	setToHomeDir();
+	setToHomeDir(); //sets cwd to users home dir
 
-    printf("NewCWD: %s\n", getInitDir());
+    printf("NewCWD: %s\n", getInitDir()); //Uncomment to test that current dir is set to users home dir
 
     bool terminated = FALSE;
     
@@ -25,6 +23,13 @@ int main()
 
 		fgets(input, 9999, stdin); // DO NOT REMOVE 9999
 		tokenize(input);
+
+
+		if (strcmp(input, "getpath\n") == 0) //allows user to see their current env path
+		{
+			getPath();
+		}
+
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial current working directory

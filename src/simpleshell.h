@@ -35,4 +35,5 @@ bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
 char* getInitDir();
 char *getenv(const char *name);
+char getPath();
 
