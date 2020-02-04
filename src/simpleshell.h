@@ -24,4 +24,4 @@ static char tokens[MAX_SIZE][MAX_INPUT];
 
 void tokenize(char* input);
 bool exitShell(char* input, bool shellStatus);
-//int launchChild(char*[] tokens);
+int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
