@@ -20,9 +20,12 @@ static const char delims[] = " \t|><&;";
    of 50 characters each */
 static char tokens[MAX_SIZE][MAX_INPUT]; // TODO: Change to local variable
 
+
+
 /* Function declarations */
 
 void tokenize(char* input);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
 char* getInitDir();
+char *getenv(const char *name);
