@@ -103,3 +103,8 @@ char* getInitDir()
 
 	return cwd;
 }
+
+void setToHomeDir()
+{
+	chdir(HOME_DIR);
+}
