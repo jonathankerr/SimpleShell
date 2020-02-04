@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <limits.h>
 #include "simpleshell.h"
 #pragma endregion
 
@@ -29,7 +31,7 @@ void tokenize(char* input)
 	}
 }
 
-bool exitShell(char* input, bool shellStatus)
+bool exitShell(char* input, bool shellStatus, char* dir)
 {
 	if (shellStatus)
 	{
@@ -46,6 +48,8 @@ bool exitShell(char* input, bool shellStatus)
 		}
 		
 		printf("%s", output);
+
+		// TODO: Set cwd to initial dir
 	}
 
 	return shellStatus;
@@ -84,3 +88,12 @@ int launchChild(char*[] tokens)
     return 1;
 }
 */
+
+void getInitDir(char* cwd)
+{
+	char buffer[PATH_MAX + 1];
+	if (getcwd(buffer, PATH_MAX + 1) != NULL)
+	{
+		cwd = buffer;
+	}
+}

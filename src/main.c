@@ -1,11 +1,17 @@
 #pragma region Libraries
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simpleshell.h"
 #pragma endregion
 
 int main() 
 {
+	char* cwd;
+
+	getInitDir(cwd);
+    printf("CWD: %s\n\n", cwd);
+
     bool terminated = FALSE;
     
     while (!terminated)
@@ -16,10 +22,9 @@ int main()
 
 		fgets(input, 9999, stdin); // DO NOT REMOVE 9999
 		tokenize(input);
-
-		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin))); // Closes program if exit is typed or if Ctrl-D is pressed
+	
+		// Closes program if exit is typed or if Ctrl-D is pressed
+		// Also sets the current working directory to the initial current working directory
+		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), "lol");
     }
 }
-
-// test
-// james test

@@ -18,10 +18,11 @@ static const char delims[] = " \t|><&;";
 
 /* Array of strings that will hold 50 strings 
    of 50 characters each */
-static char tokens[MAX_SIZE][MAX_INPUT];
+static char tokens[MAX_SIZE][MAX_INPUT]; // TODO: Change to local variable
 
 /* Function declarations */
 
 void tokenize(char* input);
-bool exitShell(char* input, bool shellStatus);
+bool exitShell(char* input, bool shellStatus, char* dir);
 //int launchChild(char*[] tokens);
+void getInitDir(char* cwd);
