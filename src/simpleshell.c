@@ -112,4 +112,5 @@ void setToHomeDir()
 char getPath()
 {
 	printf(getenv("PATH"));
+	printf("\n");
 }

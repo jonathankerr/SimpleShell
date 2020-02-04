@@ -27,6 +27,7 @@ int main()
 
 		if (strcmp(input, "getpath\n") == 0) //allows user to see their current env path
 		{
+			printf("->");
 			getPath();
 		}
 
