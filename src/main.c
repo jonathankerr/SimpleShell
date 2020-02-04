@@ -7,10 +7,7 @@
 
 int main() 
 {
-	char* cwd;
-
-	getInitDir(cwd);
-    printf("CWD: %s\n\n", cwd);
+    printf("CWD: %s\n\n", getInitDir());
 
     bool terminated = FALSE;
     

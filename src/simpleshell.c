@@ -57,7 +57,6 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 
 int launchChild(char tokens[MAX_SIZE][MAX_INPUT])
 {
-   
     pid_t pid, wpid;
     int status;
 
@@ -90,11 +89,15 @@ int launchChild(char tokens[MAX_SIZE][MAX_INPUT])
     return 1;
 }
 
-void getInitDir(char* cwd)
+char* getInitDir()
 {
+	char* cwd = malloc(PATH_MAX + 1);
 	char buffer[PATH_MAX + 1];
+
 	if (getcwd(buffer, PATH_MAX + 1) != NULL)
 	{
 		cwd = buffer;
 	}
+
+	return cwd;
 }
