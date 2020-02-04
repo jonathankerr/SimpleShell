@@ -23,6 +23,11 @@ static char tokens[MAX_SIZE][MAX_INPUT]; // TODO: Change to local variable
 /* Function declarations */
 
 void tokenize(char* input);
+<<<<<<< HEAD
 bool exitShell(char* input, bool shellStatus, char* dir);
 //int launchChild(char*[] tokens);
 void getInitDir(char* cwd);
+=======
+bool exitShell(char* input, bool shellStatus);
+int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
+>>>>>>> f7c2bac92c333b951a10bd118e7acccdfd830402

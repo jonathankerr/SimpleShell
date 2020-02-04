@@ -55,19 +55,21 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 	return shellStatus;
 }
 
-/*
-int launchChild(char*[] tokens)
+int launchChild(char tokens[MAX_SIZE][MAX_INPUT])
 {
+   
     pid_t pid, wpid;
     int status;
+
 
     pid = fork();
     if (pid == 0) 
 	{
         // Child process
-        if (execvp(args[0], args) == -1) 
+        if (execvp(tokens[0], tokens) == -1) 
 		{
-            perror("lsh");
+            printf("ohh shit");
+		perror("lsh");
         }
         exit(EXIT_FAILURE);
     } 
@@ -87,7 +89,6 @@ int launchChild(char*[] tokens)
 
     return 1;
 }
-*/
 
 void getInitDir(char* cwd)
 {
