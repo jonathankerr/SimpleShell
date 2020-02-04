@@ -20,3 +20,5 @@ int main()
 		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin))); // Closes program if exit is typed or if Ctrl-D is pressed
     }
 }
+
+// test
