@@ -9,6 +9,9 @@ int main()
 {
     printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
+    printf("PATH : %s\n", getenv("PATH")); //Uncomment to test getting path
+	printf("HOME : %s\n", getenv("HOME")); //Uncomment to test getting home directory
+
     bool terminated = FALSE;
     
     while (!terminated)
