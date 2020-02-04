@@ -10,6 +10,7 @@ void tokenize(char* input)
 	if (strlen(input) > MAX_INPUT) 
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
+		fflush(stdin); //flush encase there is chars in buffer
 	}
 	else
 	{
