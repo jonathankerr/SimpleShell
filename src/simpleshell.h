@@ -9,6 +9,12 @@ typedef int bool;
 /* Maximum number of tokens shell will parse */
 #define MAX_SIZE 50
 
+/* Path on start of application, saved for exit */
+#define START_PATH getenv("PATH")
+
+/* Home Directory */
+#define HOME_DIR getenv("HOME")
+
 /* String that will be printed every time 
    user is able to enter a command */
 static const char prompt[] = "-> ";
