@@ -7,7 +7,7 @@
 
 int main() 
 {
-    printf("CWD: %s\n\n", getInitDir());
+    printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
     bool terminated = FALSE;
     
