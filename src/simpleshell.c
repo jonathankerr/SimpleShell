@@ -7,8 +7,10 @@
 #include "simpleshell.h"
 #pragma endregion
 
-void tokenize(char* input)
+char** tokenize(char* input)
 {
+	char** tokens = (char **)malloc(MAX_SIZE * (MAX_INPUT + 1));
+
 	if (strlen(input) > MAX_INPUT) 
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
@@ -29,6 +31,8 @@ void tokenize(char* input)
 			token = strtok(NULL, " \t|><&;");	
 		}
 	}
+
+	return tokens;
 }
 
 bool exitShell(char* input, bool shellStatus, char* dir)

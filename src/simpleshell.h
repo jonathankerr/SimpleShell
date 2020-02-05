@@ -3,7 +3,8 @@
 #define FALSE 0
 typedef int bool;
 
-/* Maximum number of characters user input can contain */
+/* Maximum number of characters user input 
+   can contain */
 #define MAX_INPUT 512 
 
 /* Maximum number of tokens shell will parse */
@@ -22,18 +23,13 @@ static const char prompt[] = "-> ";
 /* Delimiters at which imput will be tokenized */
 static const char delims[] = " \t|><&;";
 
-/* Array of strings that will hold 50 strings 
-   of 50 characters each */
-static char tokens[MAX_SIZE][MAX_INPUT]; // TODO: Change to local variable
-
-
-
 /* Function declarations */
 
-void tokenize(char* input);
+char** tokenize(char* input);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
 char* getCWD();
 char *getenv(const char *name);
+void setToHomeDir();
 char getPath();
 void setpath(char *tokens[]);
