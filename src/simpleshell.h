@@ -32,4 +32,4 @@ char* getCWD();
 char *getenv(const char *name);
 void setToHomeDir();
 char getPath();
-void setpath(char *tokens[]);
+void setpath(char** tokens)

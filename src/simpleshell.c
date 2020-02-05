@@ -117,26 +117,32 @@ char getPath()
 	printf("\n");
 }
 
-/* UNTESTED IN LINUX 
-void setpath(char *tokens[])
+void setpath(char** tokens)
 {
-    if(tokens[1] !=NULL){
-        if(tokens[2] == NULL){
+    if (tokens[1] !=NULL)
+	{
+        if (tokens[2] == NULL)
+		{
             printf("Set path to: %sn", token[1]);
-            if(setenv("PATH", tokens[1],1 == 0){
-                printf("Path change Successful\n");
+
+            if (setenv("PATH", tokens[1], 1 == 0)
+			{
+                printf("Path change successful.\n");
             }
-            else{
-                printf("Inputted Path is Invalid\n");
+            else
+			{
+                printf("Invalid path.\n");
             }
         }
-        else{
-            printf("Excessive amount of parameters\n");
+        else
+		{
+            printf("Excessive amount of parameters.\n");
         }
     }
-    else{
-        printf("No path has been inputted\n");
+    else
+	{
+        printf("No path has been provided.\n");
     }
+	
     return;
 }
-*/
