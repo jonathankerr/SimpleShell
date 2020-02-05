@@ -115,13 +115,13 @@ char getPath()
 	printf("\n");
 }
 
-/*
+/* UNTESTED IN LINUX 
 void setpath(char *tokens[])
 {
-    if(token[1] !=NULL){
-        if(token[2] == NULL){
+    if(tokens[1] !=NULL){
+        if(tokens[2] == NULL){
             printf("Set path to: %sn", token[1]);
-            if(setenv("PATH", token[1],1 == 0){
+            if(setenv("PATH", tokens[1],1 == 0){
                 printf("Path change Successful\n");
             }
             else{
