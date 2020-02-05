@@ -60,32 +60,29 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 	return shellStatus;
 }
 
-/*
-int launchChild(char tokens[MAX_SIZE][MAX_INPUT])
+/* UNTESTED IN LINUX
+int launchChild(char** tokens)
 {
     pid_t pid, wpid;
     int status;
 
-
     pid = fork();
-    if (pid == 0) 
+    if (pid == 0) // Child process
 	{
-        // Child process
         if (execvp(tokens[0], tokens) == -1) 
 		{
             printf("ohh shit");
-		perror("lsh");
+			perror("lsh");
         }
+
         exit(EXIT_FAILURE);
     } 
-	else if (pid < 0) 
+	else if (pid < 0) // Error forking
 	{
-        // Error forking
         perror("lsh");
     } 
-	else 
+	else // Parent process
 	{
-        // Parent process
         while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		{
             wpid = waitpid(pid, & status, WUNTRACED);
