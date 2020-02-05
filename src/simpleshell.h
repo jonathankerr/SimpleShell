@@ -33,7 +33,7 @@ static char tokens[MAX_SIZE][MAX_INPUT]; // TODO: Change to local variable
 void tokenize(char* input);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char tokens[MAX_SIZE][MAX_INPUT]);
-char* getInitDir();
+char* getCWD();
 char *getenv(const char *name);
 char getPath();
 void setpath(char *tokens[]);

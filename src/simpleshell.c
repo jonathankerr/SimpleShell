@@ -47,9 +47,10 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 			strcpy(output, "\nClosing program...");
 		}
 		
-		printf("%s", output);
+		printf("%s", output); // Print correct exit message
 
-		// TODO: Set cwd to initial dir
+		//Sets current working directory to initial working directory
+		chdir(dir);
 	}
 
 	return shellStatus;
@@ -91,7 +92,7 @@ int launchChild(char tokens[MAX_SIZE][MAX_INPUT])
 }
 */
 
-char* getInitDir()
+char* getCWD()
 {
 	char* cwd = malloc(PATH_MAX + 1);
 	char buffer[PATH_MAX + 1];

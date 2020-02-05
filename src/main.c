@@ -7,14 +7,13 @@
 
 int main() 
 {
-    printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
+	char* initDir = getCWD();
+	bool terminated = FALSE;
+
+    //printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
 	setToHomeDir(); //sets cwd to users home dir
 
-    printf("NewCWD: %s\n", getInitDir()); //Uncomment to test that current dir is set to users home dir
-
-    bool terminated = FALSE;
-    
     while (!terminated)
     {
 		char input[MAX_INPUT];
@@ -34,6 +33,6 @@ int main()
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial current working directory
-		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), "lol");
+		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), initDir);
     }
 }
