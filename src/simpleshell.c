@@ -114,3 +114,27 @@ char getPath()
 	printf(getenv("PATH"));
 	printf("\n");
 }
+
+/*
+void setpath(char *tokens[])
+{
+    if(token[1] !=NULL){
+        if(token[2] == NULL){
+            printf("Set path to: %sn", token[1]);
+            if(setenv("PATH", token[1],1 == 0){
+                printf("Path change Successful\n");
+            }
+            else{
+                printf("Inputted Path is Invalid\n");
+            }
+        }
+        else{
+            printf("Excessive amount of parameters\n");
+        }
+    }
+    else{
+        printf("No path has been inputted\n");
+    }
+    return;
+}
+*/
