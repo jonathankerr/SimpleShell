@@ -35,6 +35,13 @@ char** tokenize(char* input)
 	return tokens;
 }
 
+/*
+void parse(char** tokens)
+{
+
+}
+*/
+
 bool exitShell(char* input, bool shellStatus, char* dir)
 {
 	if (shellStatus)
@@ -42,7 +49,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 		char output[25];
 
 		// Determines what message to print
-		if (strcmp(input, "exit\n") == 0)
+		if (!strcmp(input, "exit\n"))
 		{
 			sprintf(output, "%s Closing program...\n", prompt);
 		}
