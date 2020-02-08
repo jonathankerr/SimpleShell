@@ -14,7 +14,7 @@ char** tokenize(char* input)
 	if (strlen(input) > MAX_INPUT) 
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
-		fflush(stdin); //flush encase there is chars in buffer
+		fflush(stdin); // Flush in case there is chars in buffer
 	}
 	else
 	{
@@ -23,6 +23,7 @@ char** tokenize(char* input)
 
 		while (token != NULL)
 		{	
+			chomp(tokens[counter]); // Removes new line character from token
 			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
@@ -35,12 +36,22 @@ char** tokenize(char* input)
 	return tokens;
 }
 
-/*
+// UNTESTE IN LINUX
 void parse(char** tokens)
 {
+	printf("%s\n", tokens[0]);
 
+	// Change Directory (cd) command: changes directory to given input.
+	if (!strcmp(tokens[0], "cd"))
+	{
+		printf("true\n");
+        char* cwd = getCWD();
+        char* dir = strcat(cwd, "/");
+        char* nextDir = strcat(cwd, tokens[1]);
+		printf("%s\n", nextDir);
+        chdir(nextDir);
+    } 
 }
-*/
 
 bool exitShell(char* input, bool shellStatus, char* dir)
 {
@@ -124,6 +135,7 @@ char getPath()
 	printf("\n");
 }
 
+/*
 void setpath(char** tokens)
 {
     if (tokens[1] !=NULL)
@@ -152,4 +164,15 @@ void setpath(char** tokens)
     }
 	
     return;
+}
+*/
+
+/* 
+	Removes new line character (\n) from string
+*/
+void chomp(char *s) 
+{
+    while(*s && *s != '\n' && *s != '\r') s++;
+ 
+    *s = 0;
 }

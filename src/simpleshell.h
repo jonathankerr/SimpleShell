@@ -26,11 +26,12 @@ static const char delims[] = " \t|><&;";
 /* Function declarations */
 
 char** tokenize(char* input);
-//void parse(char** tokens);
+void parse(char** tokens);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char** tokens);
 char* getCWD();
 char *getenv(const char *name);
 void setToHomeDir();
 char getPath();
-void setpath(char** tokens)
+void setpath(char** tokens);
+void chomp(char *s);

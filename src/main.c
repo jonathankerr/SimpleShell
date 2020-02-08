@@ -23,11 +23,12 @@ int main()
 
 		fgets(input, 9999, stdin); // DO NOT REMOVE 9999
 		tokens = tokenize(input);
+		parse(tokens);
 
 		if (!strcmp(input, "getpath\n")) //allows user to see their current env path
 		{
 			printf("->");
-			getPath();
+			//getPath();
 		}
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
