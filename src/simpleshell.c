@@ -37,19 +37,36 @@ char** tokenize(char* input)
 }
 
 // UNTESTE IN LINUX
-void parse(char** tokens)
+int parse(char** tokens)
 {
 	printf("%s\n", tokens[0]);
 
 	// Change Directory (cd) command: changes directory to given input.
 	if (!strcmp(tokens[0], "cd"))
 	{
-		printf("true\n");
         char* cwd = getCWD();
         char* dir = strcat(cwd, "/");
-        char* nextDir = strcat(cwd, tokens[1]);
-		printf("%s\n", nextDir);
-        chdir(nextDir);
+		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
+		char* nextDir;
+
+		if (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3)
+		{
+			strcpy(nextDir, cwd);
+		}
+		else
+		{
+			nextDir = strcat(cwd, tokens[1]);
+		}
+
+		printf("%s\n", nextDir); // Uncomment to test (part 4)
+
+        int success = chdir(nextDir);
+
+		if (success == -1)
+		{
+			perror("Error");
+			return success;
+		}
     } 
 }
 

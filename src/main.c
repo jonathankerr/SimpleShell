@@ -35,4 +35,6 @@ int main()
 		// Also sets the current working directory to the initial working directory
 		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), initDir);
     }
+
+	return 0;
 }
