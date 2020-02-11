@@ -12,7 +12,7 @@ void tokenize(char* tokens, char* input)
 	if (strlen(input) > MAX_USERINPUT) 
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
-		//fflush(stdin); // Flush in case there is chars in buffer
+		fflush(stdin); // Flush in case there is chars in buffer
 	}
 	else
 	{
@@ -21,6 +21,7 @@ void tokenize(char* tokens, char* input)
 
 		while (token != NULL)
 		{	
+			chomp(token);
 			strcpy(&tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
@@ -31,41 +32,52 @@ void tokenize(char* tokens, char* input)
 	}
 }
 
-/*
-// UNTESTE IN LINUX
-int parse(char** tokens)
+int parseInput(char* tokens)
 {
-	printf("%s\n", tokens[0]);
-
-	// Change Directory (cd) command: changes directory to given input.
-	if (!strcmp(tokens[0], "cd"))
+	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
 	{
-        char* cwd = getCWD();
-        char* dir = strcat(cwd, "/");
-		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
-		char* nextDir;
-
-		if (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3)
+		getPath();
+	}
+	// Change Directory (cd) command: changes directory to given input.
+	else if (!strcmp(&tokens[0], "cd"))
+	{
+		if (&tokens[1] == NULL)
 		{
-			strcpy(nextDir, cwd);
+			printf("Please enter a directory using syntax: cd [directory name].\n\n");
 		}
 		else
 		{
-			nextDir = strcat(cwd, tokens[1]);
+			printf("true\n");
+			char* cwd = getCWD();
+			char* dir = strcat(cwd, "/");
+			//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
+			char* nextDir;
+
+			if (strstr(&tokens[1], ".") != NULL || strlen(&tokens[1]) < 3)
+			{
+				strcpy(nextDir, cwd);
+			}
+			else
+			{
+				nextDir = strcat(cwd, &tokens[1]);
+			}
+
+			int success = chdir(nextDir);
+
+			//printf("%s\n", getCWD()); // Uncomment to test (part 4)
+
+			if (success == -1)
+			{
+				perror("Error");
+				return success;
+			}
+			else
+			{
+				printf("success\n");
+			}
 		}
-
-		printf("%s\n", nextDir); // Uncomment to test (part 4)
-
-        int success = chdir(nextDir);
-
-		if (success == -1)
-		{
-			perror("Error");
-			return success;
-		}
-    } 
+    }
 }
-*/
 
 bool exitShell(char* input, bool shellStatus, char* dir)
 {
@@ -140,21 +152,34 @@ char* getCWD()
 	return cwd;
 }
 
+char* getInitDir()
+{
+	char* cwd = malloc(PATH_MAX + 1);
+	char buffer[PATH_MAX + 1];
+
+	if (getcwd(buffer, PATH_MAX + 1) != NULL)
+	{
+		cwd = buffer;
+	}
+
+	return cwd;
+}
+
+
 void setToHomeDir()
 {
 	chdir(HOME_DIR);
 }
 
-
 char getPath()
 {
-	printf(getenv("PATH"));
+	printf("%s\n", getenv("PATH"));
 	printf("\n");
 }
 
 
 /*
-void setpath(char** tokens)
+void setPath(char** tokens)
 {
     if (tokens[1] !=NULL)
 	{

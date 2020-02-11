@@ -16,6 +16,8 @@ typedef int bool;
 /* Home Directory */
 #define HOME_DIR getenv("HOME")
 
+//#define ELEMS(x)  (sizeof(x) / sizeof((x)[0]))
+
 /* String that will be printed every time 
    user is able to enter a command */
 static const char prompt[] = "-> ";
@@ -26,11 +28,12 @@ static const char delims[] = " \t|><&;";
 /* Function declarations */
 
 void tokenize(char* tokenAd, char* input);
+int parseInput(char* tokens);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char** tokens);
 char* getCWD();
-char *getenv(const char *name);
+char* getInitDir();
 void setToHomeDir();
 char getPath();
-void setpath(char** tokens);
+void setPath(char** tokens);
 void chomp(char *s);
