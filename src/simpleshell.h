@@ -29,7 +29,6 @@ void tokenize(char* tokenAd, char* input);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char** tokens);
 char* getCWD();
-char *getenv(const char *name);
 void setToHomeDir();
 char getPath();
 void setpath(char** tokens);
