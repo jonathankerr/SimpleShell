@@ -23,6 +23,7 @@ int main()
 
 		fgets(input, MAX_USERINPUT, stdin);
 		tokenize(*tokens, input);
+		launchChild(*tokens);
 		//parse(*tokens);
 
 		if (!strcmp(input, "getpath\n")) //allows user to see their current env path

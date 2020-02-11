@@ -28,6 +28,7 @@ void tokenize(char* tokens, char* input)
 
 			token = strtok(NULL, " \t|><&;");	
 		}
+		//strcpy(&tokens[counter], NULL); //making sure tokens is NULL terminating
 	}
 }
 
@@ -92,39 +93,49 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 	return shellStatus;
 }
 
-/* UNTESTED IN LINUX
-int launchChild(char** tokens)
-{
+// UNTESTED IN LINUX
+int launchChild(char* tokens)
+{ 
+	
     pid_t pid, wpid;
     int status;
 
     pid = fork();
     if (pid == 0) // Child process
 	{
-        if (execvp(tokens[0], tokens) == -1) 
+        if (execvp(tokens[0], &tokens) == -1) 
 		{
-            printf("ohh shit");
-			perror("lsh");
+            printf("ohh shit, execvp failed"); //testing
+			perror("execvp called and failed");
+			fflush(stdin);
         }
 
         exit(EXIT_FAILURE);
     } 
 	else if (pid < 0) // Error forking
 	{
-        perror("lsh");
+		printf("we dun forked up"); //testing
+		fflush(stdin);
+        perror("we dun forked up");
+		exit(1);
     } 
 	else // Parent process
 	{
+		printf("parent started to wait");
+		fflush(stdin);
         while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		{
             wpid = waitpid(pid, & status, WUNTRACED);
-        } 
+        }
+		printf("parent stopped waiting");
+		fflush(stdin); //safety 
     }
 
     return 1;
+	
 }
-*/
 
+	
 // test
 
 char* getCWD()

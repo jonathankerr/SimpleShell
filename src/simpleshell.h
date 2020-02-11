@@ -27,7 +27,7 @@ static const char delims[] = " \t|><&;";
 
 void tokenize(char* tokenAd, char* input);
 bool exitShell(char* input, bool shellStatus, char* dir);
-int launchChild(char** tokens);
+int launchChild(char* tokens);
 char* getCWD();
 char *getenv(const char *name);
 void setToHomeDir();
