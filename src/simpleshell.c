@@ -9,12 +9,12 @@
 
 char** tokenize(char* input)
 {
-	char** tokens = (char **)malloc(MAX_SIZE * (MAX_INPUT + 1));
+	char** tokens = (char **)malloc(MAX_SIZE * (MAX_USERINPUT + 1));
 
-	if (strlen(input) > MAX_INPUT) 
+	if (strlen(input) > MAX_USERINPUT) 
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
-		fflush(stdin); //flush encase there is chars in buffer
+		//fflush(stdin); // Flush in case there is chars in buffer
 	}
 	else
 	{
@@ -23,6 +23,7 @@ char** tokenize(char* input)
 
 		while (token != NULL)
 		{	
+			//chomp(tokens[counter]); // Removes new line character from token
 			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
@@ -35,6 +36,42 @@ char** tokenize(char* input)
 	return tokens;
 }
 
+/*
+// UNTESTE IN LINUX
+int parse(char** tokens)
+{
+	printf("%s\n", tokens[0]);
+
+	// Change Directory (cd) command: changes directory to given input.
+	if (!strcmp(tokens[0], "cd"))
+	{
+        char* cwd = getCWD();
+        char* dir = strcat(cwd, "/");
+		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
+		char* nextDir;
+
+		if (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3)
+		{
+			strcpy(nextDir, cwd);
+		}
+		else
+		{
+			nextDir = strcat(cwd, tokens[1]);
+		}
+
+		printf("%s\n", nextDir); // Uncomment to test (part 4)
+
+        int success = chdir(nextDir);
+
+		if (success == -1)
+		{
+			perror("Error");
+			return success;
+		}
+    } 
+}
+*/
+
 bool exitShell(char* input, bool shellStatus, char* dir)
 {
 	if (shellStatus)
@@ -42,7 +79,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 		char output[25];
 
 		// Determines what message to print
-		if (strcmp(input, "exit\n") == 0)
+		if (!strcmp(input, "exit\n"))
 		{
 			sprintf(output, "%s Closing program...\n", prompt);
 		}
@@ -54,7 +91,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 		printf("%s", output); // Print correct exit message
 
 		//Sets current working directory to initial working directory
-		chdir(dir);
+		//chdir(dir);
 	}
 
 	return shellStatus;
@@ -93,6 +130,8 @@ int launchChild(char** tokens)
 }
 */
 
+// test
+
 char* getCWD()
 {
 	char* cwd = malloc(PATH_MAX + 1);
@@ -111,12 +150,15 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
+/*
 char getPath()
 {
-	printf(getenv("PATH"));
-	printf("\n");
+	//printf(getenv("PATH"));
+	//printf("\n");
 }
+*/
 
+/*
 void setpath(char** tokens)
 {
     if (tokens[1] !=NULL)
@@ -146,3 +188,14 @@ void setpath(char** tokens)
 	
     return;
 }
+*/
+
+/* 
+	Removes new line character (\n) from string
+void chomp(char *s) 
+{
+    while(*s && *s != '\n' && *s != '\r') s++;
+ 
+    *s = 0;
+}
+*/
