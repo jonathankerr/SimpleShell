@@ -192,7 +192,6 @@ void setpath(char** tokens)
 
 /* 
 	Removes new line character (\n) from string
-
 void chomp(char *s) 
 {
     while(*s && *s != '\n' && *s != '\r') s++;
