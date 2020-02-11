@@ -11,9 +11,9 @@ int main()
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 
-    //printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
+    printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
-	//setToHomeDir(); // Sets cwd to users home dir
+	setToHomeDir(); // Sets cwd to users home dir
 
     while (!terminated)
     {
@@ -23,14 +23,13 @@ int main()
 
 		fgets(input, MAX_USERINPUT, stdin);
 		tokenize(*tokens, input);
+<<<<<<< HEAD
 		launchChild(*tokens);
 		//parse(*tokens);
+=======
+>>>>>>> 83a87107dcd5f540c3fce8770f1729f8ee634817
 
-		if (!strcmp(input, "getpath\n")) //allows user to see their current env path
-		{
-			printf("->");
-			//getPath();
-		}
+		parseInput(*tokens);
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
