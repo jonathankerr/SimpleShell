@@ -27,9 +27,12 @@ void tokenize(char* tokens, char* input)
 			//printf("%s\n", token); // Uncomment to test (part 1)
 			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 
-			token = strtok(NULL, " \t|><&;");	
+			token = strtok(NULL, " \t|><&;");
+			
+			counter++;
 		}
-		//strcpy(&tokens[counter], NULL); //making sure tokens is NULL terminating
+		
+		//strcpy(&tokens[counter], NULL); // Making sure tokens is NULL terminating (Hares: I'm confused?)
 	}
 }
 
@@ -105,6 +108,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 	return shellStatus;
 }
 
+/*
 // UNTESTED IN LINUX
 int launchChild(char* tokens)
 { 
@@ -143,12 +147,9 @@ int launchChild(char* tokens)
 		fflush(stdin); //safety 
     }
 
-    return 1;
-	
+    return 1;	
 }
-
-	
-// test
+*/
 
 char* getCWD()
 {
@@ -187,7 +188,6 @@ char getPath()
 	printf("%s\n", getenv("PATH"));
 	printf("\n");
 }
-
 
 /*
 void setPath(char** tokens)
