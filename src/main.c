@@ -23,11 +23,8 @@ int main()
 
 		fgets(input, MAX_USERINPUT, stdin);
 		tokenize(*tokens, input);
-<<<<<<< HEAD
 		launchChild(*tokens);
 		//parse(*tokens);
-=======
->>>>>>> 83a87107dcd5f540c3fce8770f1729f8ee634817
 
 		parseInput(*tokens);
 	
