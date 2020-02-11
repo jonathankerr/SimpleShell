@@ -145,13 +145,13 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
-/*
+
 char getPath()
 {
-	//printf(getenv("PATH"));
-	//printf("\n");
+	printf(getenv("PATH"));
+	printf("\n");
 }
-*/
+
 
 /*
 void setpath(char** tokens)

@@ -28,7 +28,7 @@ int main()
 		if (!strcmp(input, "getpath\n")) //allows user to see their current env path
 		{
 			printf("->");
-			//getPath();
+			getPath();
 		}
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed

@@ -31,6 +31,6 @@ int launchChild(char** tokens);
 char* getCWD();
 char *getenv(const char *name);
 void setToHomeDir();
-//char getPath();
+char getPath();
 void setpath(char** tokens);
 void chomp(char *s);
