@@ -7,31 +7,34 @@
 
 int main() 
 {
-	char* initDir = getCWD();
-	bool terminated = FALSE;
+	char* initDir = getCWD(); // Value of initial workding directory
+	bool terminated = FALSE; // Boolean value that determines whether shell should be terminated or not
 	char** tokens; // Array of strings that will hold 50 strings of 50 characters each
 
     //printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
-	setToHomeDir(); // Sets cwd to users home dir
+	//setToHomeDir(); // Sets cwd to users home dir
 
     while (!terminated)
     {
-		char input[MAX_INPUT];
+		char input[MAX_USERINPUT];
 
 		printf("%s", prompt);
 
 		fgets(input, 9999, stdin); // DO NOT REMOVE 9999
 		tokens = tokenize(input);
+		//parse(tokens);
 
-		if (strcmp(input, "getpath\n") == 0) //allows user to see their current env path
+		if (!strcmp(input, "getpath\n")) //allows user to see their current env path
 		{
 			printf("->");
-			getPath();
+			//getPath();
 		}
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
-		// Also sets the current working directory to the initial current working directory
-		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), initDir);
+		// Also sets the current working directory to the initial working directory
+		terminated = exitShell(input, (strcmp(input, "exit\n") == 0 || feof(stdin)), "lol");
     }
+
+	return 0;
 }

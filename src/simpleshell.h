@@ -5,13 +5,13 @@ typedef int bool;
 
 /* Maximum number of characters user input 
    can contain */
-#define MAX_INPUT 512 
+#define MAX_USERINPUT 512 
 
 /* Maximum number of tokens shell will parse */
 #define MAX_SIZE 50
 
 /* Path on start of application, saved for exit */
-#define START_PATH getenv("PATH")
+//#define START_PATH getenv("PATH")
 
 /* Home Directory */
 #define HOME_DIR getenv("HOME")
@@ -26,10 +26,12 @@ static const char delims[] = " \t|><&;";
 /* Function declarations */
 
 char** tokenize(char* input);
+int parse(char** tokens);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char** tokens);
 char* getCWD();
 char *getenv(const char *name);
 void setToHomeDir();
-char getPath();
-void setpath(char** tokens)
+//char getPath();
+void setpath(char** tokens);
+void chomp(char *s);
