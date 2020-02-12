@@ -1,10 +1,4 @@
 #pragma region Libraries
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <limits.h>
-#include <sys/stat.h>
 #include "simpleshell.h"
 #pragma endregion
 
@@ -199,11 +193,14 @@ void chomp(char *s)
     *s = 0;
 }
 
+
 #pragma region Command definitions
 
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char* tokens)
 {
+	int success = 0;
+
 	if (&tokens[1] == NULL)
 	{
 		printf("Please enter a directory using syntax: cd [directory name].\n\n");
@@ -223,8 +220,11 @@ int changeDirectory(char* tokens)
 		{
 			nextDir = strcat(cwd, &tokens[1]);
 		}
-
-		int success = chdir(nextDir);
+		
+		//if ()
+		//{
+			int success = chdir(nextDir);
+		//}
 
 		//printf("%s\n", getCWD()); // Uncomment to test (part 4)
 

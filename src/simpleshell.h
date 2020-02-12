@@ -1,3 +1,12 @@
+#pragma region Libraries
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <limits.h>
+#include <sys/stat.h>
+#pragma endregion
+
 /* Boolean values */
 #define TRUE 1
 #define FALSE 0
