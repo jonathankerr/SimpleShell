@@ -90,7 +90,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 		char output[25];
 
 		// Determines what message to print
-		if (!strcmp(input, "exit\n"))
+		if (!strcmp(input, "exit"))
 		{
 			sprintf(output, "%s Closing program...\n", prompt);
 		}
