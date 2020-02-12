@@ -145,6 +145,23 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
+/* 
+	Removes new line character (\n) from string
+*/
+void chomp(char *s) 
+{
+    while(*s && *s != '\n' && *s != '\r') s++;
+ 
+    *s = 0;
+}
+
+#pragma region Command definitions
+
+void getPath()
+{
+	printf("%s\n", getenv("PATH"));
+	printf("\n");
+}
 
 void setPath(char* tokens)
 {
@@ -175,25 +192,6 @@ void setPath(char* tokens)
     }
 	
     return;
-}
-
-/* 
-	Removes new line character (\n) from string
-*/
-void chomp(char *s) 
-{
-    while(*s && *s != '\n' && *s != '\r') s++;
- 
-    *s = 0;
-}
-
-
-#pragma region Command definitions
-
-void getPath()
-{
-	printf("%s\n", getenv("PATH"));
-	printf("\n");
 }
 
 /* Change Directory (cd) command: changes directory to given input */

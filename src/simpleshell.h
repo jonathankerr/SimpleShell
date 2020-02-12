@@ -44,10 +44,10 @@ int launchChild(char* tokens);
 char* getCWD();
 char* getInitDir();
 void setToHomeDir();
-void setPath(char** tokens);
 void chomp(char *s);
 
 /* Command definitions */
 
+void setPath(char* tokens);
 void getPath();
 int changeDirectory(char* tokens);
