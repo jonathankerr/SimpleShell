@@ -38,48 +38,15 @@ void tokenize(char* tokens, char* input)
 
 int parseInput(char* tokens)
 {
+	int success = 0;
+
 	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
 	}
-	// Change Directory (cd) command: changes directory to given input.
 	else if (!strcmp(&tokens[0], "cd"))
 	{
-		if (&tokens[1] == NULL)
-		{
-			printf("Please enter a directory using syntax: cd [directory name].\n\n");
-		}
-		else
-		{
-			printf("true\n");
-			char* cwd = getCWD();
-			char* dir = strcat(cwd, "/");
-			//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
-			char* nextDir;
-
-			if (strstr(&tokens[1], ".") != NULL || strlen(&tokens[1]) < 3)
-			{
-				strcpy(nextDir, cwd);
-			}
-			else
-			{
-				nextDir = strcat(cwd, &tokens[1]);
-			}
-
-			int success = chdir(nextDir);
-
-			//printf("%s\n", getCWD()); // Uncomment to test (part 4)
-
-			if (success == -1)
-			{
-				perror("Error");
-				return success;
-			}
-			else
-			{
-				printf("success\n");
-			}
-		}
+		success = changeDirectory(tokens);
     }
 }
 
@@ -230,3 +197,46 @@ void chomp(char *s)
  
     *s = 0;
 }
+
+#pragma region Command definitions
+
+/* Change Directory (cd) command: changes directory to given input */
+int changeDirectory(char* tokens)
+{
+	if (&tokens[1] == NULL)
+	{
+		printf("Please enter a directory using syntax: cd [directory name].\n\n");
+	}
+	else
+	{
+		printf("true\n");
+		char* cwd = getCWD();
+		char* dir = strcat(cwd, "/");
+		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
+		char* nextDir;
+		if (strstr(&tokens[1], ".") != NULL || strlen(&tokens[1]) < 3)
+		{
+			strcpy(nextDir, cwd);
+		}
+		else
+		{
+			nextDir = strcat(cwd, &tokens[1]);
+		}
+
+		int success = chdir(nextDir);
+
+		//printf("%s\n", getCWD()); // Uncomment to test (part 4)
+
+		if (success == -1)
+		{
+			perror("Error");
+			return success;
+		}
+		else
+		{
+			printf("success\n");
+		}
+	}
+}
+
+#pragma endregion

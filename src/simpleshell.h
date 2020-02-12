@@ -37,3 +37,7 @@ void setToHomeDir();
 char getPath();
 void setPath(char** tokens);
 void chomp(char *s);
+
+/* Command definitions */
+
+int changeDirectory(char* tokens);
