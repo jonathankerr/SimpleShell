@@ -146,19 +146,19 @@ void setToHomeDir()
 }
 
 
-/*
-void setPath(char** tokens)
+void setPath(char* tokens)
 {
-    if (tokens[1] !=NULL)
+    if (&tokens[1] !=NULL)
 	{
-        if (tokens[2] == NULL)
+        if (&tokens[2] == NULL)
 		{
-            printf("Set path to: %sn", token[1]);
+            printf("Set path to: %sn", &tokens[1]);
 
-            if (setenv("PATH", tokens[1], 1 == 0)
+            if (setenv("PATH", tokens[1], 1 == 0))
 			{
                 printf("Path change successful.\n");
-            }
+			}
+            
             else
 			{
                 printf("Invalid path.\n");
@@ -176,7 +176,6 @@ void setPath(char** tokens)
 	
     return;
 }
-*/
 
 /* 
 	Removes new line character (\n) from string
