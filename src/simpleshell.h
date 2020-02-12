@@ -1,3 +1,13 @@
+#pragma region Libraries
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <limits.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#pragma endregion
+
 /* Boolean values */
 #define TRUE 1
 #define FALSE 0
@@ -34,10 +44,10 @@ int launchChild(char* tokens);
 char* getCWD();
 char* getInitDir();
 void setToHomeDir();
-char getPath();
 void setPath(char** tokens);
 void chomp(char *s);
 
 /* Command definitions */
 
+void getPath();
 int changeDirectory(char* tokens);

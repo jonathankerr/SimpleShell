@@ -1,10 +1,4 @@
 #pragma region Libraries
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <limits.h>
-#include <sys/stat.h>
 #include "simpleshell.h"
 #pragma endregion
 
@@ -151,25 +145,20 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
-char getPath()
-{
-	printf("%s\n", getenv("PATH"));
-	printf("\n");
-}
 
-/*
-void setPath(char** tokens)
+void setPath(char* tokens)
 {
-    if (tokens[1] !=NULL)
+    if (&tokens[1] !=NULL)
 	{
-        if (tokens[2] == NULL)
+        if (&tokens[2] == NULL)
 		{
-            printf("Set path to: %sn", token[1]);
+            printf("Set path to: %sn", &tokens[1]);
 
-            if (setenv("PATH", tokens[1], 1 == 0)
+            if (setenv("PATH", tokens[1], 1 == 0))
 			{
                 printf("Path change successful.\n");
-            }
+			}
+            
             else
 			{
                 printf("Invalid path.\n");
@@ -187,7 +176,6 @@ void setPath(char** tokens)
 	
     return;
 }
-*/
 
 /* 
 	Removes new line character (\n) from string
@@ -199,11 +187,20 @@ void chomp(char *s)
     *s = 0;
 }
 
+
 #pragma region Command definitions
+
+void getPath()
+{
+	printf("%s\n", getenv("PATH"));
+	printf("\n");
+}
 
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char* tokens)
 {
+	int success = 0;
+
 	if (&tokens[1] == NULL)
 	{
 		printf("Please enter a directory using syntax: cd [directory name].\n\n");
@@ -223,8 +220,11 @@ int changeDirectory(char* tokens)
 		{
 			nextDir = strcat(cwd, &tokens[1]);
 		}
-
-		int success = chdir(nextDir);
+		
+		//if ()
+		//{
+			int success = chdir(nextDir);
+		//}
 
 		//printf("%s\n", getCWD()); // Uncomment to test (part 4)
 
