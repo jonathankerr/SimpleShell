@@ -145,11 +145,6 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
-char getPath()
-{
-	printf("%s\n", getenv("PATH"));
-	printf("\n");
-}
 
 /*
 void setPath(char** tokens)
@@ -195,6 +190,12 @@ void chomp(char *s)
 
 
 #pragma region Command definitions
+
+void getPath()
+{
+	printf("%s\n", getenv("PATH"));
+	printf("\n");
+}
 
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char* tokens)
