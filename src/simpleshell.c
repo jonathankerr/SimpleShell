@@ -15,15 +15,15 @@ void tokenize(char* tokens, char* input)
 		int counter = 0;
 
 		while (token != NULL)
-		{	
+		{
 			chomp(token);
 			strcpy(&tokens[counter], token); // Adds token to array of tokens
 
-			//printf("%s\n", token); // Uncomment to test (part 1)
-			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
-
-			token = strtok(NULL, " \t|><&;");
+			printf("%s\n", token); // Uncomment to test (part 1)
+			//printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 			
+			token = strtok(NULL, delims);
+
 			counter++;
 		}
 		
@@ -34,10 +34,15 @@ void tokenize(char* tokens, char* input)
 int parseInput(char* tokens)
 {
 	int success = 0;
+	printf("%s\n\n", &tokens[0]);
 
 	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
+	}
+	else if (!strcmp(&tokens[0], "setpath"))
+	{
+		setPath(tokens);
 	}
 	else if (!strcmp(&tokens[0], "cd"))
 	{
@@ -171,7 +176,7 @@ void setPath(char* tokens)
 		{
             printf("Set path to: %sn", &tokens[1]);
 
-            if (setenv("PATH", tokens[1], 1 == 0))
+            if (setenv("PATH", &tokens[1], 1 == 0))
 			{
                 printf("Path change successful.\n");
 			}
@@ -190,8 +195,6 @@ void setPath(char* tokens)
 	{
         printf("No path has been provided.\n");
     }
-	
-    return;
 }
 
 /* Change Directory (cd) command: changes directory to given input */
