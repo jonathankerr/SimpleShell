@@ -1,7 +1,4 @@
 #pragma region Libraries
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "simpleshell.h"
 #pragma endregion
 
