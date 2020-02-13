@@ -15,7 +15,7 @@ void tokenize(char* tokens, char* input)
 		int counter = 0;
 
 		while (token != NULL)
-		{	
+		{
 			chomp(token);
 			strcpy(&tokens[counter], token); // Adds token to array of tokens
 
@@ -23,7 +23,12 @@ void tokenize(char* tokens, char* input)
 			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 
 			token = strtok(NULL, delims);
+
+			//printf("%s\n", token); // Uncomment to test (part 1)
+			//printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 			
+			token = strtok(NULL, delims);
+
 			counter++;
 		}
 		
@@ -34,10 +39,15 @@ void tokenize(char* tokens, char* input)
 int parseInput(char* tokens)
 {
 	int success = 0;
+	printf("%s\n\n", &tokens[0]);
 
 	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
+	}
+	else if (!strcmp(&tokens[0], "setpath"))
+	{
+		setPath(tokens);
 	}
 	else if (!strcmp(&tokens[0], "cd"))
 	{
@@ -145,6 +155,23 @@ void setToHomeDir()
 	chdir(HOME_DIR);
 }
 
+/* 
+	Removes new line character (\n) from string
+*/
+void chomp(char *s) 
+{
+    while(*s && *s != '\n' && *s != '\r') s++;
+ 
+    *s = 0;
+}
+
+#pragma region Command definitions
+
+void getPath()
+{
+	printf("%s\n", getenv("PATH"));
+	printf("\n");
+}
 
 void setPath(char* tokens)
 {
@@ -154,7 +181,7 @@ void setPath(char* tokens)
 		{
             printf("Set path to: %sn", &tokens[1]);
 
-            if (setenv("PATH", tokens[1], 1 == 0))
+            if (setenv("PATH", &tokens[1], 1 == 0))
 			{
                 printf("Path change successful.\n");
 			}
@@ -173,27 +200,6 @@ void setPath(char* tokens)
 	{
         printf("No path has been provided.\n");
     }
-	
-    return;
-}
-
-/* 
-	Removes new line character (\n) from string
-*/
-void chomp(char *s) 
-{
-    while(*s && *s != '\n' && *s != '\r') s++;
- 
-    *s = 0;
-}
-
-
-#pragma region Command definitions
-
-void getPath()
-{
-	printf("%s\n", getenv("PATH"));
-	printf("\n");
 }
 
 /* Change Directory (cd) command: changes directory to given input */
