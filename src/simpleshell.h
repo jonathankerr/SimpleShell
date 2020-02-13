@@ -26,7 +26,6 @@ typedef int bool;
 /* Home Directory */
 #define HOME_DIR getenv("HOME")
 
-//#define ELhttp://www.csl.mtu.edu/cs4411.ck/www/NOTES/process/fork/exec.htmlEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 /* String that will be printed every time 
    user is able to enter a command */
@@ -37,7 +36,7 @@ static const char delims[] = " \t|><&;";
 
 /* Function declarations */
 
-void tokenize(char* tokenAd, char* input);
+void tokenize(char* tokens, char* input);
 int parseInput(char* tokens);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char* tokens);
