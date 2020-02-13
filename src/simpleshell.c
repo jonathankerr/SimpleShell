@@ -21,11 +21,6 @@ void tokenize(char* tokens, char* input)
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
 			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
-
-			token = strtok(NULL, delims);
-
-			//printf("%s\n", token); // Uncomment to test (part 1)
-			//printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 			
 			token = strtok(NULL, delims);
 
@@ -47,16 +42,21 @@ int parseInput(char* tokens)
 	}
 	else if (!strcmp(&tokens[0], "setpath"))
 	{
-		setPath(tokens);
+		//setPath(tokens);
 	}
 	else if (!strcmp(&tokens[0], "cd"))
 	{
 		success = changeDirectory(tokens);
     }
+
+	return success;
 }
 
 bool exitShell(char* input, bool shellStatus, char* dir)
 {
+
+	printf("\n");
+
 	if (shellStatus)
 	{
 		char output[25];
@@ -173,6 +173,7 @@ void getPath()
 	printf("\n");
 }
 
+/*
 void setPath(char* tokens)
 {
     if (&tokens[1] !=NULL)
@@ -201,6 +202,7 @@ void setPath(char* tokens)
         printf("No path has been provided.\n");
     }
 }
+*/
 
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char* tokens)

@@ -22,11 +22,11 @@ int main()
 		printf("%s", prompt);
 
 		fgets(input, MAX_USERINPUT, stdin);
-		tokenize(*tokens, input);
-		//launchChild(*tokens);
-		//parse(*tokens);
+		//printf("\nInput: %s\n", input);
 
-		parseInput(*tokens);
+		tokenize(*tokens, input);
+
+		//parseInput(*tokens);
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
