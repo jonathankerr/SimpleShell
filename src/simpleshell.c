@@ -22,7 +22,7 @@ void tokenize(char* tokens, char* input)
 			//printf("%s\n", token); // Uncomment to test (part 1)
 			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
 
-			token = strtok(NULL, " \t|><&;");
+			token = strtok(NULL, delims);
 			
 			counter++;
 		}
