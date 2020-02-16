@@ -8,21 +8,14 @@ int main()
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 
-	/*
-	int counter = 0;
-	while (counter < 50)
-	{
-		strcpy(tokens[counter], "");
-		counter++;
-	}
-	*/
-
     printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
 	setToHomeDir(); // Sets cwd to users home dir
 
     while (!terminated)
     {
+		emptyArray(*tokens);
+
 		char input[MAX_USERINPUT];
 
 		printf("%s", prompt);
@@ -35,7 +28,7 @@ int main()
 		//int counter = 0;
 		//while (counter < 50)
 		//{
-			printf("\n%s\n", tokens[0]);
+			printf("\n%s\n", tokens[50]);
 		//	counter++;
 		//}
 

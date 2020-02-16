@@ -36,6 +36,7 @@ static const char delims[] = " \t|><&;";
 
 /* Function declarations */
 
+void emptyArray(char* tokens);
 void tokenize(char* tokens, char* input);
 int parseInput(char* tokens);
 bool exitShell(char* input, bool shellStatus, char* dir);

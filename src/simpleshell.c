@@ -2,6 +2,16 @@
 #include "simpleshell.h"
 #pragma endregion
 
+void emptyArray(char* tokens)
+{
+	int counter = 0;
+	while (counter < MAX_SIZE)
+	{
+		strcpy(&tokens[counter], "");
+		counter++;
+	}
+}
+
 void tokenize(char* tokens, char* input)
 {
 	if (strlen(input) > MAX_USERINPUT)
