@@ -45,7 +45,7 @@ char* getCWD();
 char* getInitDir();
 void setToHomeDir();
 void chomp(char *s);
-
+void runCommand(char tokens[50][512]);
 /* Command definitions */
 
 void setPath(char* tokens);
