@@ -31,7 +31,7 @@ void tokenize(char tokens[50][512], char* input)
 			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
-			printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
+			//printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
 			
 			token = strtok(NULL, delims);
 
@@ -40,19 +40,19 @@ void tokenize(char tokens[50][512], char* input)
 		
 		
 	}
-	int counter = 0;
-		while (counter < 10)
-		{
-			printf("%s\n", tokens[counter]);
-			counter++;
-		}
+	//int counter = 0;
+	//	while (counter < 10)
+	//	{
+	//		printf("%s\n", tokens[counter]);
+	//		counter++;
+	//	}
 
 }
 
-int parseInput(char* tokens)
+int parseInput(char tokens[50][512])
 {
 	int success = 0;
-	printf("%s\n\n", &tokens[0]);
+	//printf("%s\n\n", &tokens[1]);
 
 	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
 	{
@@ -60,7 +60,7 @@ int parseInput(char* tokens)
 	}
 	else if (!strcmp(&tokens[0], "setpath"))
 	{
-		//setPath(tokens);
+		setPath(tokens);
 	}
 	else if (!strcmp(&tokens[0], "cd"))
 	{
@@ -191,8 +191,19 @@ void getPath()
 	printf("\n");
 }
 
+
+void setPath(char tokens[50][512])
+{
+
+	//printf("%s\n\n", &tokens[1]);
+
+	const char *path = &tokens[1];
+
+	setenv("PATH", path, 1);
+}
+
+
 /*
-void setPath(char* tokens)
 {
     if (&tokens[1] !=NULL)
 	{

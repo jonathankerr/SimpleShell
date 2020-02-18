@@ -38,7 +38,7 @@ static const char delims[] = " \t|><&;";
 
 void emptyArray(char* tokens);
 void tokenize(char tokens[50][512], char* input);
-int parseInput(char* tokens);
+int parseInput(char tokens[50][512]);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char* tokens);
 char* getCWD();
@@ -48,6 +48,6 @@ void chomp(char *s);
 
 /* Command definitions */
 
-void setPath(char* tokens);
+void setPath(char tokens[50][512]);
 void getPath();
 int changeDirectory(char* tokens);

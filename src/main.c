@@ -32,7 +32,7 @@ int main()
 			//counter++;
 		//}
 
-		//parseInput(*tokens);
+		parseInput(*tokens);
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
