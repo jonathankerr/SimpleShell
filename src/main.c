@@ -23,13 +23,13 @@ int main()
 		fgets(input, MAX_USERINPUT, stdin);
 		//printf("\nInput: %s\n", input);
 
-		tokenize(*tokens, input);
+		tokenize(tokens, input);
 
 		//int counter = 0;
 		//while (counter < 50)
 		//{
-			printf("\n%s\n", tokens[50]);
-		//	counter++;
+			//printf("\n%s\n", tokens[counter]);
+			//counter++;
 		//}
 
 		//parseInput(*tokens);

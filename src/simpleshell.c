@@ -12,8 +12,9 @@ void emptyArray(char* tokens)
 	}
 }
 
-void tokenize(char* tokens, char* input)
+void tokenize(char tokens[50][512], char* input)
 {
+	
 	if (strlen(input) > MAX_USERINPUT)
 	{
 		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
@@ -27,18 +28,25 @@ void tokenize(char* tokens, char* input)
 		while (token != NULL)
 		{
 			chomp(token);
-			strcpy(&tokens[counter], token); // Adds token to array of tokens
+			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
-			printf("%s\n", &tokens[counter]); // Uncomment to test (part 2)
+			printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
 			
 			token = strtok(NULL, delims);
 
 			counter++;
 		}
 		
-		//strcpy(&tokens[counter], NULL); // Making sure tokens is NULL terminating (Hares: I'm confused?)
+		
 	}
+	int counter = 0;
+		while (counter < 10)
+		{
+			printf("%s\n", tokens[counter]);
+			counter++;
+		}
+
 }
 
 int parseInput(char* tokens)
