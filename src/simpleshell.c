@@ -32,7 +32,7 @@ void tokenize(char tokens[50][512], char* input)
 			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
-			printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
+			//printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
 			
 			token = strtok(NULL, delims);
 
@@ -43,6 +43,7 @@ void tokenize(char tokens[50][512], char* input)
 		
 		
 	}
+<<<<<<< HEAD
 	//testing
 	int counter = 0;
 		while (counter < 10)
@@ -54,23 +55,31 @@ void tokenize(char tokens[50][512], char* input)
 			counter++;
 		}
 	fflush(stdout);
+=======
+	//int counter = 0;
+	//	while (counter < 10)
+	//	{
+	//		printf("%s\n", tokens[counter]);
+	//		counter++;
+	//	}
+>>>>>>> 6821cd42253b2fd886247d9ad47b9e99ccb6185f
 
 }
 
-int parseInput(char* tokens)
+int parseInput(char tokens[50][512])
 {
 	int success = 0;
-	printf("%s\n\n", &tokens[0]);
+	//printf("%s\n\n", &tokens[1]);
 
-	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
+	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
 	}
-	else if (!strcmp(&tokens[0], "setpath"))
+	else if (!strcmp(tokens[0], "setpath"))
 	{
-		//setPath(tokens);
+		setPath(tokens);
 	}
-	else if (!strcmp(&tokens[0], "cd"))
+	else if (!strcmp(tokens[0], "cd"))
 	{
 		success = changeDirectory(tokens);
     }
@@ -234,8 +243,23 @@ void getPath()
 	printf("\n");
 }
 
+
+void setPath(char tokens[50][512])
+{
+
+	printf("%s\n\n", tokens[1]);
+
+	const char *path = tokens[1];
+
+	if(&tokens[1] == NULL){
+		printf("We will now input");
+	}
+
+	setenv("PATH", path, 1);
+}
+
+
 /*
-void setPath(char* tokens)
 {
     if (&tokens[1] !=NULL)
 	{
@@ -266,8 +290,9 @@ void setPath(char* tokens)
 */
 
 /* Change Directory (cd) command: changes directory to given input */
-int changeDirectory(char* tokens)
+int changeDirectory(char tokens[50][512])
 {
+	/*
 	int success = 0;
 
 	if (&tokens[1] == NULL)
@@ -307,6 +332,8 @@ int changeDirectory(char* tokens)
 			printf("success\n");
 		}
 	}
+	*/
+	return 0;
 }
 
 #pragma endregion
