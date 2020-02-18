@@ -7,7 +7,7 @@ void emptyArray(char* tokens)
 	int counter = 0;
 	while (counter < MAX_SIZE)
 	{
-		strcpy(&tokens[counter], "");
+		strcpy(&tokens[counter], "\0");
 		counter++;
 	}
 }
@@ -54,15 +54,15 @@ int parseInput(char tokens[50][512])
 	int success = 0;
 	//printf("%s\n\n", &tokens[1]);
 
-	if (!strcmp(&tokens[0], "getpath")) //allows user to see their current env path
+	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
 	}
-	else if (!strcmp(&tokens[0], "setpath"))
+	else if (!strcmp(tokens[0], "setpath"))
 	{
 		setPath(tokens);
 	}
-	else if (!strcmp(&tokens[0], "cd"))
+	else if (!strcmp(tokens[0], "cd"))
 	{
 		success = changeDirectory(tokens);
     }
@@ -195,9 +195,13 @@ void getPath()
 void setPath(char tokens[50][512])
 {
 
-	//printf("%s\n\n", &tokens[1]);
+	printf("%s\n\n", tokens[1]);
 
-	const char *path = &tokens[1];
+	const char *path = tokens[1];
+
+	if(&tokens[1] == NULL){
+		printf("We will now input");
+	}
 
 	setenv("PATH", path, 1);
 }
@@ -234,8 +238,9 @@ void setPath(char tokens[50][512])
 */
 
 /* Change Directory (cd) command: changes directory to given input */
-int changeDirectory(char* tokens)
+int changeDirectory(char tokens[50][512])
 {
+	/*
 	int success = 0;
 
 	if (&tokens[1] == NULL)
@@ -275,6 +280,8 @@ int changeDirectory(char* tokens)
 			printf("success\n");
 		}
 	}
+	*/
+	return 0;
 }
 
 #pragma endregion

@@ -50,4 +50,4 @@ void chomp(char *s);
 
 void setPath(char tokens[50][512]);
 void getPath();
-int changeDirectory(char* tokens);
+int changeDirectory(char tokens[50][512]);
