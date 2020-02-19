@@ -6,7 +6,7 @@ int main()
 {
 	char* initDir = getCWD();
 	bool terminated = FALSE;
-	char* tokens[MAX_SIZE];  // Array of strings that will hold 50 strings of 50 characters each
+	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 
     printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
 
@@ -14,7 +14,7 @@ int main()
 
     while (!terminated)
     {
-		emptyArray(*tokens);
+		//emptyArray(*tokens);
 
 		char input[MAX_USERINPUT];
 
@@ -24,7 +24,7 @@ int main()
 		//printf("\nInput: %s\n", input);
 
 		tokenize(tokens, input);
-		runCommand(tokens);
+
 		//int counter = 0;
 		//while (counter < 50)
 		//{

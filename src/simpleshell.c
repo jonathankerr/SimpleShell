@@ -1,6 +1,5 @@
 #pragma region Libraries
 #include "simpleshell.h"
-#include <sys/wait.h>
 #pragma endregion
 
 void emptyArray(char* tokens)
@@ -8,7 +7,7 @@ void emptyArray(char* tokens)
 	int counter = 0;
 	while (counter < MAX_SIZE)
 	{
-		strcpy(&tokens[counter], "\0");
+		strcpy(&tokens[counter], "empty");
 		counter++;
 	}
 }
@@ -38,31 +37,15 @@ void tokenize(char tokens[50][512], char* input)
 
 			counter++;
 		}
-		//token = NULL;
-		//strcpy(tokens[counter], token);
 		
 		
 	}
-<<<<<<< HEAD
-	//testing
-	int counter = 0;
-		while (counter < 10)
-		{
-			for(int abc = 0; abc < 10; abc++){
-				printf("%x", tokens[counter][abc]);
-			}
-			printf("\n");
-			counter++;
-		}
-	fflush(stdout);
-=======
 	//int counter = 0;
 	//	while (counter < 10)
 	//	{
 	//		printf("%s\n", tokens[counter]);
 	//		counter++;
 	//	}
->>>>>>> 6821cd42253b2fd886247d9ad47b9e99ccb6185f
 
 }
 
@@ -116,7 +99,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 }
 
 /*
-// UNTESTED IN LINUX SHAME
+// UNTESTED IN LINUX
 int launchChild(char* tokens)
 { 
 	
@@ -157,41 +140,6 @@ int launchChild(char* tokens)
     return 1;	
 }
 */
-
-void runCommand(char tokens[50][512]){
-	pid_t c_pid, pid;
-	int status;
-
-	c_pid = fork();
-
-	if(c_pid == -1){
-		perror("forked up");
-		_exit(1);
-	}
-
-	if(c_pid == 0){
-		printf("Child started"); //testing
-		
-		int check = execv(tokens[0], tokens);
-		perror("ERROR: ");
-		if(check == -1){ //checks for failed execv (-1)
-			_exit(1);
-		}
-		
-		
-	}
-	else if (c_pid > 0){
-
-		if((pid = wait(&status)) < 0){
-			perror("wait failed");
-			_exit(1);
-		}
-		
-		printf("parent exited");
-	}
-
-
-}
 
 char* getCWD()
 {
@@ -246,12 +194,18 @@ void getPath()
 
 void setPath(char tokens[50][512])
 {
-
+	printf("We want to set path to: \n");
 	printf("%s\n\n", tokens[1]);
+
+
+	printf("The token following that is\n");
+	printf("%s\n\n", tokens[2]);
+
+
 
 	const char *path = tokens[1];
 
-	if(&tokens[1] == NULL){
+	if(tokens[1] == NULL){
 		printf("We will now input");
 	}
 
