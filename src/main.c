@@ -26,7 +26,7 @@ int main()
 		tokenize(tokens, input);
 
 		//int counter = 0;
-		//while (counter < 50)
+		//while (counter < MAX_SIZE)
 		//{
 			//printf("\n%s\n", tokens[counter]);
 			//counter++;
