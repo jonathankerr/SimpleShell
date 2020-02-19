@@ -25,20 +25,24 @@ void tokenize(char tokens[50][512], char* input)
 		char* token = strtok(input, delims);
 		int counter = 0;
 
+
 		while (token != NULL)
 		{
+			///////////////////////////////////////////
+			strcpy(tokens[1], "undefined");
+			strcpy(tokens[2], "undefined");  //turn this into a function which sets all index to undefined which is called after every execution after input
+//////////////////////////////////////////////////////
+
+
 			chomp(token);
 			strcpy(tokens[counter], token); // Adds token to array of tokens
 
 			//printf("%s\n", token); // Uncomment to test (part 1)
 			//printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
-			
 			token = strtok(NULL, delims);
 
 			counter++;
 		}
-		
-		
 	}
 
 	//int counter = 0;
@@ -47,7 +51,6 @@ void tokenize(char tokens[50][512], char* input)
 	//		printf("%s\n", tokens[counter]);
 	//		counter++;
 	//	}
-
 }
 
 int parseInput(char tokens[50][512])
@@ -195,22 +198,24 @@ void getPath()
 
 void setPath(char tokens[50][512])
 {
-	printf("We want to set path to: \n");
-	printf("%s\n\n", tokens[1]);
+	//The getpath command will only accept and set a path if the command is in the following notation:
+	// getpath <Path>
 
-
-	printf("The token following that is\n");
-	printf("%s\n\n", tokens[2]);
-
-
-
-	const char *path = tokens[1];
-
-	if(tokens[1] == NULL){
-		printf("We will now input");
+	if(strcmp(tokens[1], "undefined"))
+	{ //Valid input
+		printf("Valid input");
+		const char *path = tokens[1];
+		setenv("PATH", path, 1);
+	}
+	else if(!strcmp(tokens[2], "undefined")) //If the third token is still undefined then they have not input anything after "getpath"
+	{
+		printf("Sorry that is not a valid path please use format: getpath <path>");
+	}
+	else if(strcmp(tokens[2], "undefined")) //Checks if they have input a string after the path. E.g. stops getpath <path> <another string here>
+	{
+		printf("Sorry that is not a valid path please use format: getpath <path>");
 	}
 
-	setenv("PATH", path, 1);
 }
 
 

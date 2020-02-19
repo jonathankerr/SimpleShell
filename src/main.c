@@ -15,6 +15,7 @@ int main()
     while (!terminated)
     {
 		//emptyArray(*tokens);
+		
 
 		char input[MAX_USERINPUT];
 
