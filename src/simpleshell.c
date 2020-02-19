@@ -2,6 +2,8 @@
 #include "simpleshell.h"
 #pragma endregion
 
+
+
 void emptyArray(char* tokens)
 {
 	int counter = 0;
@@ -264,5 +266,44 @@ int changeDirectory(char tokens[50][512])
 	*/
 	return 0;
 }
+/*
+char *history[20] = {0}; //Empty History Array
 
+void viewHistory(char *tokens[50][512], char *history[])
+{
+    int counter = 0;
+    if(tokens[1] == 0)
+    {
+    	if(history[0] == 0)
+    	{
+            printf("History is empty\n");
+	    }
+    	else{
+            
+		    int index = 0;
+		    while(history[index] != 0){
+                index++;
+                if(index == (max_hist)){
+                    break;
+                }
+		    }
+		    
+		    // Prints history starting from 1
+		    while(history[index] != 0){
+                printf("%d. %s\n",(index),history[counter]);
+                counter++;
+                index--;
+                if(counter == max_hist){
+                    break;
+                }
+    		}
+    	}
+    }
+    else{
+        //History does not require parameters - prints message if it receieves any
+        printf("History does require any parameters\n");
+    }	
+    return;
+}
+*/
 #pragma endregion
