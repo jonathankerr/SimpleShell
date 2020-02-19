@@ -6,6 +6,7 @@
 #include <limits.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <sys/wait.h>
 #pragma endregion
 
 /* Boolean values */
@@ -34,6 +35,7 @@ static const char prompt[] = "-> ";
 /* Delimiters at which imput will be tokenized */
 static const char delims[] = " \t|><&;";
 
+
 /* Function declarations */
 
 void emptyArray(char* tokens);
@@ -46,6 +48,8 @@ char* getInitDir();
 void setToHomeDir();
 void chomp(char *s);
 void runCommand(char tokens[50][512]);
+
+
 /* Command definitions */
 
 void setPath(char tokens[50][512]);

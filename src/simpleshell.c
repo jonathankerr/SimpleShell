@@ -1,6 +1,5 @@
 #pragma region Libraries
 #include "simpleshell.h"
-#include <sys/wait.h>
 #pragma endregion
 
 void emptyArray(char* tokens)
@@ -43,7 +42,7 @@ void tokenize(char tokens[50][512], char* input)
 		
 		
 	}
-<<<<<<< HEAD
+	
 	//testing
 	int counter = 0;
 		while (counter < 10)
@@ -55,14 +54,13 @@ void tokenize(char tokens[50][512], char* input)
 			counter++;
 		}
 	fflush(stdout);
-=======
+
 	//int counter = 0;
 	//	while (counter < 10)
 	//	{
 	//		printf("%s\n", tokens[counter]);
 	//		counter++;
 	//	}
->>>>>>> 6821cd42253b2fd886247d9ad47b9e99ccb6185f
 
 }
 
