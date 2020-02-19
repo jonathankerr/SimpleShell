@@ -297,7 +297,7 @@ int changeDirectory(char tokens[50][512])
 	*/
 	return 0;
 }
-
+/*
 char *history[20] = {0}; //Empty History Array
 
 void viewHistory(char *tokens[50][512], char *history[])
@@ -336,4 +336,5 @@ void viewHistory(char *tokens[50][512], char *history[])
     }	
     return;
 }
+*/
 #pragma endregion
