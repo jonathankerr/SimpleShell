@@ -201,8 +201,8 @@ void setPath(char tokens[50][512])
 	//The getpath command will only accept and set a path if the command is in the following notation:
 	// getpath <Path>
 
-	if(strcmp(tokens[1], "undefined"))
-	{ //Valid input
+	if(strcmp(tokens[1], "undefined")) //Valid input
+	{ 
 		printf("Valid input");
 		const char *path = tokens[1];
 		setenv("PATH", path, 1);
@@ -217,37 +217,6 @@ void setPath(char tokens[50][512])
 	}
 
 }
-
-
-/*
-{
-    if (&tokens[1] !=NULL)
-	{
-        if (&tokens[2] == NULL)
-		{
-            printf("Set path to: %sn", &tokens[1]);
-
-            if (setenv("PATH", &tokens[1], 1 == 0))
-			{
-                printf("Path change successful.\n");
-			}
-            
-            else
-			{
-                printf("Invalid path.\n");
-            }
-        }
-        else
-		{
-            printf("Excessive amount of parameters.\n");
-        }
-    }
-    else
-	{
-        printf("No path has been provided.\n");
-    }
-}
-*/
 
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char tokens[50][512])
