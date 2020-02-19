@@ -193,7 +193,7 @@ void chomp(char *s)
 
 void getPath()
 {
-	printf("%s\n", getenv("PATH"));
+	printf("Current Path Is: %s", getenv("PATH"));
 	printf("\n");
 }
 
@@ -205,7 +205,7 @@ void setPath(char tokens[50][512])
 
 	if(strcmp(tokens[1], "undefined")) //Valid input
 	{ 
-		printf("Valid input");
+		printf("Set Path To: %s", tokens[1]);
 		const char *path = tokens[1];
 		setenv("PATH", path, 1);
 	}
