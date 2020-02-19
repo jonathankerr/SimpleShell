@@ -37,17 +37,17 @@ static const char delims[] = " \t|><&;";
 /* Function declarations */
 
 void emptyArray(char* tokens);
-void tokenize(char* tokens, char* input);
-int parseInput(char* tokens);
+void tokenize(char tokens[50][512], char* input);
+int parseInput(char tokens[50][512]);
 bool exitShell(char* input, bool shellStatus, char* dir);
 int launchChild(char* tokens);
 char* getCWD();
 char* getInitDir();
 void setToHomeDir();
 void chomp(char *s);
-
+void runCommand(char tokens[50][512]);
 /* Command definitions */
 
-void setPath(char* tokens);
+void setPath(char tokens[50][512]);
 void getPath();
-int changeDirectory(char* tokens);
+int changeDirectory(char tokens[50][512]);
