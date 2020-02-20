@@ -60,6 +60,7 @@ void setPath(char tokens[50][512]);
 void getPath();
 int changeDirectory(char tokens[50][512]);
 //void viewHistory(char *tokens[50][512], char *history[]);
+void addHistory(char *input);
 
 /* Debugging functions */
 

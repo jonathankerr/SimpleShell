@@ -22,9 +22,8 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]){
 	while(strcmp(tokens[count], "\0")){
 		printf("\n %s ", tokens[count++]);
 	}
-
-
 }
+
 void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 
@@ -70,6 +69,9 @@ int parseInput(char tokens[50][512])
 {
 	int success = 0;
 	//printf("%s\n\n", &tokens[1]);
+
+	//addHistory(tokens[50][512]); //adds command to history
+
 
 	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
@@ -242,11 +244,6 @@ void setPath(char tokens[50][512])
 {
 	//The getpath command will only accept and set a path if the command is in the following notation:
 	// getpath <Path>
-
-
-	//printf("\nToken 1: %s", tokens[0]);
-	//printf("\nToken 2: %s", tokens[1]);
-	//printf("\nToken 3: %s\n", tokens[2]);
 	
 	if(!strcmp(tokens[1], "\0")) //if the second token is empty
 	{
@@ -267,23 +264,6 @@ void setPath(char tokens[50][512])
 		setenv("PATH", path, 1);
 	}
 
-	
-	/*
-	if(strcmp(tokens[1], "/0")) //Valid input
-	{ 
-		printf("Set Path To: %s", tokens[1]);
-		const char *path = tokens[1];
-		setenv("PATH", path, 1);
-	}
-	else if(!strcmp(tokens[2], "/0")) //If the third token is still undefined then they have not input anything after "getpath"
-	{
-		printf("Sorry that is not a valid path please use format: getpath <path>");
-	}
-	else if(strcmp(tokens[2], "/0")) //Checks if they have input a string after the path. E.g. stops getpath <path> <another string here>
-	{
-		printf("Sorry that is not a valid path please use format: getpath <path>");
-	}
-	*/
 
 }
 
@@ -333,6 +313,60 @@ int changeDirectory(char tokens[50][512])
 	*/
 	return 0;
 }
+
+
+char history[20][512] = {"\0"};  //Empty history array
+void addHistory(char *input){     //adding commands to history
+
+	char *rawInput = input;
+
+	printf("\nThis is what history was sent: %s\n", rawInput);  //gets the raw input before tokenizing
+
+	printf("This is the firt index of history: %s\n", history[0]);
+	
+
+	if(!strcmp(history[0], "\0"))  //if this is the first command
+	{
+		strcpy(history[0], rawInput);
+		printf("\n\nThis is what we saved to history: %s\n", history[0]);	
+	}
+	else if(strcmp(history[0], "\0")) //if previous commands have been made
+	{
+		for(int i=20-1;i>0;i--)
+		{
+			strcpy(history[i], history[i-1]);
+		}
+
+		strcpy(history[0], rawInput);
+
+	}
+
+
+
+
+	/*
+	printf("\nFull History Array: \n");
+	for(int i = 0; i < 20; i++) //loops and shows fully history array
+	{
+		printf("%d: ", i+1);
+		printf("%s\n", history[i]);
+	}
+	*/
+	
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 /*
 char *history[20] = {0}; //Empty History Array
 
@@ -373,4 +407,5 @@ void viewHistory(char *tokens[50][512], char *history[])
     return;
 }
 */
+
 #pragma endregion
