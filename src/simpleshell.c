@@ -2,16 +2,34 @@
 #include "simpleshell.h"
 #pragma endregion
 
-
-
-void emptyArray(char* tokens)
-{
-	int counter = 0;
-	while (counter < MAX_SIZE)
-	{
-		strcpy(&tokens[counter], "empty");
-		counter++;
+//for Debugging
+void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT]){
+	
+	
+	printf("---TESTING 2D ARRAY CONTENTS ---\n");
+	for(int i = 0; i < MAX_SIZE; i++){
+		printf("%i : %s  size = %li \n",i, tokens[i], strlen(tokens[i]));
 	}
+
+
+}
+// prints each token on the terminal, one on each line
+void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]){
+
+	//char **temp = tokens;
+	int count = 0;
+
+	while(strcmp(tokens[count], "\0")){
+		printf("\n %s ", tokens[count++]);
+	}
+
+
+}
+void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
+{
+
+	memset(tokens,'\0', sizeof(tokens[0][0]) * MAX_SIZE * MAX_USERINPUT); //instad of "empty"
+
 }
 
 void tokenize(char tokens[50][512], char* input)
@@ -31,8 +49,8 @@ void tokenize(char tokens[50][512], char* input)
 		while (token != NULL)
 		{
 			///////////////////////////////////////////
-			strcpy(tokens[1], "undefined");
-			strcpy(tokens[2], "undefined");  //turn this into a function which sets all index to undefined which is called after every execution after input
+			//strcpy(tokens[1], "undefined");
+			//strcpy(tokens[2], "undefined");  //turn this into a function which sets all index to undefined which is called after every execution after input
 //////////////////////////////////////////////////////
 
 
@@ -46,13 +64,6 @@ void tokenize(char tokens[50][512], char* input)
 			counter++;
 		}
 	}
-
-	//int counter = 0;
-	//	while (counter < 10)
-	//	{
-	//		printf("%s\n", tokens[counter]);
-	//		counter++;
-	//	}
 }
 
 int parseInput(char tokens[50][512])
@@ -72,6 +83,9 @@ int parseInput(char tokens[50][512])
 	{
 		success = changeDirectory(tokens);
     }
+	else{
+		printf("That functionality is incoming soon.");
+	}
 
 	return success;
 }
@@ -104,48 +118,59 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 	return shellStatus;
 }
 
-/*
-// UNTESTED IN LINUX
-int launchChild(char* tokens)
-{ 
-	
-    pid_t pid, wpid;
-    int status;
+bool isInternalCmd(char* command){
 
-    pid = fork();
-    if (pid == 0) // Child process
-	{
-        if (execvp(tokens[0], &tokens) == -1) 
-		{
-            printf("ohh shit, execvp failed"); //testing
-			perror("execvp called and failed");
-			fflush(stdin);
-        }
+	for(int i = 0; i < numOfFunctions; i++){
+		
+		if(strcmp(internalFunc[i], command) == 0) {
 
-        exit(EXIT_FAILURE);
-    } 
-	else if (pid < 0) // Error forking
-	{
-		printf("we dun forked up"); //testing
-		fflush(stdin);
-        perror("we dun forked up");
-		exit(1);
-    } 
-	else // Parent process
-	{
-		printf("parent started to wait");
-		fflush(stdin);
-        while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		{
-            wpid = waitpid(pid, & status, WUNTRACED);
-        }
-		printf("parent stopped waiting");
-		fflush(stdin); //safety 
-    }
-
-    return 1;	
+			return TRUE;
+		}
+	}
+	return FALSE;
 }
-*/
+
+int tokensCount(char tokens[50][512]){
+	int count = 0;
+
+	for(int i = 0; i < MAX_SIZE; i++){
+		if(strlen(tokens[i]) != 0){
+			count++;
+		}
+	}
+	return count;
+}
+void runExternalCmd(char tokens[50][512]){
+
+	//execv needs null terminated vector so we need
+	// this to work around us using "empty" to mark
+	//the end of the tokenized input
+	char *testArgs[] = {"/bin/ls", "-l", NULL};
+
+	pid_t c_pid, pid;
+	int status;
+
+	c_pid = fork();
+
+	if(c_pid == -1){
+		perror("forked up!");
+
+		_exit(1); //do we need exit in a method call or just a return?
+	}
+	if (c_pid == 0){
+		//execv(tokens[0], tokens);
+		execv(testArgs[0], testArgs);
+		perror("Invalid command entry \n");
+	}
+	else if(c_pid > 0){
+
+		if((pid = wait(&status)) < 0){
+			perror("wait failed\n");
+			_exit(1);//do we need exit in a method call or just a return?
+		}
+		printf("%d", pid);
+    }
+}
 
 char* getCWD()
 {

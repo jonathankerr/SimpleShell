@@ -35,19 +35,23 @@ static const char prompt[] = "-> ";
 /* Delimiters at which imput will be tokenized */
 static const char delims[] = " \t|><&;";
 
+/* Defines the list of internal functions for the shell */
+static const char* internalFunc[] = {"cd", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL };
+static const int numOfFunctions = 10; // this could be a define i think
 
 /* Function declarations */
 
-void emptyArray(char* tokens);
+void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT]);
 void tokenize(char tokens[50][512], char* input);
 int parseInput(char tokens[50][512]);
 bool exitShell(char* input, bool shellStatus, char* dir);
-int launchChild(char* tokens);
 char* getCWD();
 char* getInitDir();
 void setToHomeDir();
 void chomp(char *s);
-void runCommand(char tokens[50][512]);
+void runExternalCmd(char tokens[50][512]);
+bool isInternalCmd(char* command);
+int tokensCount(char tokens[50][512]);
 
 
 /* Command definitions */
@@ -56,3 +60,8 @@ void setPath(char tokens[50][512]);
 void getPath();
 int changeDirectory(char tokens[50][512]);
 //void viewHistory(char *tokens[50][512], char *history[]);
+
+/* Debugging functions */
+
+void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]);
+void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT]);

@@ -14,8 +14,7 @@ int main()
 
     while (!terminated)
     {
-		//emptyArray(*tokens);
-		
+		emptyArray(tokens);
 
 		char input[MAX_USERINPUT];
 
@@ -26,15 +25,19 @@ int main()
 
 		tokenize(tokens, input);
 
-		//int counter = 0;
-		//while (counter < MAX_SIZE)
-		//{
-			//printf("\n%s\n", tokens[counter]);
-			//counter++;
-		//}
+		//printFullArray(tokens);  //uncomment to see if garbage still in arrays unused indexes
+		//printTokens(tokens);  //uncomment to show part one working
 
-		parseInput(tokens);
-	
+
+		/* checks for internal/external cmd, then calls appropriate function */
+		if(isInternalCmd(tokens[0])){
+			parseInput(tokens);
+		}
+		else{
+			printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
+			//runExternalCmd(tokens);
+		}
+		
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
 		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), "lol");
@@ -42,3 +45,4 @@ int main()
 
 	return 0;
 }
+
