@@ -49,8 +49,8 @@ void tokenize(char tokens[50][512], char* input)
 		while (token != NULL)
 		{
 			///////////////////////////////////////////
-			//strcpy(tokens[1], "undefined");
-			//strcpy(tokens[2], "undefined");  //turn this into a function which sets all index to undefined which is called after every execution after input
+			//strcpy(tokens[1], "\0");
+			strcpy(tokens[2], "\0");  //turn this into a function which sets all index to undefined which is called after every execution after input
 //////////////////////////////////////////////////////
 
 
@@ -152,7 +152,14 @@ void runExternalCmd(char tokens[50][512]){
 	int numOfTokens = tokensCount(tokens);
 
 	for(int i = 0; i < numOfTokens; i++){
-		tempArgs[i] = tokens[i];
+		//if(strcmp(tokens[i], "undefined"))
+		//{
+		//	tempArgs[i] = "/0";
+		//}
+		//else 
+		//{
+			tempArgs[i] = tokens[i];
+		//}
 	}
 	tempArgs[numOfTokens] = NULL;
 
@@ -236,20 +243,47 @@ void setPath(char tokens[50][512])
 	//The getpath command will only accept and set a path if the command is in the following notation:
 	// getpath <Path>
 
-	if(strcmp(tokens[1], "undefined")) //Valid input
+
+	//printf("\nToken 1: %s", tokens[0]);
+	//printf("\nToken 2: %s", tokens[1]);
+	//printf("\nToken 3: %s\n", tokens[2]);
+	
+	if(!strcmp(tokens[1], "\0")) //if the second token is empty
+	{
+		printf("You have not entered a path, please use format: getpath <path>");
+	}
+	else if(strcmp(tokens[2], "\0")) //if the third token has a string in it show error
+	{
+		printf("Sorry that is not a valid path please use format: getpath <path>");
+	}
+	else if(strcmp(tokens[3], "\0")) //if the fourth token has a string in it show error
+	{
+		printf("Sorry that is not a valid path please use format: getpath <path>");
+	}
+	else
+	{
+		printf("Set Path To: %s", tokens[1]);
+		const char *path = tokens[1];
+		setenv("PATH", path, 1);
+	}
+
+	
+	/*
+	if(strcmp(tokens[1], "/0")) //Valid input
 	{ 
 		printf("Set Path To: %s", tokens[1]);
 		const char *path = tokens[1];
 		setenv("PATH", path, 1);
 	}
-	else if(!strcmp(tokens[2], "undefined")) //If the third token is still undefined then they have not input anything after "getpath"
+	else if(!strcmp(tokens[2], "/0")) //If the third token is still undefined then they have not input anything after "getpath"
 	{
 		printf("Sorry that is not a valid path please use format: getpath <path>");
 	}
-	else if(strcmp(tokens[2], "undefined")) //Checks if they have input a string after the path. E.g. stops getpath <path> <another string here>
+	else if(strcmp(tokens[2], "/0")) //Checks if they have input a string after the path. E.g. stops getpath <path> <another string here>
 	{
 		printf("Sorry that is not a valid path please use format: getpath <path>");
 	}
+	*/
 
 }
 
