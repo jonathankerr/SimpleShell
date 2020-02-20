@@ -142,9 +142,7 @@ int tokensCount(char tokens[50][512]){
 }
 void runExternalCmd(char tokens[50][512]){
 
-	//execv needs null terminated vector so we need
-	// this to work around us using "empty" to mark
-	//the end of the tokenized input
+
 	char *testArgs[] = {"/bin/ls", "-l", NULL};
 
 	pid_t c_pid, pid;
