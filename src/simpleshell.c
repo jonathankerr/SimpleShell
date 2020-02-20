@@ -85,6 +85,10 @@ int parseInput(char tokens[50][512])
 	{
 		success = changeDirectory(tokens);
     }
+	else if(!strcmp(tokens[0], "history"))
+	{
+		viewHistory();
+	}
 	else{
 		printf("That functionality is incoming soon.");
 	}
@@ -320,11 +324,6 @@ void addHistory(char *input){     //adding commands to history
 
 	char *rawInput = input;
 
-	printf("\nThis is what history was sent: %s\n", rawInput);  //gets the raw input before tokenizing
-
-	printf("This is the firt index of history: %s\n", history[0]);
-	
-
 	if(!strcmp(history[0], "\0"))  //if this is the first command
 	{
 		strcpy(history[0], rawInput);
@@ -340,72 +339,21 @@ void addHistory(char *input){     //adding commands to history
 		strcpy(history[0], rawInput);
 
 	}
+}
 
-
-
-
-	/*
+void viewHistory()
+{
 	printf("\nFull History Array: \n");
 	for(int i = 0; i < 20; i++) //loops and shows fully history array
 	{
 		printf("%d: ", i+1);
 		printf("%s\n", history[i]);
 	}
-	*/
-	
-
-
 }
 
 
 
 
 
-
-
-
-
-
-
-/*
-char *history[20] = {0}; //Empty History Array
-
-void viewHistory(char *tokens[50][512], char *history[])
-{
-    int counter = 0;
-    if(tokens[1] == 0)
-    {
-    	if(history[0] == 0)
-    	{
-            printf("History is empty\n");
-	    }
-    	else{
-            
-		    int index = 0;
-		    while(history[index] != 0){
-                index++;
-                if(index == (max_hist)){
-                    break;
-                }
-		    }
-		    
-		    // Prints history starting from 1
-		    while(history[index] != 0){
-                printf("%d. %s\n",(index),history[counter]);
-                counter++;
-                index--;
-                if(counter == max_hist){
-                    break;
-                }
-    		}
-    	}
-    }
-    else{
-        //History does not require parameters - prints message if it receieves any
-        printf("History does require any parameters\n");
-    }	
-    return;
-}
-*/
 
 #pragma endregion
