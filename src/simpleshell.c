@@ -149,24 +149,34 @@ void runExternalCmd(char tokens[50][512]){
 
 	pid_t c_pid, pid;
 	int status;
+	char* tempArgs[51]; //possible work around allowing us to keep 2D array
+
+	int numOfTokens = tokensCount(tokens);
+
+	for(int i = 0; i < numOfTokens; i++){
+		tempArgs[i] = tokens[i];
+	}
+	tempArgs[numOfTokens] = NULL;
 
 	c_pid = fork();
 
 	if(c_pid == -1){
 		perror("forked up!");
 
-		_exit(1); //do we need exit in a method call or just a return?
+		_exit(1);
 	}
 	if (c_pid == 0){
 		//execv(tokens[0], tokens);
-		execv(testArgs[0], testArgs);
+		//execv(testArgs[0], testArgs);
+		execv(tempArgs[0], tempArgs);
 		perror("Invalid command entry \n");
+		_exit(1); //makes sure it exits
 	}
 	else if(c_pid > 0){
 
 		if((pid = wait(&status)) < 0){
 			perror("wait failed\n");
-			_exit(1);//do we need exit in a method call or just a return?
+			_exit(1);
 		}
 		printf("%d", pid);
     }

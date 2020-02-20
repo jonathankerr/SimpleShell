@@ -34,8 +34,8 @@ int main()
 			parseInput(tokens);
 		}
 		else{
-			printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
-			//runExternalCmd(tokens);
+			//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
+			runExternalCmd(tokens);
 		}
 		
 		// Closes program if exit is typed or if Ctrl-D is pressed
