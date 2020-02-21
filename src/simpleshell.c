@@ -68,7 +68,6 @@ void tokenize(char tokens[50][512], char* input)
 int parseInput(char tokens[50][512])
 {
 	int success = 0;
-	//printf("%s\n\n", &tokens[1]);
 
 	//addHistory(tokens[50][512]); //adds command to history
 
@@ -88,6 +87,9 @@ int parseInput(char tokens[50][512])
 	else if(!strcmp(tokens[0], "history"))
 	{
 		viewHistory();
+	}
+	else if(!strcmp(tokens[0], "!")){
+		printf("I got ya");
 	}
 	else{
 		printf("That functionality is incoming soon.");
@@ -326,8 +328,7 @@ void addHistory(char *input){     //adding commands to history
 
 	if(!strcmp(history[0], "\0"))  //if this is the first command
 	{
-		strcpy(history[0], rawInput);
-		printf("\n\nThis is what we saved to history: %s\n", history[0]);	
+		strcpy(history[0], rawInput);	
 	}
 	else if(strcmp(history[0], "\0")) //if previous commands have been made
 	{
