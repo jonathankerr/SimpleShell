@@ -181,7 +181,7 @@ void runExternalCmd(char tokens[50][512]){
 	if (c_pid == 0){
 		//execv(tokens[0], tokens);
 		//execv(testArgs[0], testArgs);
-		execv(tempArgs[0], tempArgs);
+		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry \n");
 		_exit(1); //makes sure it exits
 	}
