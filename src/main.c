@@ -11,7 +11,7 @@ int main()
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
-	setToHomeDir(); // Sets cwd to users home dir
+	chdir(HOME_DIR); // Sets cwd to users home dir
 
     while (!terminated)
     {
@@ -39,18 +39,18 @@ int main()
 		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), "lol");
 
 		if(!terminated){
-			if(isInternalCmd(tokens[0])){
+			if(isInternalCommand(tokens[0])){
 				parseInput(tokens);
 			}
 			else{
 				//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
-				runExternalCmd(tokens);
+				runExternalCommand(tokens);
 			}
 		}
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
-		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), "lol");
+		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir);
     }
 
 	return 0;

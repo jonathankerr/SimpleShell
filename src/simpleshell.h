@@ -33,7 +33,7 @@ typedef int bool;
 static const char prompt[] = "-> ";
 
 /* Delimiters at which imput will be tokenized */
-static const char delims[] = " \t|><&;";
+static const char DELIMS[] = " \t|><&;";
 
 /* Defines the list of internal functions for the shell */
 static const char* internalFunc[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL, };
@@ -50,7 +50,7 @@ char* getInitDir();
 void setToHomeDir();
 void chomp(char *s);
 void runExternalCmd(char tokens[50][512]);
-bool isInternalCmd(char* command);
+bool isInternalCommand(char* command);
 int tokensCount(char tokens[50][512]);
 
 
