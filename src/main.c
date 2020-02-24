@@ -24,7 +24,8 @@ int main()
 		fgets(input, MAX_USERINPUT, stdin);
 		//printf("\nInput: %s\n", input);
 
-		addHistory(input);  //sends the raw input before tokenizing
+		//history needs an array, currently doesnt have one. it needs either global scope or to be passed as parameter
+		//addHistory(input);  //sends the raw input before tokenizing
 
 		tokenize(tokens, input);
 
@@ -38,14 +39,14 @@ int main()
 
 		if(!terminated)
 		{
-			if (isInternalCommand(tokens[0]))
+			if (isInternalCmd(tokens[0]))
 			{
 				parseInput(tokens);
 			}
 			else
 			{
 				//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
-				runExternalCommand(tokens);
+				runExternalCmd(tokens);
 			}
 		}
 	
