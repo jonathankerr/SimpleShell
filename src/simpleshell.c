@@ -328,6 +328,39 @@ void viewHistory()
 		printf("%d: %s\n", i + 1, history[i]);
 	}
 */}
+
+/* Commented Out until first marking to make sure it doesn't effect anything
+void writeHistory(char* fileName, char *history[20])
+{
+    FILE *writeFile;
+    int counter;
+    filename = strcat(fileName,"/.history");
+    writeFile = fopen ( fileName, "w");
+    
+    if (writeFile == NULL)
+    {
+        printf("Cannot Open File\n");
+        exit(1);
+    }
+    
+    counter = 0
+    
+    while(history[counter] !=0)
+    {
+        fprintf(writeFile,"%s\n", history[counter]);
+        counter++;
+        if(counter = 20)
+        {
+            break;
+        }
+    }
+    fclose (writeFile);
+}
+*/
+
+
+        }
+    }
 #pragma endregion
 
 #pragma region Utility
