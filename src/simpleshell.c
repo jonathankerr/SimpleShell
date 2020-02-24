@@ -147,7 +147,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 */
 bool isInternalCmd(char* command)
 {
-	int size = sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
+	int size = 15// this line caused a seg fault, duno why -> sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
 
 	for (int i = 0; i < size; i++)
 	{
@@ -165,7 +165,7 @@ bool isInternalCmd(char* command)
 */
 void runExternalCmd(char tokens[50][512])
 {
-	char *testArgs[] = {"/bin/ls", "-l", NULL};
+
 
 	pid_t c_pid, pid;
 	int status;
@@ -175,15 +175,9 @@ void runExternalCmd(char tokens[50][512])
 
 	for (int i = 0; i < numOfTokens; i++)
 	{
-		// (Hares: should this if-statement be removed?)
-		//if(strcmp(tokens[i], "undefined"))
-		//{
-		//	tempArgs[i] = "/0";
-		//}
-		//else 
-		//{
+
 			tempArgs[i] = tokens[i];
-		//}
+
 	}
 
 	tempArgs[numOfTokens] = NULL;
@@ -202,7 +196,7 @@ void runExternalCmd(char tokens[50][512])
 		//execv(testArgs[0], testArgs);
 		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry \n");
-		_exit(1); // Makes sure it exits (Hares: ?)
+		_exit(1); // Makes sure it exits (Hares: ?) this causes concurence if execv fails so need exit to cover ass
 	}
 	else if (c_pid > 0)
 	{
@@ -210,7 +204,7 @@ void runExternalCmd(char tokens[50][512])
 			perror("Wait failed; ");
 			_exit(1);
 		}
-		//printf("%d", pid);
+
     }
 }
 
@@ -304,7 +298,7 @@ int changeDirectory(char tokens[50][512])
 	Adds tokens entered by user to history.
 */
 void addHistory(char *input)
-{
+{/*
 	char *rawInput = input;
 
 	if (!strcmp(history[0], "\0"))  // If "history" array was herebefore empty, ...
@@ -320,20 +314,20 @@ void addHistory(char *input)
 
 		strcpy(history[0], rawInput);
 	}
-}
+*/}
 
 /*
 	Prints all the entries in the "history" array.
 */
 void viewHistory()
-{
+{/*
 	printf("\nFull history array: \n"); // (Hares: I don't think this is how we're supposed to show history)
 
 	for (int i = 0; i < 20; i++) // Loops through and prints whole history array.
 	{
 		printf("%d: %s\n", i + 1, history[i]);
 	}
-}
+*/}
 #pragma endregion
 
 #pragma region Utility
