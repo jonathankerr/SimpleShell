@@ -60,4 +60,16 @@ void tokenize(char tokens[50][512], char* input);
 int parseInput(char tokens[50][512]);
 bool exitShell(char* input, bool shellStatus, char* dir);
 char* getCWD();
+
+//had to add these to get it to complile
+void addHistory(char *input);
+bool isInternalCmd(char* command);
+void runExternalCmd(char tokens[50][512]);
+void chomp(char *s);
+void setPath(char tokens[50][512]);
+void getPath();
+int changeDirectory(char tokens[50][512]);
+void viewHistory();
+int tokensCount(char tokens[50][512]);
+
 #pragma endregion
