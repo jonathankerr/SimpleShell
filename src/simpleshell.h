@@ -70,6 +70,7 @@ void setPath(char tokens[50][512]);
 void getPath();
 int changeDirectory(char tokens[50][512]);
 void viewHistory();
+//void writeHistory(char* fileName, char* history[20]);
 int tokensCount(char tokens[50][512]);
 
 #pragma endregion
