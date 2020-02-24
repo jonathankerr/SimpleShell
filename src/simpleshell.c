@@ -147,7 +147,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 */
 bool isInternalCmd(char* command)
 {
-	int size = 15;// this line caused a seg fault, duno why -> sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
+	int size = sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
 
 	for (int i = 0; i < size; i++)
 	{
