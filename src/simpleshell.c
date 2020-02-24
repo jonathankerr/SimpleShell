@@ -35,7 +35,7 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 /*
 	Creates an array of a constant size with the "\0" character as each entry.
 */
-void createEmptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
+void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	memset(tokens,'\0', sizeof(tokens[0][0]) * MAX_SIZE * MAX_USERINPUT); // "NULL" character instad of leaving arry entry empty.
 }
@@ -147,7 +147,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 */
 bool isInternalCmd(char* command)
 {
-	int size = 15// this line caused a seg fault, duno why -> sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
+	int size = 15;// this line caused a seg fault, duno why -> sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
 
 	for (int i = 0; i < size; i++)
 	{
@@ -266,7 +266,7 @@ int changeDirectory(char tokens[50][512])
 		printf("Invalid input.\nPlease make sure use to use the following format: cd <directory name>.\n");
 	}
 	else
-	{#
+	{
 		char* cwd = getCWD();
 		char* dir = strcat(cwd, "/");
 		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]); // (Hares: does this work?)
