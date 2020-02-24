@@ -91,9 +91,9 @@ int parseInput(char tokens[50][512])
 	else if(!strcmp(tokens[0], "!")){
 		printf("I got ya");
 	}
-	else{
-		printf("That functionality is incoming soon.");
-	}
+	//else{
+	//	printf("That functionality is incoming soon.");
+	//}
 
 	return success;
 }
@@ -135,6 +135,7 @@ bool isInternalCmd(char* command){
 			return TRUE;
 		}
 	}
+	//printf("test");
 	return FALSE;
 }
 
@@ -191,7 +192,7 @@ void runExternalCmd(char tokens[50][512]){
 			perror("wait failed\n");
 			_exit(1);
 		}
-		printf("%d", pid);
+		//printf("%d", pid);
     }
 }
 
@@ -276,10 +277,10 @@ void setPath(char tokens[50][512])
 /* Change Directory (cd) command: changes directory to given input */
 int changeDirectory(char tokens[50][512])
 {
-	/*
+	
 	int success = 0;
 
-	if (&tokens[1] == NULL)
+	if (tokens[1] == NULL)
 	{
 		printf("Please enter a directory using syntax: cd [directory name].\n\n");
 	}
@@ -290,13 +291,13 @@ int changeDirectory(char tokens[50][512])
 		char* dir = strcat(cwd, "/");
 		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]);
 		char* nextDir;
-		if (strstr(&tokens[1], ".") != NULL || strlen(&tokens[1]) < 3)
+		if (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3)
 		{
 			strcpy(nextDir, cwd);
 		}
 		else
 		{
-			nextDir = strcat(cwd, &tokens[1]);
+			nextDir = strcat(cwd, tokens[1]);
 		}
 		
 		//if ()
@@ -316,7 +317,7 @@ int changeDirectory(char tokens[50][512])
 			printf("success\n");
 		}
 	}
-	*/
+	
 	return 0;
 }
 

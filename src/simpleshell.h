@@ -36,7 +36,7 @@ static const char prompt[] = "-> ";
 static const char delims[] = " \t|><&;";
 
 /* Defines the list of internal functions for the shell */
-static const char* internalFunc[] = {"cd", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL };
+static const char* internalFunc[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL, };
 static const int numOfFunctions = 10; // this could be a define i think
 
 /* Function declarations */

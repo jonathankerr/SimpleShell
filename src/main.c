@@ -9,7 +9,7 @@ int main()
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 	char input[MAX_USERINPUT];
 
-    printf("CWD: %s\n\n", getInitDir()); // Uncomment to test (part 3)
+    //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
 	setToHomeDir(); // Sets cwd to users home dir
 
