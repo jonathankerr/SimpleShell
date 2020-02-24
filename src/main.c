@@ -52,7 +52,7 @@ int main()
 	
 		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
-		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir);
+		//terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir);
     }
 
 	return 0;
