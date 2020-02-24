@@ -31,18 +31,19 @@ int main()
 		//printFullArray(tokens);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
-
-		/* checks for internal/external cmd, then calls appropriate function */
-		
-			// Closes program if exit is typed or if Ctrl-D is pressed
+		//Checks for internal/external cmd, then calls appropriate function
+		// Closes program if exit is typed or if Ctrl-D is pressed
 		// Also sets the current working directory to the initial working directory
 		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), "lol");
 
-		if(!terminated){
-			if(isInternalCommand(tokens[0])){
+		if(!terminated)
+		{
+			if (isInternalCommand(tokens[0]))
+			{
 				parseInput(tokens);
 			}
-			else{
+			else
+			{
 				//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
 				runExternalCommand(tokens);
 			}

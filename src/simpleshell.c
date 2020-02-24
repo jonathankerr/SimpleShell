@@ -2,6 +2,7 @@
 #include "simpleshell.h"
 #pragma endregion
 
+// (Hares: why are some functions using MAX_SIZE AND MAX_USERINPUT and some hardcoded int values?)
 #pragma region Debug
 /*
 	Prints full "tokens" array.
@@ -18,8 +19,8 @@ void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT])
 /*
 	Prints every entry in the "tokens" array, one on each line.
 */
-void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]){
-
+void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
+{
 	//char **temp = tokens;
 	int count = 0;
 

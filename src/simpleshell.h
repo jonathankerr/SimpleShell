@@ -9,61 +9,55 @@
 #include <sys/wait.h>
 #pragma endregion
 
-/* Boolean values */
+#pragma region Boolean values
 #define TRUE 1
 #define FALSE 0
-typedef int bool;
 
-/* Maximum number of characters user input 
-   can contain */
+/* 
+   Value representing either TRUE (1) or FALSE (0).
+*/
+typedef int bool;
+#pragma endregion
+
+#pragma region Constants
+/* 
+   Maximum number of characters user input can contain. 
+*/
 #define MAX_USERINPUT 512 
 
-/* Maximum number of tokens shell will parse */
+/* 
+   Maximum number of tokens shell will parse.
+*/
 #define MAX_SIZE 50
 
-/* Path on start of application, saved for exit */
-//#define START_PATH getenv("PATH")
 
-/* Home Directory */
+/* 
+   Home directory. // (Hares: does this absolutely have to be a constant?)
+*/
 #define HOME_DIR getenv("HOME")
 
-
-/* String that will be printed every time 
-   user is able to enter a command */
+/* 
+   String that will be printed every time user is able to enter a command.
+*/
 static const char prompt[] = "-> ";
 
-/* Delimiters at which imput will be tokenized */
+/* 
+   Delimiters at which imput will be tokenized.
+*/
 static const char DELIMS[] = " \t|><&;";
 
-/* Defines the list of internal functions for the shell */
-static const char* internalFunc[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL, };
-static const int numOfFunctions = 10; // this could be a define i think
+/* 
+   List of internal functions.
+*/
+static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL, };
+#pragma endregion
 
-/* Function declarations */
-
-void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT]);
+#pragma region Function declerations
+void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT]); // (Hares: don't think this needs to be there)
+void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]);
+void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT]); // (Hares: what's this for? Don't think it's in simpleshell.c)
 void tokenize(char tokens[50][512], char* input);
 int parseInput(char tokens[50][512]);
 bool exitShell(char* input, bool shellStatus, char* dir);
 char* getCWD();
-char* getInitDir();
-void setToHomeDir();
-void chomp(char *s);
-void runExternalCmd(char tokens[50][512]);
-bool isInternalCommand(char* command);
-int tokensCount(char tokens[50][512]);
-
-
-/* Command definitions */
-
-void setPath(char tokens[50][512]);
-void getPath();
-int changeDirectory(char tokens[50][512]);
-//void viewHistory(char *tokens[50][512], char *history[]);
-void addHistory(char *input);
-void viewHistory();
-
-/* Debugging functions */
-
-void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]);
-void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT]);
+#pragma endregion
