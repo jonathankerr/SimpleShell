@@ -359,8 +359,8 @@ void writeHistory(char* fileName, char *history[20])
 */
 
 
-        }
-    }
+       // }
+   // }
 #pragma endregion
 
 #pragma region Utility
