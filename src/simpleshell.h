@@ -49,7 +49,7 @@ static const char DELIMS[] = " \t|><&;";
 /* 
    List of internal functions.
 */
-static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias", NULL, };
+static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias"};
 #pragma endregion
 
 #pragma region Function declerations
