@@ -35,7 +35,7 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 /*
 	Creates an array of a constant size with the "\0" character as each entry.
 */
-void emptyArray(char tokens[][], int maxSize, int maxUserInput)
+void emptyArray(char** tokens, int maxSize, int maxUserInput)
 {
 	memset(tokens,'\0', sizeof(tokens[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving arry entry empty.
 }
@@ -300,7 +300,7 @@ void addHistory(char *input)
 /*
 	Prints all the entries in the "history" array.
 */
-void viewHistory(char history[MAX_HISTORY][MAX_USERINPUT])
+void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	int counter = 0;
 	while (history[counter] != '\0') // Loops through and prints whole history array.
