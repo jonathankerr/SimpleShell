@@ -2,7 +2,7 @@
 #include "simpleshell.h"
 #pragma endregion
 
-// (Hares: why are some functions using MAX_SIZE AND MAX_USERINPUT and some hardcoded int values?)
+// (Hares: Change functions to take token array with constants)
 #pragma region Debug
 /*
 	Prints full "tokens" array.
@@ -55,9 +55,6 @@ void tokenize(char tokens[50][512], char* input)
 
 		while (token != NULL)
 		{
-			//strcpy(tokens[1], "\0");
-			strcpy(tokens[2], "\0"); // turn this into a function which sets all index to undefined which is called after every execution after input
-
 			chomp(token); // Removes "new line" character.
 			strcpy(tokens[counter], token); // Adds token to the "tokens" array.
 
@@ -99,14 +96,8 @@ int parseInput(char tokens[50][512])
 	}
 	else if(!strcmp(tokens[0], "!"))
 	{
-		printf("I got ya"); // (Hares: I thought this was already implemented)
+		printf("I got ya");
 	}
-	/*
-	else
-	{
-		printf("That functionality is incoming soon."); // (Hares: what command is this?)
-	}
-	*/
 
 	return success;
 }
@@ -142,15 +133,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 }
 
 /*
-	Determines whether input is an internal command.
-	Returns: false in case input is not an internal command and true if it is.
-*/
-bool isInternalCmd(char* command)
-{
-	int size = sizeof(INTERNAL_FUNCTIONS)/sizeof(INTERNAL_FUNCTIONS[0]);
-
-	for (int i = 0; i < size; i++)
-	{
+	Determines whether input is an internal command.&&
 		if (strcmp(INTERNAL_FUNCTIONS[i], command) == 0) 
 		{
 			return TRUE;
@@ -165,8 +148,6 @@ bool isInternalCmd(char* command)
 */
 void runExternalCmd(char tokens[50][512])
 {
-
-
 	pid_t c_pid, pid;
 	int status;
 	char* tempArgs[51]; //possible work around allowing us to keep 2D array
@@ -196,7 +177,7 @@ void runExternalCmd(char tokens[50][512])
 		//execv(testArgs[0], testArgs);
 		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry \n");
-		_exit(1); // Makes sure it exits (Hares: ?) this causes concurence if execv fails so need exit to cover ass
+		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover ass)
 	}
 	else if (c_pid > 0)
 	{
@@ -226,7 +207,7 @@ char* getCWD()
 }
 #pragma endregion
 
-#pragma region Command definitions
+#pragma region Command definitions&&
 /*
 	Prints the current path.
 */
@@ -240,7 +221,7 @@ void getPath()
 */
 void setPath(char tokens[50][512])
 {
-	if (!strcmp(tokens[1], "\0") || strcmp(tokens[2], "\0") || strcmp(tokens[3], "\0")) // If input is not in corrent , display error message.
+	if (!strcmp(tokens[1], "\0") || strcmp(tokens[2], "\0")) // If input is incorrect, display error message.
 	{
 		printf("Invalid input.\nPlease make sure to use the following format: getpath <path>\n");
 	}
