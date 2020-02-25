@@ -7,12 +7,11 @@
 /*
 	Prints full "tokens" array.
 */
-void printFullArray(char tokens[MAX_SIZE][MAX_USERINPUT])
+void printFullArray(char array[][MAX_USERINPUT], int maxSize)
 {
-	printf("---TESTING 2D ARRAY CONTENTS ---\n");
-	for (int i = 0; i < MAX_SIZE; i++)
+	for (int i = 0; i < maxSize; i++)
 	{
-		printf("%i : %s  size = %li \n",i, tokens[i], strlen(tokens[i]));
+		printf("%i : %s  size = %li \n", i, array[i], strlen(array[i]));
 	}
 }
 
@@ -283,38 +282,39 @@ int changeDirectory(char tokens[50][512])
 /*
 	Adds tokens entered by user to history.
 */
-void addHistory(char *input)
-{/*
-	char *rawInput = input;
+void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+{
+	input;
 
 	if (!strcmp(history[0], "\0"))  // If "history" array was herebefore empty, ...
 	{
-		strcpy(history[0], rawInput);	
+		strcpy(history[0], input);	
 	}
-	else if (strcmp(history[0], "\0")) // Else, ...
+	else
 	{
 		for (int i = 20 - 1; i > 0; i--)
 		{
 			strcpy(history[i], history[i-1]);
 		}
 
-		strcpy(history[0], rawInput);
+		strcpy(history[0], input);
 	}
-*/}
+}
 
 /*
 	Prints all the entries in the "history" array.
 */
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-	int counter = 0;
-	while (strcmp(history[counter], '\0' || counter > MAX_HISTORY_SIZE)) // Loops through and prints whole history array.
+	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
-		printf("%d: %s\n", counter++, history[counter]);
+		printf("%d: %s", (i + 1), history[i]);
 	}
+
+	printf("\n");
 }
 
-
+/*
 void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
     FILE *writeFile;
@@ -341,11 +341,8 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
     }
     fclose (writeFile);
 }
+*/
 
-
-
-       // }
-   // }
 #pragma endregion
 
 #pragma region Utility

@@ -8,6 +8,7 @@ int main()
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
+	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
 	char input[MAX_USERINPUT];
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
@@ -17,7 +18,6 @@ int main()
     while (!terminated)
     {
 		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
-		emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
 
 		//char input[MAX_USERINPUT];
 
@@ -25,11 +25,11 @@ int main()
 
 		fgets(input, MAX_USERINPUT, stdin);
 
-		//addHistory(input);  //sends the raw input before tokenizing
+		addHistory(input, history);  //sends the raw input before tokenizing
 
 		tokenize(tokens, input);
 
-		printFullArray(tokens);  //uncomment to see if garbage still in arrays unused indexes
+		printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
 		// Closes program if exit is typed or if Ctrl-D is pressed
@@ -39,9 +39,7 @@ int main()
 		// Checks for internal/external cmd, then calls appropriate function
 		if(!terminated)
 		{
-
 			parseInput(tokens, history);
-
 		}
     }
 
