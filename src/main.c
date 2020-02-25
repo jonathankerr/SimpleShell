@@ -39,15 +39,9 @@ int main()
 		// Checks for internal/external cmd, then calls appropriate function
 		if(!terminated)
 		{
-			//if (isInternalCmd(tokens[0]))
-			//{
+
 			//	parseInput(tokens);
-			//}
-			//else
-			//{
-				//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
-			//	runExternalCmd(tokens);
-			//}
+
 		}
     }
 
