@@ -7,8 +7,8 @@ int main()
 	char* initDir = getCWD();
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
-	char input[MAX_USERINPUT];
 	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
+	char input[MAX_USERINPUT];
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
@@ -41,7 +41,7 @@ int main()
 		{
 			if (isInternalCmd(tokens[0]))
 			{
-				parseInput(tokens);
+				parseInput(tokens, history);
 			}
 			else
 			{

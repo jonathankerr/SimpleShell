@@ -72,7 +72,7 @@ void tokenize(char tokens[50][512], char* input)
 	Reads in tokens to check what function to execute.
 	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
-int parseInput(char tokens[50][512])
+int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	int success = 0;
 
@@ -92,7 +92,7 @@ int parseInput(char tokens[50][512])
     }
 	else if(!strcmp(tokens[0], "history"))
 	{
-		viewHistory();
+		viewHistory(history);
 	}
 	else if(!strcmp(tokens[0], "!"))
 	{

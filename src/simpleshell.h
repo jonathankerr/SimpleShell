@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <limits.h>
+#include <linux/limits.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sys/wait.h>
@@ -57,7 +57,7 @@ static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "h
 void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]); // Part 1 related
 void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT]);
 void tokenize(char tokens[50][512], char* input);
-int parseInput(char tokens[50][512]);
+int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
 bool exitShell(char* input, bool shellStatus, char* dir);
 char* getCWD();
 void addHistory(char *input);
