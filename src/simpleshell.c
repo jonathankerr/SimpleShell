@@ -300,15 +300,15 @@ void addHistory(char *input)
 /*
 	Prints all the entries in the "history" array.
 */
-void viewHistory()
-{/*
+void viewHistory(char history[MAX_HISTORY][MAX_USERINPUT])
+{
 	printf("\nFull history array: \n"); // (Hares: I don't think this is how we're supposed to show history)
 
 	for (int i = 0; i < 20; i++) // Loops through and prints whole history array.
 	{
 		printf("%d: %s\n", i + 1, history[i]);
 	}
-*/}
+}
 
 /* Commented Out until first marking to make sure it doesn't effect anything
 void writeHistory(char* fileName, char *history[20])

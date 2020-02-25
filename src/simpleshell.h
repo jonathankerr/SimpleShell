@@ -32,7 +32,6 @@ typedef int bool;
 
 #define MAX_HISTORY_SIZE 20
 
-
 /* 
    Home directory. // (Hares: remove this constant)
 */
