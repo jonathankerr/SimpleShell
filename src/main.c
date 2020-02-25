@@ -16,7 +16,8 @@ int main()
 
     while (!terminated)
     {
-		emptyArray(tokens);
+		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
+		emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
 
 		//char input[MAX_USERINPUT];
 
@@ -28,7 +29,7 @@ int main()
 
 		tokenize(tokens, input);
 
-		//printFullArray(tokens);  //uncomment to see if garbage still in arrays unused indexes
+		printFullArray(tokens);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
 		// Closes program if exit is typed or if Ctrl-D is pressed
@@ -38,15 +39,15 @@ int main()
 		// Checks for internal/external cmd, then calls appropriate function
 		if (!terminated)
 		{
-			if (isInternalCmd(tokens[0]))
-			{
-				parseInput(tokens);
-			}
-			else
-			{
+			//if (isInternalCmd(tokens[0]))
+			//{
+			//	parseInput(tokens);
+			//}
+			//else
+			//{
 				//printf("Not an internal cmd - fork forked up atm, internals should work \"path\" and stuff");
-				runExternalCmd(tokens);
-			}
+			//	runExternalCmd(tokens);
+			//}
 		}
     }
 
