@@ -40,7 +40,7 @@ int main()
 		if(!terminated)
 		{
 
-			//	parseInput(tokens);
+			parseInput(tokens, history);
 
 		}
     }

@@ -44,8 +44,8 @@ void emptyArray(char** array, int maxSize, int maxUserInput)
 void tokenize(char tokens[50][512], char* input)
 {
 	if (strlen(input) > MAX_USERINPUT)
-	{
-		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
+	{	 
+   		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
 		fflush(stdin); // Flush in case there is chars in buffer
 	}
 	else
@@ -78,11 +78,7 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 
 	//addHistory(tokens[50][512]); //adds command to history
 
-	if (!isInternalCmd(tokens))
-	{
-		runExternalCmd(tokens);
-	}
-	else if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
+	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
 	}
@@ -102,6 +98,11 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 	{
 		printf("I got ya");
 	}
+	else
+	{
+		runExternalCmd(tokens);
+	}
+	
 
 	return success;
 }
@@ -307,7 +308,7 @@ void addHistory(char *input)
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	int counter = 0;
-	while (history[counter] != '\0') // Loops through and prints whole history array.
+	while (strcmp(history[counter], '\0' || counter > MAX_HISTORY_SIZE)) // Loops through and prints whole history array.
 	{
 		printf("%d: %s\n", counter++, history[counter]);
 	}
