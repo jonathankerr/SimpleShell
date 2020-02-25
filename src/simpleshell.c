@@ -35,9 +35,9 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 /*
 	Creates an array of a constant size with the "\0" character as each entry.
 */
-void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
+void emptyArray(char tokens[][], int maxSize, int maxUserInput)
 {
-	memset(tokens,'\0', sizeof(tokens[0][0]) * MAX_SIZE * MAX_USERINPUT); // "NULL" character instad of leaving arry entry empty.
+	memset(tokens,'\0', sizeof(tokens[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving arry entry empty.
 }
 
 // Takes in user input, tokenizes it and fills the "tokens" array with these tokens.
