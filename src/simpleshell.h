@@ -30,6 +30,8 @@ typedef int bool;
 */
 #define MAX_SIZE 50
 
+#define MAX_HISTORY_SIZE 20
+
 
 /* 
    Home directory. // (Hares: remove this constant)
