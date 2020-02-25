@@ -78,7 +78,10 @@ int parseInput(char tokens[50][512])
 
 	//addHistory(tokens[50][512]); //adds command to history
 
-	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
+	if(!isInternalCmd(tokens)){
+		runExternalCmd(tokens);
+	}
+	else if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
 		getPath();
 	}
