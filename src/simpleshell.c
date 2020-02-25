@@ -302,11 +302,10 @@ void addHistory(char *input)
 */
 void viewHistory(char history[MAX_HISTORY][MAX_USERINPUT])
 {
-	printf("\nFull history array: \n"); // (Hares: I don't think this is how we're supposed to show history)
-
-	for (int i = 0; i < 20; i++) // Loops through and prints whole history array.
+	int counter = 0;
+	while (history[counter] != '\0') // Loops through and prints whole history array.
 	{
-		printf("%d: %s\n", i + 1, history[i]);
+		printf("%d: %s\n", counter++, history[counter]);
 	}
 }
 
