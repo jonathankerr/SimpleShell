@@ -300,7 +300,7 @@ void addHistory(char *input)
 /*
 	Prints all the entries in the "history" array.
 */
-void viewHistory(char history[MAX_HISTORY][MAX_USERINPUT])
+void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	printf("\nFull history array: \n"); // (Hares: I don't think this is how we're supposed to show history)
 
@@ -310,12 +310,12 @@ void viewHistory(char history[MAX_HISTORY][MAX_USERINPUT])
 	}
 }
 
-/* Commented Out until first marking to make sure it doesn't effect anything
-void writeHistory(char* fileName, char *history[20])
+
+void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
     FILE *writeFile;
     int counter;
-    filename = strcat(fileName,"/.history");
+    fileName = strcat(fileName,"/.history");
     writeFile = fopen ( fileName, "w");
     
     if (writeFile == NULL)
@@ -324,11 +324,11 @@ void writeHistory(char* fileName, char *history[20])
         exit(1);
     }
     
-    counter = 0
+    counter = 0;
     
-    while(history[counter] !=0)
-    {
-        fprintf(writeFile,"%s\n", history[counter]);
+    while(history[counter][MAX_USERINPUT] !=0)
+	{
+        fprintf(writeFile,"%s\n", history[counter][MAX_USERINPUT]);
         counter++;
         if(counter = 20)
         {
@@ -337,7 +337,7 @@ void writeHistory(char* fileName, char *history[20])
     }
     fclose (writeFile);
 }
-*/
+
 
 
        // }
