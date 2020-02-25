@@ -180,7 +180,7 @@ void runExternalCmd(char tokens[50][512])
 		//execv(tokens[0], tokens);
 		//execv(testArgs[0], testArgs);
 		execvp(tempArgs[0], tempArgs);
-		perror("Invalid command entry \n");
+		perror("Invalid command entry");
 		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover ass)
 	}
 	else if (c_pid > 0)
@@ -189,7 +189,6 @@ void runExternalCmd(char tokens[50][512])
 			perror("Wait failed; ");
 			_exit(1);
 		}
-
     }
 }
 

@@ -29,7 +29,7 @@ int main()
 
 		tokenize(tokens, input);
 
-		printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
+		//printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
 		// Closes program if exit is typed or if Ctrl-D is pressed
