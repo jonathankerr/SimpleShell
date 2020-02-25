@@ -35,9 +35,9 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 /*
 	Creates an array of a constant size with the "\0" character as each entry.
 */
-void emptyArray(char tokens[MAX_SIZE][MAX_USERINPUT])
+void emptyArray(char** tokens, int maxSize, int maxUserInput)
 {
-	memset(tokens,'\0', sizeof(tokens[0][0]) * MAX_SIZE * MAX_USERINPUT); // "NULL" character instad of leaving arry entry empty.
+	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving arry entry empty.
 }
 
 // Takes in user input, tokenizes it and fills the "tokens" array with these tokens.
@@ -302,11 +302,10 @@ void addHistory(char *input)
 */
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-	printf("\nFull history array: \n"); // (Hares: I don't think this is how we're supposed to show history)
-
-	for (int i = 0; i < 20; i++) // Loops through and prints whole history array.
+	int counter = 0;
+	while (history[counter] != '\0') // Loops through and prints whole history array.
 	{
-		printf("%d: %s\n", i + 1, history[i]);
+		printf("%d: %s\n", counter++, history[counter]);
 	}
 }
 
