@@ -7,6 +7,7 @@ int main()
 	char* initDir = getCWD();
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
+	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
 	char input[MAX_USERINPUT];
 	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
 
@@ -24,7 +25,6 @@ int main()
 		printf("%s", prompt);
 
 		fgets(input, MAX_USERINPUT, stdin);
-		//printf("\nInput: %s\n", input);
 
 		//addHistory(input);  //sends the raw input before tokenizing
 
@@ -38,7 +38,7 @@ int main()
 		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), "lol");
 
 		// Checks for internal/external cmd, then calls appropriate function
-		if (!terminated)
+		if(!terminated)
 		{
 
 			//	parseInput(tokens);
