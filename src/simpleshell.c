@@ -75,6 +75,13 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 {
 	int success = 0;
 
+	char str1[15];          //Used for finding first char of input to find !<no> commands
+	char str2[15];
+	strcpy(str1, tokens[0]);
+	strcpy(str2, "!");
+
+
+
 	//addHistory(tokens[50][512]); //adds command to history
 
 	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
