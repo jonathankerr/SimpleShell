@@ -93,9 +93,9 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 	{
 		viewHistory(history);
 	}
-	else if(!strcmp(tokens[0], "!"))
+	else if(startsWith(tokens[0], "!"))
 	{
-		printf("I got ya");
+		invokeHistory(history, tokens[0]);
 	}
 	else
 	{
@@ -313,6 +313,25 @@ void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 	printf("\n");
 }
 
+// Untested in Linux
+void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
+{
+	token = malloc(MAX_USERINPUT);
+
+	if (contents[0] == '!' && isalpha(contents[1]))
+	{
+		memmove(token, token + 1, strlen(token)); // Removes first character from token.
+	}
+	else
+	{
+		itoa(0, token, 10);
+	}
+
+	char tokens[MAX_SIZE][MAX_USERINPUT];
+	tokenize(tokens, history[atoi(token)]);
+	parseInput(tokens, history);
+}
+
 /*
 void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
@@ -341,7 +360,6 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
     fclose (writeFile);
 }
 */
-
 #pragma endregion
 
 #pragma region Utility
@@ -374,5 +392,15 @@ void chomp(char *s)
 	}
  
     *s = 0;
+}
+
+bool startsWith(const char *string, const char *substring)
+{
+   if (strncmp(string, substring, strlen(substring)) == 0) 
+   {
+	   return 1;
+   }
+
+   return 0;
 }
 #pragma endregion
