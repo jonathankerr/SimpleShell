@@ -331,8 +331,8 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	}
 	else
 	{
-		char str[ENOUGH];
-		int buffer = (int)((ceil(log10(num))+1)*sizeof(char));
+		int buffer = (int)((ceil(log10(0))+1)*sizeof(char));
+		char str[buffer];
 
 		sprintf(str, "%d", 0);
 		strcpy(token, str);

@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sys/wait.h>
+#include <math.h>
 #pragma endregion
 
 #pragma region Boolean values
