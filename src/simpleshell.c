@@ -325,13 +325,17 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 {
 	token = malloc(MAX_USERINPUT);
 
-	if (contents[0] == '!' && isalpha(contents[1]))
+	if (token[0] == '!' && isalpha(token[1]))
 	{
 		memmove(token, token + 1, strlen(token)); // Removes first character from token.
 	}
 	else
 	{
-		itoa(0, token, 10);
+		char str[ENOUGH];
+		int buffer = (int)((ceil(log10(num))+1)*sizeof(char));
+
+		sprintf(str, "%d", 0);
+		strcpy(token, str);
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
