@@ -378,8 +378,13 @@ void loadHistory(char* fileName) {
     fileName = strcat(fileName,"/.history");
 	fPointer = fopen(fileName, "r");
 	char singleLine[MAX_USERINPUT];
+	
+    if (fPointer == NULL) {
+        printf("File could not be found\n");
+        exit(1);
+    }
 
-	while(!feof(fPointer)) {
+	while (!feof(fPointer)) {
 		fgets(singleLine, MAX_USERINPUT, fPointer);
 		puts(singleLine);
 	}
