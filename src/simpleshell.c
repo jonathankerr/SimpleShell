@@ -371,6 +371,25 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
     fclose (writeFile);
 }
 */
+
+/*
+void loadHistory(char* fileName) {
+    FILE *fPointer
+    fileName = strcat(fileName,"/.history");
+	fPointer = fopen(fileName, "r");
+	char singleLine[MAX_USERINPUT];
+
+	while(!feof(fPointer)) {
+		fgets(singleLine, MAX_USERINPUT, fPointer);
+		puts(singleLine);
+	}
+
+	fclose(fPointer);
+	return 0;
+}
+*/
+
+
 #pragma endregion
 
 #pragma region Utility
