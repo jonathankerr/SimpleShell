@@ -374,7 +374,7 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
 
 /*
 void loadHistory(char* fileName) {
-    FILE *fPointer
+    FILE *fPointer;
     fileName = strcat(fileName,"/.history");
 	fPointer = fopen(fileName, "r");
 	char singleLine[MAX_USERINPUT];
