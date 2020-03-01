@@ -363,7 +363,7 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
 	{
         fprintf(writeFile,"%s\n", history[counter][MAX_USERINPUT]);
         counter++;
-        if(counter = 20)
+        if(counter == 20)
         {
             break;
         }
