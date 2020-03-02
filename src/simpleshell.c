@@ -86,7 +86,12 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 
 	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
-		getPath();
+		if(tokensCount(tokens) > 1){
+			printf("Error: Please use getpath with no addition parameters./n");
+		}
+		else{
+			getPath();
+		}
 	}
 	else if (!strcmp(tokens[0], "setpath"))
 	{
@@ -184,8 +189,7 @@ void runExternalCmd(char tokens[50][512])
 
 	if (c_pid == 0)
 	{
-		//execv(tokens[0], tokens);
-		//execv(testArgs[0], testArgs);
+
 		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry");
 		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover ass)
@@ -250,38 +254,33 @@ void setPath(char tokens[50][512])
 */
 int changeDirectory(char tokens[50][512])
 {
-	int success = 0;
+	int success = -1; // false to start with
 
-	if (tokens[1] == NULL) // If no directory is specified, display error message.
-	{
-		printf("Invalid input.\nPlease make sure use to use the following format: cd <directory name>.\n");
+	if(tokensCount(tokens[0]) > 2){
+		//as stated in the testing pdf, an error should be printed if too many parameters are passed to changeDirectory
+		printf("Error. Too many parameters for cd function: \nPlease make sure to use the following format: cd <directory> \n");
+		return success;
+
 	}
-	else
-	{
-		char* cwd = getCWD();
-		char* dir = strcat(cwd, "/");
-		//char* nextDir = (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3) ? (strlen(tokens[1]) < 2 ? cwd : cwd) : strcat(cwd, tokens[1]); // (Hares: does this work?)
-		char* nextDir;
-		if (strstr(tokens[1], ".") != NULL || strlen(tokens[1]) < 3)
-		{
-			strcpy(nextDir, cwd);
-		}
-		else
-		{
-			nextDir = strcat(cwd, tokens[1]);
-		}
-		
-		int success = chdir(nextDir);
-
-		//printf("%s\n", getCWD()); // Uncomment to test (part 4)
-
-		if (success == -1)
-		{
-			perror("Error: ");
-			return success;
-		}
+	if(!strcmp(tokens[1], "\0")){
+		//if no parameter is given, set cwd to HOME directory
+		success = chdir(HOME_DIR);
 	}
-	
+
+	else{
+		//else set cwd to the specifided address in parameter
+		success = chdir(tokens[1]);
+	}
+
+	if(success < 0){ // directory change has failed, print an error
+
+		char errorMsg[23 + MAX_USERINPUT]; // size of the custom errormsg + max possible size of token[1]
+		snprintf(errorMsg, sizeof errorMsg, "Error on input: \"cd %s\" ", tokens[1]); // strcat wasn't good for this so snprinf it is
+		perror(errorMsg);
+		printf("\n"); // extra line for readability
+
+	}
+
 	return success;
 }
 
