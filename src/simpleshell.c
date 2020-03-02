@@ -79,7 +79,12 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 
 	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
-		getPath();
+		if(tokensCount(tokens) > 1){
+			printf("Error: Please use getpath with no addition parameters./n");
+		}
+		else{
+			getPath();
+		}
 	}
 	else if (!strcmp(tokens[0], "setpath"))
 	{
