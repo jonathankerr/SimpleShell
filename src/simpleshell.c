@@ -464,7 +464,7 @@ int toInt(char s[])
 
 	n = 0;
 
-	for (i = offset; s[i] != '\0'; i++) 
+	for (int i = offset; s[i] != '\0'; i++) 
 	{
 		n = n * 10 + s[i] - '0';
 	}
