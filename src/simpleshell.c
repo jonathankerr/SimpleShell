@@ -331,7 +331,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	}
 
 	//check 2 things, index out of bounds and if the history array has any values for said index( index < tokens.length() )
-	if(index < 0 || index > sizeof(history)/sizeof(history[0]) || tokensCount(history) < index){ 
+	if(index > sizeof(history)/sizeof(history[0]) || tokensCount(history) < index){ 
 		printf("Error, \n");
 		return;
 	}
