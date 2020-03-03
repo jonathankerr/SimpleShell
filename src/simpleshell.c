@@ -323,10 +323,11 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 {
 	int index = 0;
 
-	if (token[0] == '!' && isalpha(token[1]))
+	if (token[0] == '!' && token[1] != '!')
 	{
 		memmove(token, token + 1, strlen(token)); // Removes first character from token.
-		
+		sscanf(token,"%02d",&index);
+		index--;
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
