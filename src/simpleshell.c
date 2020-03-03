@@ -329,16 +329,16 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 		sscanf(token,"%02d",&index);
 		index--;
 	}
-	else{
-		//!! is the command, so keep index 0 ? 
-	}
 
-	if(index < 1 && index > sizeof(history)/sizeof(history[0])){ // check if index too high before invoking
+	//check 2 things, index out of bounds and if the history array has any values for said index( index < tokens.length() )
+	if(index < 0 || index > sizeof(history)/sizeof(history[0]) || tokensCount(history) < index){ 
 		printf("Error, \n");
+		return;
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
 	tokenize(tokens, history[index]);
+	emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
 	parseInput(tokens, history);
 }
 
