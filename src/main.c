@@ -13,11 +13,11 @@ int main()
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
 	chdir(HOME_DIR); // Sets cwd to users home dir
-
+	emptyArray(history[MAX_HISTORY][MAX_USERINPUT]);
     while (!terminated)
     {
 		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
-
+		
 		//char input[MAX_USERINPUT];
 
 		printf("%s", prompt);
