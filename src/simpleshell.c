@@ -383,24 +383,23 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 
 
 /*
-void loadHistory(char* fileName) 
+void loadHistory() 
 {
-    FILE *fPointer;
-    fileName = strcat(fileName,"/.history");
-	fPointer = fopen(fileName, "r");
+    FILE *fp;
+	fp = fopen("history.txt", "r");
 	char singleLine[MAX_USERINPUT];
 	
-    if (fPointer == NULL) {
+    if (fp == NULL) {
         printf("File could not be found\n");
-        exit(1);
     }
-
-	while (!feof(fPointer)) {
-		fgets(singleLine, MAX_USERINPUT, fPointer);
-		puts(singleLine);
+	else {
+		while (!feof(fp)) {
+			fgets(singleLine, MAX_USERINPUT, fp);
+			puts(singleLine);
+		}
 	}
 
-	fclose(fPointer);
+	fclose(fp);
 	return 0;
 }
 */
