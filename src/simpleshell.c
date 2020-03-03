@@ -332,13 +332,14 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 		{
 			index *= -1;
 		}
-		else if (index == 0 || (index - 1) > sizeof(history)/sizeof(history[0]))
+		else if (index == 0 || (index - 1) >= historyCount(history)) 
 		{
 			printf("Invalid input: input too big or too small.\n");
 			return;
 		}
 
 		index--;
+		
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
@@ -413,6 +414,25 @@ int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT])
 	for(int i = 0; i < MAX_SIZE; i++)
 	{
 		if(strlen(tokens[i]) != 0)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+/*
+	Determines the size of the "tokens" array.
+	Returns: integer representing the size of the array.
+*/
+int historyCount(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+{
+	int count = 0;
+
+	for(int i = 0; i < MAX_HISTORY_SIZE; i++)
+	{
+		if(strlen(history[i]) != 0)
 		{
 			count++;
 		}
