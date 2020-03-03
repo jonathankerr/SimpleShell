@@ -119,7 +119,7 @@ int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SI
 	Determines whether user wants to exit the shell.
 	Returns: false if shell isn't terminated and true if it is.
 */
-bool exitShell(char* input, bool shellStatus, char* dir, char* path)
+bool exitShell(char* input, bool shellStatus, char* dir, char* path, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	printf("\n");
 
@@ -310,6 +310,9 @@ void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 */
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
+
+	writeHistory(history);
+
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
 		printf("%d: %s\n", (i + 1), history[i]);
@@ -352,34 +355,33 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	parseInput(tokens, history);
 }
 
-/*
-void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+
+void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-    FILE *writeFile;
-    int counter;
-    fileName = strcat(fileName,"/.history");
-    writeFile = fopen ( fileName, "w");
-    
-    if (writeFile == NULL)
-    {
-        printf("Cannot Open File\n");
-        exit(1);
-    }
-    
-    counter = 0;
-    
-    while(history[counter][MAX_USERINPUT] !=0)
+	printf("%s", getCWD());
+	FILE *fp;
+	//CHANGE THIS TO EITHER CWD OR INIT DIR
+	fp = fopen ("C:/Users/jonat/Desktop/Uni/Year 2/CS210/Sem2/simple-shell/src/history.txt", "w");
+	//CHANGE THIS TO EITHER CWD OR INIT DIR
+
+	//fprintf(fp, history[0]);
+
+	//printf("FIRST HISTORY: %s\n", history[0]);
+	//printf("SECOND HISTORY: %s\n", history[1]);
+
+	//fprintf(fp, history[0]);
+
+	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
-        fprintf(writeFile,"%s\n", history[counter][MAX_USERINPUT]);
-        counter++;
-        if(counter == 20)
-        {
-            break;
-        }
-    }
-    fclose (writeFile);
+		fprintf(fp, history[i]);
+		fprintf(fp, "\n");
+	}
+
+
+
+	fclose (fp);
 }
-*/
+
 
 /*
 void loadHistory(char* fileName) 
