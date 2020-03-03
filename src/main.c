@@ -5,7 +5,7 @@
 int main() 
 {
 	char* initDir = getCWD();
-	char* initPath = getPath();
+	char* initPath = getenv("PATH");
 	bool terminated = FALSE;
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
 	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
@@ -14,7 +14,7 @@ int main()
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
 	chdir(HOME_DIR); // Sets cwd to users home dir
-	emptyArray(history[MAX_HISTORY][MAX_USERINPUT]);
+	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
     while (!terminated)
     {
 		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);

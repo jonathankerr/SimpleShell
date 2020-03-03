@@ -127,6 +127,10 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path)
 	{
 		char output[25]; // String to hold exit message.
 
+		chdir(dir); // Sets current working directory to initial working directory.
+		setenv("PATH", path, 1);
+		getPath();
+		
 		// Determines what message to print.
 		if (!strcmp(input, "exit"))
 		{
@@ -138,10 +142,6 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path)
 		}
 		
 		printf("%s", output); // Print correct exit message.
-
-		chdir(dir); // Sets current working directory to initial working directory.
-		setenv("PATH", path, 1);
-		getPath();
 	}
 
 	return shellStatus;
