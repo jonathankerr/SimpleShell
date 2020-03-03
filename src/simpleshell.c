@@ -372,7 +372,8 @@ void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT]
 */
 
 /*
-void loadHistory(char* fileName) {
+void loadHistory(char* fileName) 
+{
     FILE *fPointer;
     fileName = strcat(fileName,"/.history");
 	fPointer = fopen(fileName, "r");
@@ -392,7 +393,6 @@ void loadHistory(char* fileName) {
 	return 0;
 }
 */
-
 
 #pragma endregion
 
