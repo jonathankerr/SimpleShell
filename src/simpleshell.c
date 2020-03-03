@@ -391,7 +391,8 @@ void loadHistory(char* fileName)
 	Determines the size of the "tokens" array.
 	Returns: integer representing the size of the array.
 */
-int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT]){
+int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT])
+{
 	int count = 0;
 
 	for(int i = 0; i < MAX_SIZE; i++)
