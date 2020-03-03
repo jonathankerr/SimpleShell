@@ -2,7 +2,6 @@
 #include "simpleshell.h"
 #pragma endregion
 
-// (Hares: Change functions to take token array with constants)
 #pragma region Debug
 /*
 	Prints full "tokens" array.
@@ -40,7 +39,7 @@ void emptyArray(char** array, int maxSize, int maxUserInput)
 }
 
 // Takes in user input, tokenizes it and fills the "tokens" array with these tokens.
-void tokenize(char tokens[50][512], char* input)
+void tokenize(char tokens[MAX_SIZE][MAX_USERINPUT], char* input)
 {
 	if (strlen(input) > MAX_USERINPUT)
 	{	 
@@ -71,7 +70,7 @@ void tokenize(char tokens[50][512], char* input)
 	Reads in tokens to check what function to execute.
 	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
-int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	int success = 0;
 
@@ -80,9 +79,7 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 	strcpy(str1, tokens[0]);
 	strcpy(str2, "!");
 
-
-
-	//addHistory(tokens[50][512]); //adds command to history
+	//addHistory(tokens[MAX_SIZE][MAX_USERINPUT]); //adds command to history
 
 	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
 	{
@@ -162,7 +159,7 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 /*
 	Runs an internal command entered by the user.
 */
-void runExternalCmd(char tokens[50][512])
+void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	pid_t c_pid, pid;
 	int status;
@@ -233,7 +230,7 @@ void getPath()
 /*
 	Sets the path specified by the user.
 */
-void setPath(char tokens[50][512])
+void setPath(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	if (!strcmp(tokens[1], "\0") || strcmp(tokens[2], "\0")) // If input is incorrect, display error message.
 	{
@@ -252,7 +249,7 @@ void setPath(char tokens[50][512])
 	Changes current working directory to directory specified by user.
 	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
-int changeDirectory(char tokens[50][512])
+int changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	int success = -1; // false to start with
 
@@ -401,7 +398,7 @@ void loadHistory(char* fileName)
 	Determines the size of the "tokens" array.
 	Returns: integer representing the size of the array.
 */
-int tokensCount(char tokens[50][512]){
+int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT]){
 	int count = 0;
 
 	for(int i = 0; i < MAX_SIZE; i++)
