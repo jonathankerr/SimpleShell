@@ -338,13 +338,17 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 			return;
 		}
 
-		index--;
-		
+		index--;	
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
 	emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
-	tokenize(tokens, history[index]);
+
+	char tempInput[MAX_USERINPUT];
+	strcpy(tempInput, history[index]);// = history[index];
+
+	//tokenize(tokens, history[index]);
+	tokenize(tokens, tempInput);
 	parseInput(tokens, history);
 }
 
