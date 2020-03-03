@@ -326,19 +326,24 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	if (token[0] == '!' && token[1] != '!')
 	{
 		memmove(token, token + 1, strlen(token)); // Removes first character from token.
-		sscanf(token,"%02d",&index);
+		sscanf(token,"%02d", &index);
+
+		if (index < 0)
+		{
+			index *= -1;
+		}
+		else if (index == 0 || (index - 1) > sizeof(history)/sizeof(history[0]))
+		{
+			printf("Invalid input: input too big or too small.\n");
+			return;
+		}
+
 		index--;
 	}
 
-	//check 2 things, index out of bounds and if the history array has any values for said index( index < tokens.length() )
-	if(index > sizeof(history)/sizeof(history[0]) || tokensCount(history) < index){ 
-		printf("Error, \n");
-		return;
-	}
-
 	char tokens[MAX_SIZE][MAX_USERINPUT];
-	tokenize(tokens, history[index]);
 	emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
+	tokenize(tokens, history[index]);
 	parseInput(tokens, history);
 }
 
