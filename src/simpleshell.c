@@ -327,15 +327,11 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	}
 	else
 	{
-		int buffer = (int)((ceil(log10(0))+1)*sizeof(char));
-		char str[buffer];
-
-		sprintf(str, "%d", 0);
-		strcpy(token, str);
+		strcpy(token, "0");
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
-	tokenize(tokens, history[toInt(token)]);
+	tokenize(tokens, history[0]);
 	parseInput(tokens, history);
 }
 
@@ -433,44 +429,5 @@ bool startsWith(const char *string, const char *substring)
    }
 
    return 0;
-}
-
-/*
-	Converts a string to an integer.
-	Returns: integer converted from string.
-*/
-int toInt(char s[]) 
-{
-	int c, sign, offset, n;
-
-	// Handle negative integers
-	if (s[0] == '-') 
-	{  
-		sign = -1;
-	}
-
-	// Set starting position to convert
-	if (sign == -1) 
-	{  
-		offset = 1;
-	}
-	else 
-	{
-		offset = 0;
-	}
-
-	n = 0;
-
-	for (int i = offset; s[i] != '\0'; i++) 
-	{
-		n = n * 10 + s[i] - '0';
-	}
-
-	if (sign == -1) 
-	{
-		n = -n;
-	}
-
-	return n;
 }
 #pragma endregion
