@@ -98,11 +98,11 @@ int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SI
 	{
 		success = changeDirectory(tokens);
     }
-	else if(!strcmp(tokens[0], "history"))
+	else if (!strcmp(tokens[0], "history"))
 	{
 		viewHistory(history);
 	}
-	else if(startsWith(tokens[0], "!"))
+	else if (startsWith(tokens[0], "!"))
 	{
 		invokeHistory(history, tokens[0]);
 	}
@@ -310,7 +310,7 @@ void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
-		printf("%d: %s", (i + 1), history[i]);
+		printf("%d: %s\n", (i + 1), history[i]);
 	}
 
 	printf("\n");
@@ -319,19 +319,16 @@ void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 // Untested in Linux
 void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 {
-	token = malloc(MAX_USERINPUT);
+	int index = 0;
 
 	if (token[0] == '!' && isalpha(token[1]))
 	{
 		memmove(token, token + 1, strlen(token)); // Removes first character from token.
-	}
-	else
-	{
-		strcpy(token, "0");
+		
 	}
 
 	char tokens[MAX_SIZE][MAX_USERINPUT];
-	tokenize(tokens, history[0]);
+	tokenize(tokens, history[index]);
 	parseInput(tokens, history);
 }
 

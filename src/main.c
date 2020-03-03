@@ -24,7 +24,11 @@ int main()
 
 		fgets(input, MAX_USERINPUT, stdin);
 
-		addHistory(input, history);  //sends the raw input before tokenizing
+		if (input[0] != '!')
+		{
+			chomp(input);
+			addHistory(input, history);  //sends the raw input before tokenizing
+		}
 
 		tokenize(tokens, input);
 

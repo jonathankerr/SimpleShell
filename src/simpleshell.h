@@ -63,4 +63,5 @@ int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPU
 bool exitShell(char* input, bool shellStatus, char* dir);
 char* getCWD();
 void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
+void chomp(char *s);
 #pragma endregion
