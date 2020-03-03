@@ -140,7 +140,7 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path)
 		printf("%s", output); // Print correct exit message.
 
 		chdir(dir); // Sets current working directory to initial working directory.
-		setPath(path);
+		setenv("PATH", path, 1);
 		getPath();
 	}
 
