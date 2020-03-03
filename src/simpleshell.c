@@ -119,7 +119,7 @@ int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SI
 	Determines whether user wants to exit the shell.
 	Returns: false if shell isn't terminated and true if it is.
 */
-bool exitShell(char* input, bool shellStatus, char* dir)
+bool exitShell(char* input, bool shellStatus, char* dir, char* path)
 {
 	printf("\n");
 
@@ -140,6 +140,8 @@ bool exitShell(char* input, bool shellStatus, char* dir)
 		printf("%s", output); // Print correct exit message.
 
 		chdir(dir); // Sets current working directory to initial working directory.
+		setenv("PATH", path, 1);
+		getPath();
 	}
 
 	return shellStatus;
