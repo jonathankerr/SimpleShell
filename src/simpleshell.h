@@ -26,6 +26,8 @@ typedef int bool;
 */
 #define MAX_USERINPUT 512 
 
+#define INIT_DIR getCWD()
+
 /* 
    Maximum number of tokens shell will parse.
 */
