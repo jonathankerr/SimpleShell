@@ -4,48 +4,44 @@
 
 int main() 
 {
-	char* initDir = getCWD();
-	char* initPath = getenv("PATH");
-	bool terminated = FALSE;
-	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that will hold 50 strings of 50 characters each
-	char history[MAX_HISTORY_SIZE][MAX_USERINPUT];
-	char input[MAX_USERINPUT];
+	char* initDir = getCWD(); // String that holds the initial working directory.
+	char* initPath = getenv("PATH"); // String that holds the initial path.
+	bool terminated = FALSE; // Boolean value that determines whether shell should be terminated.
+	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that holds tokens.
+	char history[MAX_HISTORY_SIZE][MAX_USERINPUT]; // Array of strings that holds history.
+	char input[MAX_USERINPUT]; // String that holds user input.
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
-	chdir(getenv("HOME")); // Sets cwd to users home dir
-	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
+	chdir(getenv("HOME")); // Sets current working directory to the user's "HOME" directory.
+	
+	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT); // Initializes "history" array with null characters.
+
     while (!terminated)
     {
-		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
+		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT); // Set all elements in "tokens" array to null characters.
 		
-		//char input[MAX_USERINPUT];
+		printf("%s", PROMPT); // Print prompt.
 
-		printf("%s", PROMPT);
-
-		fgets(input, MAX_USERINPUT, stdin);
+		fgets(input, MAX_USERINPUT, stdin); // Get user input.
 
 		if (input[0] != '!')
 		{
+			// If user isn't invoking history, save input to history.
 			chomp(input);
-			addHistory(input, history);  //sends the raw input before tokenizing
+			addHistory(input, history);
 		}
 
-		tokenize(tokens, input);
+		tokenize(tokens, input); // Tokenizes input.
 
 		//printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
-		// Closes program if exit is typed or if Ctrl-D is pressed
-		// Also sets the current working directory to the initial working directory
-		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, history);
+		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, history); // Closes program if exit is typed or if Ctrl-D is pressed.
 
-
-
-		// Checks for internal/external cmd, then calls appropriate function
-		if(!terminated)
+		if (!terminated)
 		{
-			parseInput(tokens, history);
+			parseInput(tokens, history); // Checks for internal/external commands, then calls appropriate function.
 		}
     }
 
