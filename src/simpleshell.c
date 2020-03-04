@@ -19,10 +19,9 @@ void printFullArray(char array[][MAX_USERINPUT], int maxSize)
 */
 void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
-	//char **temp = tokens;
 	int count = 0;
 
-	while(strcmp(tokens[count], "\0"))
+	while (strcmp(tokens[count], "\0"))
 	{
 		printf("\n %s ", tokens[count++]);
 	}
@@ -38,13 +37,15 @@ void emptyArray(char** array, int maxSize, int maxUserInput)
 	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving arry entry empty.
 }
 
-// Takes in user input, tokenizes it and fills the "tokens" array with these tokens.
+/*
+	Takes in user input, tokenizes it and fills the "tokens" array with these tokens.
+*/
 void tokenize(char tokens[MAX_SIZE][MAX_USERINPUT], char* input)
 {
 	if (strlen(input) > MAX_USERINPUT)
 	{	 
    		printf("\nInvalid input - please enter no more than 512 characters.\n\n");
-		fflush(stdin); // Flush in case there is chars in buffer
+		fflush(stdin); // Flush in case there is chars in buffer.
 	}
 	else
 	{
@@ -70,25 +71,17 @@ void tokenize(char tokens[MAX_SIZE][MAX_USERINPUT], char* input)
 	Reads in tokens to check what function to execute.
 	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
-int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-	int success = 0;
-
-	char str1[15];          //Used for finding first char of input to find !<no> commands
+	// Used for finding first char of input to find !<no> commands.
+	char str1[15];          
 	char str2[15];
 	strcpy(str1, tokens[0]);
 	strcpy(str2, "!");
 
-	//addHistory(tokens[MAX_SIZE][MAX_USERINPUT]); //adds command to history
-
-	if (!strcmp(tokens[0], "getpath")) //allows user to see their current env path
+	if (!strcmp(tokens[0], "getpath"))
 	{
-		if(tokensCount(tokens) > 1){
-			printf("Error: Please use getpath with no addition parameters./n");
-		}
-		else{
-			getPath();
-		}
+		getPath(tokens);
 	}
 	else if (!strcmp(tokens[0], "setpath"))
 	{
@@ -96,7 +89,7 @@ int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SI
 	}
 	else if (!strcmp(tokens[0], "cd"))
 	{
-		success = changeDirectory(tokens);
+		changeDirectory(tokens);
     }
 	else if (!strcmp(tokens[0], "history"))
 	{
@@ -146,17 +139,6 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path, char histor
 	}
 
 	return shellStatus;
-}
-
-/*
-	Determines whether input is an internal command.&&
-		if (strcmp(INTERNAL_FUNCTIONS[i], command) == 0) 
-		{
-			return TRUE;
-		}
-	}
-
-	return FALSE;
 }
 
 /*
@@ -225,9 +207,16 @@ char* getCWD()
 /*
 	Prints the current path.
 */
-void getPath()
+void getPath(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
-	printf("Current path: %s\n", getenv("PATH"));
+	if (tokensCount(tokens) > 1)
+	{
+		printf("Invalid input: no parameters allowed with <getpath>./n");
+	}
+	else
+	{
+		printf("Current path: %s\n", getenv("PATH"));
+	}
 }
 
 /*
@@ -252,36 +241,34 @@ void setPath(char tokens[MAX_SIZE][MAX_USERINPUT])
 	Changes current working directory to directory specified by user.
 	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
-int changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
+void changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
-	int success = -1; // false to start with
+	int success = -1;
 
-	if(tokensCount(tokens[0]) > 2){
-		//as stated in the testing pdf, an error should be printed if too many parameters are passed to changeDirectory
-		printf("Error. Too many parameters for cd function: \nPlease make sure to use the following format: cd <directory> \n");
-		return success;
+	if (tokensCount(tokens[0]) > 2)
+	{
+		printf("Invalid input: please make sure to use the following format: <cd> <directory> \n");
 
 	}
-	if(!strcmp(tokens[1], "\0")){
-		//if no parameter is given, set cwd to HOME directory
-		success = chdir(HOME_DIR);
+
+	if (!strcmp(tokens[1], "\0")) // If no parameter is given, ... 
+	{
+		success = chdir(HOME_DIR); // ... Set cwd to HOME directory.
+	}
+	else
+	{
+		success = chdir(tokens[1]); // Else, set cwd to the specifided address in parameter.
 	}
 
-	else{
-		//else set cwd to the specifided address in parameter
-		success = chdir(tokens[1]);
-	}
-
-	if(success < 0){ // directory change has failed, print an error
-
+	if (success < 0) // If changing directory fails, ...
+	{ 
+		// ... Print error message.
 		char errorMsg[23 + MAX_USERINPUT]; // size of the custom errormsg + max possible size of token[1]
 		snprintf(errorMsg, sizeof errorMsg, "Error on input: \"cd %s\" ", tokens[1]); // strcat wasn't good for this so snprinf it is
 		perror(errorMsg);
+
 		printf("\n"); // extra line for readability
-
 	}
-
-	return success;
 }
 
 /*
@@ -289,14 +276,13 @@ int changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 */
 void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-	input;
-
 	if (!strcmp(history[0], "\0"))  // If "history" array was herebefore empty, ...
 	{
-		strcpy(history[0], input);	
+		strcpy(history[0], input); // ... Add input as first element of array.
 	}
 	else
 	{
+		// Else, add input to array in circular fashion.
 		for (int i = 20 - 1; i > 0; i--)
 		{
 			strcpy(history[i], history[i-1]);
@@ -311,7 +297,6 @@ void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 */
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
 		printf("%d: %s\n", (i + 1), history[i]);
@@ -320,7 +305,9 @@ void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 	printf("\n");
 }
 
-// Untested in Linux
+/*
+	Invokes the command specified by the user stored in history.
+*/
 void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 {
 	int index = 0;
@@ -336,7 +323,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 		}
 		else if (index == 0 || (index - 1) >= historyCount(history)) 
 		{
-			printf("Invalid input: input too big or too small.\n");
+			printf("Invalid input: index too big or too small. Type <history> to view valid indices.\n");
 			return;
 		}
 
@@ -347,28 +334,20 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
 
 	char tempInput[MAX_USERINPUT];
-	strcpy(tempInput, history[index]);// = history[index];
+	strcpy(tempInput, history[index]);
 
-	//tokenize(tokens, history[index]);
 	tokenize(tokens, tempInput);
 	parseInput(tokens, history);
 }
 
-
+/*
+	Writes hsitory to an external file.
+*/
 void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	printf("%s", INIT_DIR);
 	FILE *fp;
-	//CHANGE THIS TO EITHER CWD OR INIT DIR
-	fp = fopen ("history.txt", "w");
-	//CHANGE THIS TO EITHER CWD OR INIT DIR
-
-	//fprintf(fp, history[0]);
-
-	//printf("FIRST HISTORY: %s\n", history[0]);
-	//printf("SECOND HISTORY: %s\n", history[1]);
-
-	//fprintf(fp, history[0]);
+	fp = fopen ("history.txt", "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
@@ -376,12 +355,12 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 		fprintf(fp, "\n");
 	}
 
-
-
 	fclose (fp);
 }
 
-
+/*	 
+	Loads history from an external file into the "history" array.
+*/
 /*
 void loadHistory() 
 {
@@ -415,9 +394,9 @@ int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	int count = 0;
 
-	for(int i = 0; i < MAX_SIZE; i++)
+	for (int i = 0; i < MAX_SIZE; i++)
 	{
-		if(strlen(tokens[i]) != 0)
+		if (strlen(tokens[i]) != 0)
 		{
 			count++;
 		}
@@ -427,16 +406,16 @@ int tokensCount(char tokens[MAX_SIZE][MAX_USERINPUT])
 }
 
 /*
-	Determines the size of the "tokens" array.
+	Determines the size of the "history" array.
 	Returns: integer representing the size of the array.
 */
 int historyCount(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	int count = 0;
 
-	for(int i = 0; i < MAX_HISTORY_SIZE; i++)
+	for (int i = 0; i < MAX_HISTORY_SIZE; i++)
 	{
-		if(strlen(history[i]) != 0)
+		if (strlen(history[i]) != 0)
 		{
 			count++;
 		}
@@ -448,23 +427,27 @@ int historyCount(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 /* 
 	Removes new line character "\n" or return character "\r" from string.
 */
-void chomp(char *s) 
+void chomp(char *string) 
 {
-    while (*s && *s != '\n' && *s != '\r') 
+    while (*string && *string != '\n' && *string != '\r') 
 	{
-		s++;
+		string++;
 	}
  
-    *s = 0;
+    *string = 0;
 }
 
+/*
+	Check whether string starts with the specified substring.
+	Returns: false if substring is not part of string and true if it is.
+*/
 bool startsWith(const char *string, const char *substring)
 {
    if (strncmp(string, substring, strlen(substring)) == 0) 
    {
-	   return 1;
+	   return TRUE;
    }
 
-   return 0;
+   return FALSE;
 }
 #pragma endregion

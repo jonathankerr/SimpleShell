@@ -61,7 +61,7 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]); // Part 1 related
 void printFullArray(char array[][MAX_USERINPUT], int maxSize);
 void emptyArray(char** tokens, int maxSize, int maxUserInput);
 void tokenize(char tokens[50][512], char* input);
-int parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
+void parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
 bool exitShell(char* input, bool shellStatus, char* dir, char* path, char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
 char* getCWD();
 void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
