@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-//#include <linux/limits.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sys/wait.h>
@@ -26,24 +25,20 @@ typedef int bool;
 */
 #define MAX_USERINPUT 512 
 
-#define INIT_DIR getCWD()
-
 /* 
    Maximum number of tokens shell will parse.
 */
 #define MAX_SIZE 50
 
-#define MAX_HISTORY_SIZE 20
-
-/* 
-   Home directory. // (Hares: remove this constant)
+/*
+   Maxum number of commands that will be stored in history.
 */
-#define HOME_DIR getenv("HOME")
+#define MAX_HISTORY_SIZE 20
 
 /* 
    String that will be printed every time user is able to enter a command.
 */
-static const char prompt[] = "-> ";
+static const char PROMPT[] = "-> ";
 
 /* 
    Delimiters at which imput will be tokenized.

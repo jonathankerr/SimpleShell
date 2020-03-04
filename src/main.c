@@ -13,7 +13,7 @@ int main()
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
-	chdir(HOME_DIR); // Sets cwd to users home dir
+	chdir(getenv("HOME")); // Sets cwd to users home dir
 	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT);
     while (!terminated)
     {
@@ -21,7 +21,7 @@ int main()
 		
 		//char input[MAX_USERINPUT];
 
-		printf("%s", prompt);
+		printf("%s", PROMPT);
 
 		fgets(input, MAX_USERINPUT, stdin);
 

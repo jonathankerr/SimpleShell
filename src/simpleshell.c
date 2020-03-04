@@ -128,7 +128,7 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path, char histor
 		// Determines what message to print.
 		if (!strcmp(input, "exit"))
 		{
-			sprintf(output, "%s Closing program...\n", prompt);
+			sprintf(output, "%s Closing program...\n", PROMPT);
 		}
 		else
 		{
@@ -253,7 +253,7 @@ void changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 	if (!strcmp(tokens[1], "\0")) // If no parameter is given, ... 
 	{
-		success = chdir(HOME_DIR); // ... Set cwd to HOME directory.
+		success = chdir(getenv("HOME")); // ... Set cwd to HOME directory.
 	}
 	else
 	{
@@ -345,7 +345,6 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 */
 void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-	printf("%s", INIT_DIR);
 	FILE *fp;
 	fp = fopen ("history.txt", "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
