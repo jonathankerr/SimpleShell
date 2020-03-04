@@ -31,9 +31,14 @@ typedef int bool;
 #define MAX_SIZE 50
 
 /*
-   Maxum number of commands that will be stored in history.
+   Maximum number of commands that will be stored in history.
 */
 #define MAX_HISTORY_SIZE 20
+
+/*
+   Maximum number of aliasses that will be saved.
+*/
+#define MAX_ALIAS_SIZE 10
 
 /* 
    String that will be printed every time user is able to enter a command.
@@ -49,6 +54,15 @@ static const char DELIMS[] = " \t|><&;";
    List of internal functions.
 */
 static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias"};
+
+/*
+   Struct representing aliases.
+*/
+typedef struct alias 
+{
+  char name[MAX_USERINPUT];
+  char command[MAX_USERINPUT];
+} alias;
 #pragma endregion
 
 #pragma region Function declerations
