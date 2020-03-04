@@ -119,7 +119,7 @@ int parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SI
 	Determines whether user wants to exit the shell.
 	Returns: false if shell isn't terminated and true if it is.
 */
-bool exitShell(char* input, bool shellStatus, char* dir, char* path)
+bool exitShell(char* input, bool shellStatus, char* dir, char* path, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	printf("\n");
 
@@ -127,6 +127,7 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path)
 	{
 		char output[25]; // String to hold exit message.
 
+		writeHistory(history);
 		chdir(dir); // Sets current working directory to initial working directory.
 		setenv("PATH", path, 1);
 		getPath();
@@ -310,6 +311,7 @@ void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 */
 void viewHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
+
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
 		printf("%d: %s\n", (i + 1), history[i]);
@@ -352,54 +354,52 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	parseInput(tokens, history);
 }
 
-/*
-void writeHistory(char* fileName, char *history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+
+void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
-    FILE *writeFile;
-    int counter;
-    fileName = strcat(fileName,"/.history");
-    writeFile = fopen ( fileName, "w");
-    
-    if (writeFile == NULL)
-    {
-        printf("Cannot Open File\n");
-        exit(1);
-    }
-    
-    counter = 0;
-    
-    while(history[counter][MAX_USERINPUT] !=0)
+	printf("%s", INIT_DIR);
+	FILE *fp;
+	//CHANGE THIS TO EITHER CWD OR INIT DIR
+	fp = fopen ("history.txt", "w");
+	//CHANGE THIS TO EITHER CWD OR INIT DIR
+
+	//fprintf(fp, history[0]);
+
+	//printf("FIRST HISTORY: %s\n", history[0]);
+	//printf("SECOND HISTORY: %s\n", history[1]);
+
+	//fprintf(fp, history[0]);
+
+	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
-        fprintf(writeFile,"%s\n", history[counter][MAX_USERINPUT]);
-        counter++;
-        if(counter == 20)
-        {
-            break;
-        }
-    }
-    fclose (writeFile);
-}
-*/
-
-/*
-void loadHistory(char* fileName) 
-{
-    FILE *fPointer;
-    fileName = strcat(fileName,"/.history");
-	fPointer = fopen(fileName, "r");
-	char singleLine[MAX_USERINPUT];
-	
-    if (fPointer == NULL) {
-        printf("File could not be found\n");
-        exit(1);
-    }
-
-	while (!feof(fPointer)) {
-		fgets(singleLine, MAX_USERINPUT, fPointer);
-		puts(singleLine);
+		fprintf(fp, history[i]);
+		fprintf(fp, "\n");
 	}
 
-	fclose(fPointer);
+
+
+	fclose (fp);
+}
+
+
+/*
+void loadHistory() 
+{
+    FILE *fp;
+	fp = fopen("history.txt", "r");
+	char singleLine[MAX_USERINPUT];
+	
+    if (fp == NULL) {
+        printf("File could not be found\n");
+    }
+	else {
+		while (!feof(fp)) {
+			fgets(singleLine, MAX_USERINPUT, fp);
+			puts(singleLine);
+		}
+	}
+
+	fclose(fp);
 	return 0;
 }
 */
