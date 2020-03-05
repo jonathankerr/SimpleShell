@@ -69,7 +69,6 @@ void tokenize(char tokens[MAX_SIZE][MAX_USERINPUT], char* input)
 
 /*
 	Reads in tokens to check what function to execute.
-	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
 void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
@@ -103,9 +102,6 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		runExternalCmd(tokens);
 	}
-	
-
-	return success;
 }
 
 /*
@@ -239,7 +235,6 @@ void setPath(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 /* 
 	Changes current working directory to directory specified by user.
-	Returns: integer less than 0 in case of failure and 0 or greater in case of success.
 */
 void changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
@@ -248,7 +243,6 @@ void changeDirectory(char tokens[MAX_SIZE][MAX_USERINPUT])
 	if (tokensCount(tokens[0]) > 2)
 	{
 		printf("Invalid input: please make sure to use the following format: <cd> <directory> \n");
-
 	}
 
 	if (!strcmp(tokens[1], "\0")) // If no parameter is given, ... 
