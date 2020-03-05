@@ -56,6 +56,11 @@ static const char DELIMS[] = " \t|><&;";
 static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias"};
 
 /*
+   Name of the history file
+*/
+static const char historyFile[] = "history.txt";
+
+/*
    Struct representing aliases.
 */
 typedef struct alias 

@@ -340,7 +340,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	FILE *fp;
-	fp = fopen ("history.txt", "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
+	fp = fopen (historyFile, "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
 	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
@@ -358,16 +358,17 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 void loadHistory() 
 {
     FILE *fp;
-	fp = fopen("history.txt", "r");
+	fp = fopen(historyFile, "r");
 	char singleLine[MAX_USERINPUT];
+	int i = 0;
 	
     if (fp == NULL) {
         printf("File could not be found\n");
     }
 	else {
 		while (!feof(fp)) {
-			fgets(singleLine, MAX_USERINPUT, fp);
-			puts(singleLine);
+			history[i] = fgets(singleLine, MAX_USERINPUT, fp);
+			i++;
 		}
 	}
 
