@@ -10,7 +10,7 @@ int main()
 	bool terminated = FALSE; // Boolean value that determines whether shell should be terminated.
 	char tokens[MAX_SIZE][MAX_USERINPUT];  // Array of strings that holds tokens.
 	char history[MAX_HISTORY_SIZE][MAX_USERINPUT]; // Array of strings that holds history.
-	alias aliase[MAX_ALIAS_SIZE][MAX_USERINPUT]; // Array of custom type "alias" that will hold all aliases defined by the user.
+	//alias aliase[MAX_ALIAS_SIZE][MAX_USERINPUT]; // Array of custom type "alias" that will hold all aliases defined by the user.
 
 	char input[MAX_USERINPUT]; // String that holds user input.
 

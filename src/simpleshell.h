@@ -63,11 +63,15 @@ static const char historyFile[] = "history.txt";
 /*
    Struct representing aliases.
 */
+/*
 typedef struct alias 
 {
   char name[MAX_USERINPUT];
   char command[MAX_USERINPUT];
 } alias;
+*/
+
+
 #pragma endregion
 
 #pragma region Function declerations
