@@ -355,7 +355,7 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 	FILE *fp;
 	fp = fopen (historyFile, "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
-	for (int i = 0; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
+	for (int i = 1; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
 		fprintf(fp, history[i]);
 		fprintf(fp, "\n");
