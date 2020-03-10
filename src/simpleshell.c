@@ -323,10 +323,13 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 
 		index--;	
 	}
-	else if (strlen(token) > 2)
+	else
 	{
-		printf("Invalid input.\nPlease make sure to use one of the following format: <!!>.\n\n");
-		return;
+		if (strlen(token) > 2)
+		{
+			printf("Invalid input.\nPlease make sure to use one of the following format: <!!>.\n\n");
+			return;
+		}
 	}
 
 	if (historyCount(history) > 0)
