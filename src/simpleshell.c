@@ -98,7 +98,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		if (tokens[0][1] == '!' && tokens[1] != "\0")
 		{
-			printf("Invalid input.\nPlease make sure to use the following format: <!!>.")
+			printf("Invalid input.\nPlease make sure to use the following format: <!!>. \n");
 		}
 		else
 		{
