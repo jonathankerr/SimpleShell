@@ -40,7 +40,7 @@ int main()
 		//printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
-		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, history); // Closes program if exit is typed or if Ctrl-D is pressed.
+		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, tokens, history); // Closes program if exit is typed or if Ctrl-D is pressed.
 
 		if (!terminated)
 		{

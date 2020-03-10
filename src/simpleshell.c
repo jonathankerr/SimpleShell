@@ -108,7 +108,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	Determines whether user wants to exit the shell.
 	Returns: false if shell isn't terminated and true if it is.
 */
-bool exitShell(char* input, bool shellStatus, char* dir, char* path, char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens[MAX_HISTORY_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	printf("\n");
 
@@ -119,7 +119,7 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path, char histor
 		writeHistory(history);
 		chdir(dir); // Sets current working directory to initial working directory.
 		setenv("PATH", path, 1);
-		getPath();
+		getPath(tokens);
 		
 		// Determines what message to print.
 		if (!strcmp(input, "exit"))
