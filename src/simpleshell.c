@@ -1,4 +1,13 @@
-#pragma region Libraries
+/* 
+TODO:
+- INVOKE HISTORY
+- PARAMETERS IN INVOKE HISTORY
+- ERROR HANDLING IN GENERAL (RETURN WHEN ERROR OCCURS)
+*/
+
+
+
+#pragma region Libraries 
 #include "simpleshell.h"
 #pragma endregion
 
