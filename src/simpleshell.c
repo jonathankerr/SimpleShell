@@ -325,7 +325,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 		index--;	
 	}
 
-	if (tokensCount(tokens) > 0)
+	if (historyCount(history) > 0)
 	{
 		char tokens[MAX_SIZE][MAX_USERINPUT];
 		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT);
