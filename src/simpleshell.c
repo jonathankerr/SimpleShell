@@ -318,15 +318,15 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 		
 		if (index == 0 || (index - 1) >= historyCount(history)) 
 		{
-			printf("Invalid input: index too big or too small. Type <history> to view valid indices.\n");
+			printf("Invalid input.\nPlease make sure to use one of the following format: <!><index>. Type <history> to view valid indices.\n\n");
 			return;
 		}
 
 		index--;	
 	}
-	else if (token[1] == '!' && (token[2] != '\0' || tokens[3] != '\0'))
+	else if (strlen(token) > 2)
 	{
-		printf("Invalid input.\nPlease make sure to use one of the following format: !<index>, or !!\n");
+		printf("Invalid input.\nPlease make sure to use one of the following format: <!!>.\n\n");
 		return;
 	}
 
@@ -343,7 +343,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	}
 	else
 	{
-		printf("No commands in history.\n\n");
+		printf("No commands in history. Type a command to add it to history.\n\n");
 	}
 }
 
