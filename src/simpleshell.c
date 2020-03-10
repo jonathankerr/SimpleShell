@@ -222,7 +222,7 @@ void setPath(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	if (!strcmp(tokens[1], "\0") || strcmp(tokens[2], "\0")) // If input is incorrect, display error message.
 	{
-		printf("Invalid input.\nPlease make sure to use the following format: getpath <path>\n");
+		printf("Invalid input.\nPlease make sure to use the following format: setpath <path>\n");
 	}
 	else
 	{
