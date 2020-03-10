@@ -1,4 +1,13 @@
-#pragma region Libraries
+/* 
+TODO:
+- INVOKE HISTORY
+- PARAMETERS IN INVOKE HISTORY
+- ERROR HANDLING IN GENERAL (RETURN WHEN ERROR OCCURS)
+*/
+
+
+
+#pragma region Libraries 
 #include "simpleshell.h"
 #pragma endregion
 
@@ -98,7 +107,11 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		if (tokens[0][1] == '!' && tokens[1] != "\0")
 		{
+<<<<<<< HEAD
 			printf("Invalid input.\nPlease make sure to use the following format: <!!>.");
+=======
+			printf("Invalid input.\nPlease make sure to use the following format: <!!>. \n");
+>>>>>>> 2af7c90287fcd5fbc56a80e0bc38e65b6563248a
 		}
 		else
 		{
