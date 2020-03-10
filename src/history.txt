@@ -1,0 +1,4 @@
+ls
+ls
+cd /home/psb18113/Documents/cs210/simple-shell/src
+cd /bin
