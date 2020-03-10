@@ -58,7 +58,7 @@ static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "h
 /*
    Name of the history file
 */
-static const char historyFile[] = "history.txt";
+static const char historyFile[] = "hist_list.txt";
 
 /*
    Struct representing aliases.

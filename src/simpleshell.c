@@ -117,7 +117,6 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens
 		char output[25]; // String to hold exit message.
 
 		writeHistory(history);
-		chdir(dir); // Sets current working directory to initial working directory.
 		setenv("PATH", path, 1);
 		getPath(tokens);
 		
