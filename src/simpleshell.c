@@ -323,7 +323,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 
 		index--;	
 	}
-	else if (token[1] == '!' && (token[2] != '\0' || tokens[3] != '\0'))
+	else if (token[1] == '!' && (token[2] != '\0' || token[3] != '\0'))
 	{
 		printf("Invalid input.\nPlease make sure to use one of the following format: !<index>, or !!\n");
 		return;
