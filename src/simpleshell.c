@@ -324,6 +324,11 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 
 		index--;	
 	}
+	else if (token[2] != '\0' && token[2] != '!')
+	{
+		printf("Invalid input.\nPlease make sure to use one of the following format: !<index>, or !!\n");
+		return;
+	}
 
 	if (historyCount(history) > 0)
 	{
@@ -338,7 +343,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token)
 	}
 	else
 	{
-		printf("No commands in history.\n");
+		printf("No commands in history.\n\n");
 	}
 }
 
