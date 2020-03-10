@@ -107,17 +107,13 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		if (tokens[0][1] == '!' && tokens[1] != "\0")
 		{
-<<<<<<< HEAD
-			printf("Invalid input.\nPlease make sure to use the following format: <!!>.");
-=======
 			printf("Invalid input.\nPlease make sure to use the following format: <!!>. \n");
->>>>>>> 2af7c90287fcd5fbc56a80e0bc38e65b6563248a
 		}
 		else
 		{
 			invokeHistory(history, tokens[0]);
 		}
-	}
+	}/*
 	else if(!strcmp(tokens[0], "alias") && tokensCount(tokens) < 2){
 		printAllAliases(aliases);
 	}
@@ -126,7 +122,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	}
 	else if(!strcmp(tokens[0], "unalias")){
 		removeAlias(tokens[0], aliases);
-	}
+	}*/
 	else
 	{
 		runExternalCmd(tokens);
@@ -382,7 +378,7 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token, a
 void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 {
 	FILE *fp;
-	fp = fopen (historyFile, "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
+	fp = fopen ("C:/Users/jonat/Desktop/Uni/Year 2/CS210/Sem2/simple-shell/src/history.txt", "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
 	for (int i = 1; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
@@ -396,28 +392,31 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 /*	 
 	Loads history from an external file into the "history" array.
 */
-/*
-void loadHistory() 
+
+void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT]) 
 {
     FILE *fp;
 	fp = fopen(historyFile, "r");
 	char singleLine[MAX_USERINPUT];
 	int i = 0;
-	
+
+
     if (fp == NULL) {
         printf("File could not be found\n");
     }
 	else {
-		while (!feof(fp)) {
-			history[i] = fgets(singleLine, MAX_USERINPUT, fp);
+		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
+			//history[i] == fgets(singleLine, MAX_USERINPUT, fp);
+			//fgets(singleLine, MAX_USERINPUT, fp);
+			addHistory(singleLine, history);
+			//strcpy(history[i], ins);
 			i++;
 		}
 	}
 
 	fclose(fp);
-	return 0;
 }
-*/
+
 
 void printAllAliases(alias aliases[MAX_ALIAS_SIZE]){
 
@@ -457,6 +456,7 @@ Adds the new Alias to the Alias array.
 IF the alias is currently in use, it is overriden.
 IF the aliases array is full, it is not added and an error printed
 */
+/*
 int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 	
 	if(countTokens(tokens) < 3){
@@ -491,7 +491,8 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 	aliases[i].name = newAlias;
 	aliases[i].command = newCommand;
 }
-
+*/
+/*
 bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	int i = 0;
 	while(strlen(aliases[i].name) > 0 && i < MAX_ALIAS_SIZE){  // gets index of first empty index
@@ -504,7 +505,9 @@ bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	return FALSE;
 
 }
+*/
 
+/*
 void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 	
 	int checkIfAlias = isAlias(deadAlias, aliases);
@@ -526,6 +529,7 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 
 }
+*/
 
 #pragma endregion
 

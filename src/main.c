@@ -16,9 +16,12 @@ int main()
 
     //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
 
+
 	chdir(getenv("HOME")); // Sets current working directory to the user's "HOME" directory.
 	
 	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT); // Initializes "history" array with null characters.
+	loadHistory(history); //loads the history from previous state
+
 
     while (!terminated)
     {
