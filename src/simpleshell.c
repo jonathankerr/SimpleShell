@@ -113,7 +113,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 		{
 			invokeHistory(history, tokens[0]);
 		}
-	}/*
+	}
 	else if(!strcmp(tokens[0], "alias") && tokensCount(tokens) < 2){
 		printAllAliases(aliases);
 	}
@@ -121,8 +121,8 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 		addAlias(tokens, aliases);
 	}
 	else if(!strcmp(tokens[0], "unalias")){
-		removeAlias(tokens[0], aliases);
-	}*/
+		removeAlias(tokens[1], aliases);
+	}
 	else
 	{
 		runExternalCmd(tokens);
@@ -425,7 +425,7 @@ void printAllAliases(alias aliases[MAX_ALIAS_SIZE]){
 		return;
 	}
 
-	printf("The List of current Aliases\n");
+	printf("The List of current Aliases\n\n");
 	for(int i = 0; i < MAX_ALIAS_SIZE; i++){
 		if(strlen(aliases[i].command) < 1){
 			return; // we hit an empty alias
@@ -456,30 +456,32 @@ Adds the new Alias to the Alias array.
 IF the alias is currently in use, it is overriden.
 IF the aliases array is full, it is not added and an error printed
 */
-/*
 int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 	
-	if(countTokens(tokens) < 3){
-		printf("Too few Arguements. Please use the following syntax; alias Alias Command");
-		return;
+	if(tokensCount(tokens) < 3){
+		printf("Too few Arguements. Please use the following syntax; alias Alias Command\n");
+		return 0;
 	}
 
 	if(isAliasesFull(aliases)){
-		printf("Error: Aliases list is full");
-		return;
+		printf("Error: Aliases list is full\n");
+		return 0;
 	}
 	
 	int checkIfAlias = isAlias(tokens[0], aliases);
-	char newAlias[MAX_USERINPUT] = tokens[1];
 	char newCommand[MAX_USERINPUT];
+	strcpy(newCommand, ""); // empty the variable, this is needed, strangely! (james)
 
+	//add all the tokens to the command since it seems commands can have multiple arguments, i.e flags.
 	for(int i = 2; i < tokensCount(tokens); i++){
 		strcat(newCommand, tokens[i]);
+		strcat(newCommand, " "); //add a space after each token
 	}
 
 	if(checkIfAlias >= 0){
-		aliases[checkIfAlias].name = newAlias;
-		aliases[checkIfAlias].command = newCommand;
+		strcpy(aliases[checkIfAlias].name, tokens[1]);
+		strcpy(aliases[checkIfAlias].command, newCommand);
+		return 1;
 	}
 
 	//else find end of used indexes and add new Alias
@@ -488,11 +490,10 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 		i++;
 	}
 
-	aliases[i].name = newAlias;
-	aliases[i].command = newCommand;
+	strcpy(aliases[i].name, tokens[1]);
+	strcpy(aliases[i].command, newCommand);
 }
-*/
-/*
+
 bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	int i = 0;
 	while(strlen(aliases[i].name) > 0 && i < MAX_ALIAS_SIZE){  // gets index of first empty index
@@ -505,31 +506,33 @@ bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	return FALSE;
 
 }
-*/
 
-/*
 void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 	
 	int checkIfAlias = isAlias(deadAlias, aliases);
 	if(checkIfAlias < 0){
-		printf("Error: %s is not an alias, therefore cannot remove from alias list", deadAlias);
+		printf("Error: %s is not an alias, therefore cannot remove from alias list\n", deadAlias);
 		return;
 	}
 
-	aliases[checkIfAlias].name = "";
-	aliases[checkIfAlias].command = ""; //empty this entry
 
+
+	int trackLastEmptyIndex = checkIfAlias;
 	//shift all other entries down one index
 	for(int i = checkIfAlias+1; i < MAX_ALIAS_SIZE; i++){
-		aliases[i-1].name = aliases[i].name;
-		aliases[i-1].command = aliases[i].command;
+		strcpy(aliases[i-1].name, aliases[i].name);
+		strcpy(aliases[i-1].command, aliases[i].command);
+		trackLastEmptyIndex++;
 	}
 
-	printf("%s alias has been removed.", deadAlias);
+	strcpy(aliases[trackLastEmptyIndex].name, "");
+	strcpy(aliases[trackLastEmptyIndex].command, ""); //empty this entry
+
+	printf("Alias \"%s\" has been removed.\n", deadAlias);
 
 
 }
-*/
+
 
 #pragma endregion
 
