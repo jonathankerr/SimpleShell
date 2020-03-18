@@ -66,6 +66,7 @@ static const char historyFile[] = "hist_list.txt";
 
 typedef struct alias 
 {
+  int noCommands; 
   char name[MAX_USERINPUT];
   char command[MAX_USERINPUT];
 } alias;
