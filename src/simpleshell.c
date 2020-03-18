@@ -87,6 +87,15 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	strcpy(str1, tokens[0]);
 	strcpy(str2, "!");
 
+	// Removes aliased command from tokens, in order to properly execute command.
+	int aliasIndex = isAlias(tokens[0], aliases);
+
+	if (aliasIndex != -1)
+	{
+		strcpy(tokens[0], aliases[aliasIndex].command);
+		parseInput(tokens, history, aliases);
+	}
+
 	if (!strcmp(tokens[0], "getpath"))
 	{
 		getPath(tokens);
@@ -114,20 +123,22 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 			invokeHistory(history, tokens[0]);
 		}
 	}
-	else if(!strcmp(tokens[0], "alias") && tokensCount(tokens) < 2){
+	else if (!strcmp(tokens[0], "alias") && tokensCount(tokens) < 2)
+	{
 		printAllAliases(aliases);
 	}
-	else if(!strcmp(tokens[0], "alias")){
+	else if (!strcmp(tokens[0], "alias"))
+	{
 		addAlias(tokens, aliases);
 	}
-	else if(!strcmp(tokens[0], "unalias")){
+	else if (!strcmp(tokens[0], "unalias"))
+	{
 		removeAlias(tokens[1], aliases);
 	}
 	else
 	{
 		runExternalCmd(tokens);
 	}
-
 }
 
 /*
@@ -439,18 +450,19 @@ void printAllAliases(alias aliases[MAX_ALIAS_SIZE]){
 Checks the Alias array and returns the index of the alias if it is present in the array.
 Returns -1 if it is not found.
 */
-int isAlias(char argument[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
-	
-
-	for(int i = 0; i < MAX_ALIAS_SIZE; i++){
-		if(!strcmp(aliases[i].name, argument)){
+int isAlias(char argument[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE])
+{
+	for (int i = 0; i < MAX_ALIAS_SIZE; i++)
+	{
+		if (!strcmp(aliases[i].name, argument))
+		{
 			return i; // returns the index of the alias if it is found
 		}
 	}
 
 	return -1; //return -1 to signify alias is not present
-
 }
+
 /*
 Adds the new Alias to the Alias array. 
 IF the alias is currently in use, it is overriden.
@@ -532,7 +544,6 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 
 }
-
 
 #pragma endregion
 
