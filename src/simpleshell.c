@@ -127,7 +127,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		printAllAliases(aliases);
 	}
-	else if (!strcmp(tokens[0], "alias"))
+	else if (!strcmp(tokens[0], "addalias"))
 	{
 		addAlias(tokens, aliases);
 	}
@@ -135,6 +135,8 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		removeAlias(tokens[1], aliases);
 	}
+	else if (!strcmp(tokens[0], "printalias"))
+	 printAlias(tokens[0], aliases)
 	else
 	{
 		runExternalCmd(tokens);
@@ -542,6 +544,30 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 	printf("Alias \"%s\" has been removed.\n", deadAlias);
 
+
+}
+
+void printAlias(alias aliases[MAX_ALIAS_SIZE]){
+
+  bool noAliases = true;
+
+  for (int i = 0; i < MAX_ALIASES_SIZE; i++) {
+    if (strcmp(aliase[i].name, "\0") != 0) {
+      printf("%s", aliasArray[i].name);
+
+      for (int j = 0; j <= aliasArray[i].noCommands; j++) {
+
+        printf(" %s", aliasArray[i].command[j]);
+      }
+      printf("\n");
+      noAliases = false; //There are aliases and they have been printed 
+    }
+  }
+
+  if (noAliases == true) {
+    printf("There are no aliases to print\n");
+  }
+}
 
 }
 
