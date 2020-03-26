@@ -20,7 +20,7 @@ int main()
 	chdir(getenv("HOME")); // Sets current working directory to the user's "HOME" directory.
 	
 	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT); // Initializes "history" array with null characters.
-	loadHistory(history); //loads the history from previous state
+	//loadHistory(history); //loads the history from previous state
 
 
     while (!terminated)

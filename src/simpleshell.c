@@ -93,7 +93,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	if (aliasIndex != -1)
 	{
 		strcpy(tokens[0], aliases[aliasIndex].command);
-		parseInput(tokens, history, aliases);
+		//parseInput(tokens, history, aliases); not sure this is needed, maybe for part 9?
 	}
 
 	if (!strcmp(tokens[0], "getpath"))
@@ -135,8 +135,6 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		removeAlias(tokens[1], aliases);
 	}
-	else if (!strcmp(tokens[0], "printalias"))
-	 printAlias(tokens[0], aliases)
 	else
 	{
 		runExternalCmd(tokens);
@@ -416,6 +414,7 @@ void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 
     if (fp == NULL) {
         printf("File could not be found\n");
+		perror(stdout);
     }
 	else {
 		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
@@ -546,7 +545,7 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 
 }
-
+/* this function already exists
 void printAlias(alias aliases[MAX_ALIAS_SIZE]){
 
   bool noAliases = true;
@@ -568,8 +567,8 @@ void printAlias(alias aliases[MAX_ALIAS_SIZE]){
     printf("There are no aliases to print\n");
   }
 }
-
-}
+*/
+//}
 
 #pragma endregion
 
