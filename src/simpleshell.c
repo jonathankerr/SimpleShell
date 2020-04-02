@@ -1,11 +1,3 @@
-/* 
-TODO:
-- INVOKE HISTORY
-- PARAMETERS IN INVOKE HISTORY
-- ERROR HANDLING IN GENERAL (RETURN WHEN ERROR OCCURS)
-*/
-
-
 
 #pragma region Libraries 
 #include "simpleshell.h"
@@ -13,7 +5,7 @@ TODO:
 
 #pragma region Debug
 /*
-	Prints full "tokens" array.
+	Debug function. Prints full "tokens" array.
 */
 void printFullArray(char array[][MAX_USERINPUT], int maxSize)
 {
@@ -24,7 +16,7 @@ void printFullArray(char array[][MAX_USERINPUT], int maxSize)
 }
 
 /*
-	Prints every entry in the "tokens" array, one on each line.
+	Prints every entry none null value in the "tokens" array, one on each line.
 */
 void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
@@ -39,11 +31,11 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 #pragma region Miscellaneous
 /*
-	Creates an array of a constant size with the "\0" character as each entry.
+	Flushes the 2d array, replacing any vaues in all indexes with the null character '\0'
 */
 void emptyArray(char** array, int maxSize, int maxUserInput)
 {
-	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving arry entry empty.
+	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving array entry empty.
 }
 
 /*
@@ -145,7 +137,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	Determines whether user wants to exit the shell.
 	Returns: false if shell isn't terminated and true if it is.
 */
-bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens[MAX_HISTORY_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens[MAX_HISTORY_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE])
 {
 	printf("\n");
 
@@ -153,7 +145,8 @@ bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens
 	{
 		char output[25]; // String to hold exit message.
 
-		writeHistory(history);
+		writeHistory(history, dir);
+		saveAliasesToFile(aliases, dir);
 		setenv("PATH", path, 1);
 		getPath(tokens);
 		
@@ -386,10 +379,15 @@ void invokeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* token, a
 /*
 	Writes hsitory to an external file.
 */
-void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
+void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir)
 {
 	FILE *fp;
-	fp = fopen ("C:/Users/jonat/Desktop/Uni/Year 2/CS210/Sem2/simple-shell/src/history.txt", "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
+	char tempFileName [MAX_USERINPUT]; 
+	sprintf(tempFileName, "%s/%s", dir, historyFile); //constuct full path name needed to save file
+
+	//printf("%s", tempFileName); //debugg
+
+	fp = fopen (tempFileName, "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
 
 	for (int i = 1; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
@@ -404,10 +402,13 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 	Loads history from an external file into the "history" array.
 */
 
-void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT]) 
+void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir) 
 {
     FILE *fp;
-	fp = fopen(historyFile, "r");
+	char tempFileName [MAX_USERINPUT]; 
+	sprintf(tempFileName, "%s/%s", dir, historyFile); //construct full path name needed to load file
+
+	fp = fopen(tempFileName, "r");
 	char singleLine[MAX_USERINPUT];
 	int i = 0;
 
@@ -420,7 +421,8 @@ void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
 			//history[i] == fgets(singleLine, MAX_USERINPUT, fp);
 			//fgets(singleLine, MAX_USERINPUT, fp);
-			addHistory(singleLine, history);
+			char* temp = strtok(singleLine, "\n"); //remove \n characters
+			addHistory(temp, history);
 			//strcpy(history[i], ins);
 			i++;
 		}
@@ -429,7 +431,7 @@ void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT])
 	fclose(fp);
 }
 
-
+/* Prints the contensts of the Aliases array */
 void printAllAliases(alias aliases[MAX_ALIAS_SIZE]){
 
 	if(strlen(aliases[0].command) < 1){
@@ -486,9 +488,11 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 	strcpy(newCommand, ""); // empty the variable, this is needed, strangely! (james)
 
 	//add all the tokens to the command since it seems commands can have multiple arguments, i.e flags.
-	for(int i = 2; i < tokensCount(tokens); i++){
-		strcat(newCommand, tokens[i]);
+	strcat(newCommand, tokens[2]);
+	for(int i = 3; i < tokensCount(tokens); i++){
 		strcat(newCommand, " "); //add a space after each token
+		strcat(newCommand, tokens[i]);
+		
 	}
 
 	if(checkIfAlias >= 0){
@@ -506,7 +510,7 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 	strcpy(aliases[i].name, tokens[1]);
 	strcpy(aliases[i].command, newCommand);
 }
-
+/* Checks to see if the alias Array is full. */
 bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	int i = 0;
 	while(strlen(aliases[i].name) > 0 && i < MAX_ALIAS_SIZE){  // gets index of first empty index
@@ -519,7 +523,9 @@ bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	return FALSE;
 
 }
-
+/* If the alias, given by the char array, is present, it removes the alias and shifts the 
+index all of following aliases as to avoid empty gaps in the array.
+*/
 void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 	
 	int checkIfAlias = isAlias(deadAlias, aliases);
@@ -527,8 +533,6 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 		printf("Error: %s is not an alias, therefore cannot remove from alias list\n", deadAlias);
 		return;
 	}
-
-
 
 	int trackLastEmptyIndex = checkIfAlias;
 	//shift all other entries down one index
@@ -545,30 +549,69 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 
 }
-/* this function already exists
-void printAlias(alias aliases[MAX_ALIAS_SIZE]){
 
-  bool noAliases = true;
+void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
+	
+	FILE *fp;
+	char tempFileName [1024]; 
+	sprintf(tempFileName, "%s/%s", dir, aliasesFile); //constuct full path name needed to save file
 
-  for (int i = 0; i < MAX_ALIASES_SIZE; i++) {
-    if (strcmp(aliase[i].name, "\0") != 0) {
-      printf("%s", aliasArray[i].name);
+	printf("%s", tempFileName); //debugg
 
-      for (int j = 0; j <= aliasArray[i].noCommands; j++) {
+	fp = fopen (tempFileName, "w");
 
-        printf(" %s", aliasArray[i].command[j]);
-      }
-      printf("\n");
-      noAliases = false; //There are aliases and they have been printed 
-    }
-  }
+	for (int i = 0; i < MAX_ALIAS_SIZE && strcmp(aliases[i].name, "\0"); i++)
+	{
+		char newLine[MAX_USERINPUT]; //enough space for worst case user input of alias array
+		sprintf(newLine, "%s|%s", aliases[i].name, aliases[i].command);
+		fprintf(fp, newLine);
+		fprintf(fp, "\n");
+	}
 
-  if (noAliases == true) {
-    printf("There are no aliases to print\n");
-  }
+	fclose (fp);
+	
 }
-*/
-//}
+
+void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
+	FILE *fp;
+	char tempFileName [1024]; 
+	sprintf(tempFileName, "%s/%s", dir, aliasesFile); //construct full path name needed to load file
+
+	fp = fopen(tempFileName, "r");
+	
+	char singleLine[MAX_USERINPUT*2];
+	char tempTokens[MAX_SIZE][MAX_USERINPUT];
+	int i = 0;
+
+    if (fp == NULL) {
+        printf("File could not be found\n");
+		perror(stdout);
+    }
+	else {
+		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
+			emptyArray(tempTokens, MAX_SIZE, MAX_USERINPUT);
+
+
+			char* token = strtok(singleLine, "|"); // Tokenize input with the characters defined in the "DELIMS" array.
+			int counter = 0;
+
+			while (token != NULL)
+			{
+				chomp(token); // Removes "new line" character.
+				strcpy(tempTokens[counter], token); 
+
+				token = strtok(NULL, "|\n"); // Tokenize with same settings.
+
+				counter++;
+			}
+			strcpy(aliases[i].name, tempTokens[0]);
+			strcpy(aliases[i].command, tempTokens[1]);
+			i++;
+		}
+	}
+
+	fclose(fp);
+}
 
 #pragma endregion
 

@@ -58,7 +58,13 @@ static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "h
 /*
    Name of the history file
 */
-static const char historyFile[] = "hist_list.txt";
+static const char historyFile[] = "history.txt";
+
+/*
+   Name of the aliases file
+*/
+
+static const char aliasesFile[] = "aliases.txt";
 
 /*
    Struct representing aliases.
@@ -81,10 +87,11 @@ void printFullArray(char array[][MAX_USERINPUT], int maxSize);
 void emptyArray(char** tokens, int maxSize, int maxUserInput);
 void tokenize(char tokens[50][512], char* input);
 void parseInput(char tokens[50][512], char history[MAX_HISTORY_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]);
-bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens[MAX_HISTORY_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
+bool exitShell(char* input, bool shellStatus, char* dir, char* path, char tokens[MAX_HISTORY_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]);
 char* getCWD();
 void addHistory(char *input, char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
-void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT]);
+void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir);
+void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir);
 void chomp(char *s);
 
 #pragma endregion

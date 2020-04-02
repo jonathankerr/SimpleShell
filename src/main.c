@@ -20,7 +20,8 @@ int main()
 	chdir(getenv("HOME")); // Sets current working directory to the user's "HOME" directory.
 	
 	emptyArray(history, MAX_HISTORY_SIZE, MAX_USERINPUT); // Initializes "history" array with null characters.
-	//loadHistory(history); //loads the history from previous state
+	loadHistory(history, initDir); //loads the history from previous state
+	loadAliasesFromFile(aliases, initDir); //loads the aliases from previous state
 
 
     while (!terminated)
@@ -43,7 +44,7 @@ int main()
 		//printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
 		//printTokens(tokens);  //uncomment to show part one working
 
-		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, tokens, history); // Closes program if exit is typed or if Ctrl-D is pressed.
+		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, tokens, history, aliases); // Closes program if exit is typed or if Ctrl-D is pressed.
 
 		if (!terminated)
 		{

@@ -1,15 +1,7 @@
 history
-getpath
-
-setpath testpath
-
-getpath
-
-ls
-
-ls
-
-cwd
-
+addalias new one
+alias
+addalias one this
+addalias two that
+alias
 history
-
