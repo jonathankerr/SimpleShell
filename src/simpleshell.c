@@ -119,7 +119,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	{
 		printAllAliases(aliases);
 	}
-	else if (!strcmp(tokens[0], "addalias"))
+	else if (!strcmp(tokens[0], "alias") && tokensCount(tokens) >= 2)
 	{
 		addAlias(tokens, aliases);
 	}
@@ -173,7 +173,7 @@ void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	pid_t c_pid, pid;
 	int status;
-	char* tempArgs[51]; //temp varriable for use with execvp
+	char* tempArgs[51]; //temp varriable pointer for use with execvp
 
 	int numOfTokens = tokensCount(tokens);
 
@@ -199,7 +199,7 @@ void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry");
-		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover it)
+		_exit(1); // Makes sure it exits (this causes unwanted parallel function to keep running if execv fails, so need exit to cover it)
 	}
 	else if (c_pid > 0)
 	{
@@ -412,16 +412,15 @@ void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir)
 
 
     if (fp == NULL) {
-        printf("File could not be found\n");
-		perror(stdout);
+        // no file exists, therefore do nothing
+		return;
     }
 	else {
 		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
-			//history[i] == fgets(singleLine, MAX_USERINPUT, fp);
-			//fgets(singleLine, MAX_USERINPUT, fp);
+			
 			char* temp = strtok(singleLine, "\n"); //remove \n characters
 			addHistory(temp, history);
-			//strcpy(history[i], ins);
+		
 			i++;
 		}
 	}
@@ -429,7 +428,9 @@ void loadHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir)
 	fclose(fp);
 }
 
-/* Prints the contensts of the Aliases array */
+/* 
+Prints the contensts of the Aliases array 
+*/
 void printAllAliases(alias aliases[MAX_ALIAS_SIZE]){
 
 	if(strlen(aliases[0].command) < 1){
@@ -561,16 +562,15 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	
 	FILE *fp;
-	char tempFileName [1024]; 
+	char tempFileName [512];
+	
 	sprintf(tempFileName, "%s/%s", dir, aliasesFile); //constuct full path name needed to save file
-
-	printf("%s", tempFileName); //debugg
 
 	fp = fopen (tempFileName, "w");
 
 	for (int i = 0; i < MAX_ALIAS_SIZE && strcmp(aliases[i].name, "\0"); i++)
 	{
-		char newLine[MAX_USERINPUT];
+		char newLine[MAX_USERINPUT*2];
 		sprintf(newLine, "%s|%s", aliases[i].name, aliases[i].command);
 		fprintf(fp, newLine);
 		fprintf(fp, "\n");
@@ -587,7 +587,7 @@ void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 */
 void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	FILE *fp;
-	char tempFileName [1024]; 
+	char tempFileName [512; 
 	sprintf(tempFileName, "%s/%s", dir, aliasesFile); //construct full path name needed to load file
 
 	fp = fopen(tempFileName, "r");
@@ -597,8 +597,9 @@ void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	int i = 0;
 
     if (fp == NULL) {
-        printf("File could not be found\n");
-		perror(stdout);
+       //no file exists, therefore do nothing
+
+		return;
     }
 	else {
 		while (fgets(singleLine, MAX_USERINPUT, fp) != NULL) {
@@ -621,13 +622,14 @@ void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 			strcpy(aliases[i].command, tempTokens[1]);
 			i++;
 		}
+		fclose(fp);
 	}
 
-	fclose(fp);
+	
 }
 
 /*
-	Part 9 attempt.
+	Part 9.
 	Function that replaces tokens in an array of tokens if they are an alias defined in the aliases array.
 	If the token is used as an alias, it is replaced with the corresponding command for that alias.
 	Allows for the command associated with an alias to also be an alias.
@@ -667,8 +669,8 @@ void findAndReplaceAliases(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[M
 			}
 			
 			int temp = 0; // variable to increment as we iterate over the arrays
-			for(int x = i; x <= i+(counter-1); x++){
-				strcpy(tokens[x], tempTokens[temp++]); //place the command in the right place of the tokens array
+			for(int indexForAliasePlacement = i; indexForAliasePlacement <= i+(counter-1); indexForAliasePlacement++){
+				strcpy(tokens[indexForAliasePlacement], tempTokens[temp++]); //place the command in the right place of the tokens array
 			}
 			
 		}

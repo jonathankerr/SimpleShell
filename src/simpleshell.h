@@ -65,13 +65,13 @@ static const char DELIMS[] = " \t|><&;";
 /*
    Name of the history file
 */
-static const char historyFile[] = "history.txt";
+static const char historyFile[] = "history.hist_list";
 
 /*
    Name of the aliases file
 */
 
-static const char aliasesFile[] = "aliases.txt";
+static const char aliasesFile[] = "aliases.aliases";
 
 /*
    Struct representing aliases.
@@ -89,7 +89,7 @@ typedef struct alias
 #pragma endregion
 
 #pragma region Function declerations
-void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]); // Part 1 related
+void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT]); 
 void printFullArray(char array[][MAX_USERINPUT], int maxSize);
 void emptyArray(char** tokens, int maxSize, int maxUserInput);
 void tokenize(char tokens[50][512], char* input);
