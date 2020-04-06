@@ -1,4 +1,14 @@
+/*
+	CS210: Simple shell exercise.  File: simpleshell.c
+   
+      Group 9.
+	Hares Mahmood
+	Justin Leung
+	Jonathan Kerr
+	Matthew King
+	James Boner
 
+*/
 #pragma region Libraries 
 #include "simpleshell.h"
 #pragma endregion
@@ -35,7 +45,7 @@ void printTokens(char tokens[MAX_SIZE][MAX_USERINPUT])
 */
 void emptyArray(char** array, int maxSize, int maxUserInput)
 {
-	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instad of leaving array entry empty.
+	memset(array,'\0', sizeof(array[0][0]) * maxSize * maxUserInput); // "NULL" character instead of leaving array entry empty.
 }
 
 /*
@@ -57,10 +67,6 @@ void tokenize(char tokens[MAX_SIZE][MAX_USERINPUT], char* input)
 		{
 			chomp(token); // Removes "new line" character.
 			strcpy(tokens[counter], token); // Adds token to the "tokens" array.
-
-			//printf("%s\n", token); // Uncomment to test (part 1)
-			//printf("%s\n", tokens[counter]); // Uncomment to test (part 2)
-
 			token = strtok(NULL, DELIMS); // Tokenize with same settings.
 
 			counter++;
@@ -80,13 +86,7 @@ void parseInput(char tokens[MAX_SIZE][MAX_USERINPUT], char history[MAX_HISTORY_S
 	strcpy(str2, "!");
 
 	// Removes aliased command from tokens, in order to properly execute command.
-	int aliasIndex = isAlias(tokens[0], aliases);
-
-	if (aliasIndex != -1)
-	{
-		strcpy(tokens[0], aliases[aliasIndex].command);
-		//parseInput(tokens, history, aliases); not sure this is needed, maybe for part 9?
-	}
+	findAndReplaceAliases(tokens, aliases);
 
 	if (!strcmp(tokens[0], "getpath"))
 	{
@@ -173,7 +173,7 @@ void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 {
 	pid_t c_pid, pid;
 	int status;
-	char* tempArgs[51]; //possible work around allowing us to keep 2D array
+	char* tempArgs[51]; //temp varriable for use with execvp
 
 	int numOfTokens = tokensCount(tokens);
 
@@ -184,7 +184,7 @@ void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 	}
 
-	tempArgs[numOfTokens] = NULL;
+	tempArgs[numOfTokens] = NULL; //execvp requries null terminator
 
 	c_pid = fork();
 
@@ -199,7 +199,7 @@ void runExternalCmd(char tokens[MAX_SIZE][MAX_USERINPUT])
 
 		execvp(tempArgs[0], tempArgs);
 		perror("Invalid command entry");
-		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover ass)
+		_exit(1); // Makes sure it exits (this causes concurence if execv fails so need exit to cover it)
 	}
 	else if (c_pid > 0)
 	{
@@ -385,9 +385,7 @@ void writeHistory(char history[MAX_HISTORY_SIZE][MAX_USERINPUT], char* dir)
 	char tempFileName [MAX_USERINPUT]; 
 	sprintf(tempFileName, "%s/%s", dir, historyFile); //constuct full path name needed to save file
 
-	//printf("%s", tempFileName); //debugg
-
-	fp = fopen (tempFileName, "w"); //CHANGE THIS TO EITHER CWD OR INIT DIR
+	fp = fopen (tempFileName, "w"); 
 
 	for (int i = 1; i < MAX_HISTORY_SIZE && strcmp(history[i], "\0"); i++)
 	{
@@ -498,6 +496,7 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 	if(checkIfAlias >= 0){
 		strcpy(aliases[checkIfAlias].name, tokens[1]);
 		strcpy(aliases[checkIfAlias].command, newCommand);
+		printf("Alias \"%s\" has been added.\n", aliases[checkIfAlias].name);
 		return 1;
 	}
 
@@ -509,7 +508,10 @@ int addAlias(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]
 
 	strcpy(aliases[i].name, tokens[1]);
 	strcpy(aliases[i].command, newCommand);
+
+	printf("Alias \"%s\" has been added.\n", aliases[i].name);
 }
+
 /* Checks to see if the alias Array is full. */
 bool isAliasesFull(alias aliases[MAX_ALIAS_SIZE]){
 	int i = 0;
@@ -549,7 +551,13 @@ void removeAlias(char deadAlias[MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
 
 
 }
-
+/*
+	Saves users aliases to file. Determines location of the file to save to by using
+	the CWD from shell launch and the aliases filename defined in simpleshell.h. i.e
+	CWD/filename
+	Aliases are saved in the following format.
+	<Alias>|<Command>
+*/
 void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	
 	FILE *fp;
@@ -562,7 +570,7 @@ void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 
 	for (int i = 0; i < MAX_ALIAS_SIZE && strcmp(aliases[i].name, "\0"); i++)
 	{
-		char newLine[MAX_USERINPUT]; //enough space for worst case user input of alias array
+		char newLine[MAX_USERINPUT];
 		sprintf(newLine, "%s|%s", aliases[i].name, aliases[i].command);
 		fprintf(fp, newLine);
 		fprintf(fp, "\n");
@@ -571,7 +579,12 @@ void saveAliasesToFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	fclose (fp);
 	
 }
-
+/*
+	Loads user aliases from file. Uses CWD at shell launch and filename defined in header file
+	to determine location of the file. i.e, CWD/filename
+	Aliases in file must be stored in the following format.
+	<Alias>|<Command> 
+*/
 void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 	FILE *fp;
 	char tempFileName [1024]; 
@@ -592,15 +605,15 @@ void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 			emptyArray(tempTokens, MAX_SIZE, MAX_USERINPUT);
 
 
-			char* token = strtok(singleLine, "|"); // Tokenize input with the characters defined in the "DELIMS" array.
+			char* token = strtok(singleLine, "|"); // Tokenize input around '|' character
 			int counter = 0;
 
 			while (token != NULL)
 			{
-				chomp(token); // Removes "new line" character.
+				chomp(token); // Removes any "new line" characters at begining of token
 				strcpy(tempTokens[counter], token); 
 
-				token = strtok(NULL, "|\n"); // Tokenize with same settings.
+				token = strtok(NULL, "|\n"); // Tokenize around '|' and remove rogue newline characters at end of tokens
 
 				counter++;
 			}
@@ -612,6 +625,56 @@ void loadAliasesFromFile(alias aliases[MAX_ALIAS_SIZE], char* dir){
 
 	fclose(fp);
 }
+
+/*
+	Part 9 attempt.
+	Function that replaces tokens in an array of tokens if they are an alias defined in the aliases array.
+	If the token is used as an alias, it is replaced with the corresponding command for that alias.
+	Allows for the command associated with an alias to also be an alias.
+
+*/
+void findAndReplaceAliases(char tokens[MAX_SIZE][MAX_USERINPUT], alias aliases[MAX_ALIAS_SIZE]){
+
+	//iterate through the tokens array
+	for(int i = 0; i < tokensCount(tokens); i++){
+		
+		while(isAlias(tokens[i], aliases) >= 0){
+			char command[MAX_USERINPUT];
+			
+			strcpy(command, "\0"); //protect against random data (seems to keep happening! ahh!) by assigning the data to null character
+			strcpy(command, aliases[isAlias(tokens[i], aliases)].command); // get the command of the alias at this index
+			
+			char tempTokens[MAX_SIZE][MAX_USERINPUT]; //array of strings that will hold the tokenized command
+			emptyArray(tempTokens, MAX_SIZE, MAX_USERINPUT);	
+			
+			char* token = strtok(command, " "); 
+			int counter = 0;
+
+			while (token != NULL)
+			{
+				strcpy(tempTokens[counter], token); 
+
+				token = strtok(NULL, " "); // Tokenize and remove rogue newline characters at end of tokens
+
+				counter++;
+			}
+
+			int IndexofEndOfTokens = tokensCount(tokens) - 1; //find the last used index of the tokens array
+			
+			for(int k = IndexofEndOfTokens; k > i; k--){
+					strcpy(tokens[k+(counter-1)], tokens[k]); //shift all the tokens allow to make room for the new commands tokens
+
+			}
+			
+			int temp = 0; // variable to increment as we iterate over the arrays
+			for(int x = i; x <= i+(counter-1); x++){
+				strcpy(tokens[x], tempTokens[temp++]); //place the command in the right place of the tokens array
+			}
+			
+		}
+	}
+}
+
 
 #pragma endregion
 

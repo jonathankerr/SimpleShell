@@ -1,7 +1,0 @@
-history
-addalias new one
-alias
-addalias one this
-addalias two that
-alias
-history

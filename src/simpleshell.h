@@ -1,3 +1,15 @@
+/*
+	CS210: Simple shell exercise.  File: simpleshell.h
+
+      Group 9.
+	Hares Mahmood
+	Justin Leung
+	Jonathan Kerr
+	Matthew King
+	James Boner
+
+*/
+
 #pragma region Libraries
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,11 +61,6 @@ static const char PROMPT[] = "-> ";
    Delimiters at which imput will be tokenized.
 */
 static const char DELIMS[] = " \t|><&;";
-
-/* 
-   List of internal functions.
-*/
-static const char* INTERNAL_FUNCTIONS[] = {"cd", "get", "getpath", "setpath", "history", "!!", "!", "!-", "alias-", "alias", "unalias"};
 
 /*
    Name of the history file

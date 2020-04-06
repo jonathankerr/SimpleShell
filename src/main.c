@@ -1,9 +1,23 @@
+/*
+	CS210: Simple shell exercise.  File: main.c
+   
+      Group 9.
+	Hares Mahmood
+	Justin Leung
+	Jonathan Kerr
+	Matthew King
+	James Boner
+
+*/
+
+
 #pragma region Libraries
 #include "simpleshell.h"
 #pragma endregion
 
 int main() 
 {
+	//Setup variables
 	char* initDir = getCWD(); // String that holds the initial working directory.
 	char* initPath = getenv("PATH"); // String that holds the initial path.
 
@@ -14,8 +28,6 @@ int main()
 
 	char input[MAX_USERINPUT]; // String that holds user input.
 
-    //printf("CWD: %s\n\n", getCWD()); // Uncomment to test (part 3)
-
 
 	chdir(getenv("HOME")); // Sets current working directory to the user's "HOME" directory.
 	
@@ -23,7 +35,7 @@ int main()
 	loadHistory(history, initDir); //loads the history from previous state
 	loadAliasesFromFile(aliases, initDir); //loads the aliases from previous state
 
-
+	//Enter main shell loop
     while (!terminated)
     {
 		emptyArray(tokens, MAX_SIZE, MAX_USERINPUT); // Set all elements in "tokens" array to null characters.
@@ -40,9 +52,6 @@ int main()
 		}
 
 		tokenize(tokens, input); // Tokenizes input.
-
-		//printFullArray(history, MAX_HISTORY_SIZE);  //uncomment to see if garbage still in arrays unused indexes
-		//printTokens(tokens);  //uncomment to show part one working
 
 		terminated = exitShell(tokens[0], (strcmp(input, "exit") == 0 || feof(stdin)), initDir, initPath, tokens, history, aliases); // Closes program if exit is typed or if Ctrl-D is pressed.
 
