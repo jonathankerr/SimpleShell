@@ -1,6 +1,6 @@
 # Simple Shell
 
-A Unicx shell built in C.
+A Unix shell built in C.
 
 ## Commands
 * `cd` - change working directory
